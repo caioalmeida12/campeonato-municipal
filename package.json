@@ -1,19 +1,47 @@
 {
-  "name": "electron",
+  "name": "campeonato-municipal",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
-  "scripts": {
-    "dev": "electron ."
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
   },
-  "keywords": [],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitizen"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caioalmeida12/campeonato-municipal.git"
+  },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^26.2.4"
+  "bugs": {
+    "url": "https://github.com/caioalmeida12/campeonato-municipal/issues"
   },
+  "homepage": "https://github.com/caioalmeida12/campeonato-municipal#readme",
   "dependencies": {
-    "@electron-forge/cli": "^6.4.2",
-    "electron-squirrel-startup": "^1.0.0"
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "install": "^0.13.0",
+    "npm": "^10.2.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
