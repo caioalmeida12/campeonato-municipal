@@ -14,11 +14,6 @@
     "client": "npm run --prefix client start",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitizen"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caioalmeida12/campeonato-municipal.git"
@@ -34,18 +29,10 @@
     "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3",
     "install": "^0.13.0",
     "nodemon": "^3.0.2",
     "npm": "^10.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

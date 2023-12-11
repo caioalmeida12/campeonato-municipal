@@ -4,7 +4,7 @@ import { EnvVariableNotLoadedError } from "@lib/errors/envVariableNotLoadedError
 
 const isLoadedDotenv = Boolean(
     dotenv.config({
-        path: path.join(__dirname, "../../config/.env")
+        path: path.join(__dirname, "../../config/.env.public")
     })
 )
 
