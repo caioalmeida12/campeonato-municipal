@@ -10,8 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm run dev",
+    "server": "nodemon --watch server/src/**/*.ts --exec ts-node -r tsconfig-paths/register server/src/index.ts",
+    "client": "npm run --prefix client start",
     "prepare": "husky install"
   },
   "husky": {
@@ -30,14 +30,18 @@
   },
   "homepage": "https://github.com/caioalmeida12/campeonato-municipal#readme",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "install": "^0.13.0",
-    "npm": "^10.2.5"
+    "nodemon": "^3.0.2",
+    "npm": "^10.2.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   },
   "config": {
     "commitizen": {
