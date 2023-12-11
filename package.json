@@ -26,10 +26,10 @@
   "homepage": "https://github.com/caioalmeida12/campeonato-municipal#readme",
   "dependencies": {
     "concurrently": "^8.2.2",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "install": "^0.13.0",
     "nodemon": "^3.0.2",
     "npm": "^10.2.5",
     "ts-node": "^10.9.2",

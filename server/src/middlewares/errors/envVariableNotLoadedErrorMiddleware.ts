@@ -1,4 +1,4 @@
-import { EnvVariableNotLoadedError } from "@lib/errors/envVariableNotLoadedError";
+import EnvVariableNotLoadedError from "@lib/errors/envVariableNotLoadedError";
 import { Request, Response, NextFunction } from "express"
 
 const envVariableNotLoadedErrorMiddleWare = (error: unknown, req: Request, res: Response, next: NextFunction) => {

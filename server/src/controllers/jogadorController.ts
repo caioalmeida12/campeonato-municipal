@@ -1,11 +1,10 @@
-import { EnvVariableNotLoadedError } from "@lib/errors/envVariableNotLoadedError";
 import { NextFunction, Request, Response } from "express";
+import sequelize from "@server/database/connection";
 
 class jogadorController {
-    async index(req: Request, res: Response, next: NextFunction) {
+    async index(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            throw new EnvVariableNotLoadedError("PORT");
-
+            console.log(sequelize.models)
             return res.json({ message: "Hello World" });
         } catch (error) {
             next(error);
