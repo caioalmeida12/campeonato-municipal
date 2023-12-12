@@ -1,16 +1,5 @@
-import EnvVariableNotLoadedError from "@lib/errors/envVariableNotLoadedError";
-import isLoadedDatabaseDotenv from "@lib/utils/loadDatabaseEnv";
-import isLoadedModelsDotenv from "@lib/utils/loadModelDotenv";
-import isLoadedPublicDotenv from "@lib/utils/loadPublicDotenv";
+import env from "@lib/utils/dotenv";
 
-if (!isLoadedPublicDotenv) throw new EnvVariableNotLoadedError("DOTENV");
-if (!isLoadedDatabaseDotenv) throw new EnvVariableNotLoadedError("DATABASE DOTENV");
-if (!isLoadedModelsDotenv) throw new EnvVariableNotLoadedError("MODELS DOTENV");
-
-const isSetupOK = Boolean(
-    isLoadedPublicDotenv &&
-    isLoadedDatabaseDotenv &&
-    isLoadedModelsDotenv
-);
+const isSetupOK = Boolean(env);
 
 export default isSetupOK;

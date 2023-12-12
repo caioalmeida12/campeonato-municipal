@@ -15,8 +15,8 @@ class Server {
         if (process.env.NODE_ENV === "development") this.app.use(morgan("dev"));
 
         this.setup(requestMiddlewares);
-        this.setup(responseMiddlewares);
         this.setup(routes);
+        this.setup(responseMiddlewares);
         this.setup(errorMiddlewares);
     }
 
