@@ -3,6 +3,6 @@ import jogadorController from "@server/controllers/jogadorController";
 
 const jogadorRouter = Router()
 
-jogadorRouter.get(String(process.env.ROUTE_JOGADORES) , jogadorController.index);
+jogadorRouter.get(String(process.env.ROUTE_JOGADORES) , jogadorController.get);
 
 export default () => jogadorRouter;

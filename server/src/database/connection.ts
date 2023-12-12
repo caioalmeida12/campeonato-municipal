@@ -41,4 +41,5 @@ sequelize.sync().then(() => {
     console.log(`\x1b[31m\nError connecting to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);
     console.log(error);
 });
+
 export default sequelize;

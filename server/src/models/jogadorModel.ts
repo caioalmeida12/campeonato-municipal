@@ -1,12 +1,26 @@
 import { JogadorType } from '@lib/types/jogadorType';
-import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, HasMany, Min, Max, PrimaryKey, Unique} from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, HasMany, Min, Max, PrimaryKey, Unique, Scopes, DefaultScope, Default} from "sequelize-typescript";
 
+@Scopes(() => ({
+    full: {
+        include: {
+            all: true,
+            nested: true,
+        }
+    },
+}))
+@DefaultScope(() => ({
+    attributes: {
+        exclude: ["createdAt", "updatedAt", "deletedAt"],
+    },
+}))
 @Table({
     tableName: process.env.MODEL_JOGADOR_TABLE_NAME,
     paranoid: true,
 })
-export default class JogadorModel extends Model<JogadorType> {
+export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "id">> {
     @PrimaryKey
+    @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)
     declare id: string;
 
