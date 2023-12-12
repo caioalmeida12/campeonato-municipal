@@ -1,13 +1,19 @@
+import SequelizeNullishResultError from "@lib/errors/sequelizeNullishResultError";
+import jogadorService from "@server/services/jogadorService";
 import { NextFunction, Request, Response } from "express";
 
-class jogadorController {
-    async index(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+class JogadorController {
+    async get(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            return res.json({ message: "Hello World" });
+            const jogadores = await jogadorService.get(req.query)
+
+            if (!jogadores) throw new SequelizeNullishResultError(Object.keys(req.query), Object.values(req.query));
+
+            return res.json(jogadores);
         } catch (error) {
             next(error);
         }
     }
 }
 
-export default new jogadorController();
+export default new JogadorController();
