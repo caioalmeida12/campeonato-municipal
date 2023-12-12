@@ -1,8 +1,7 @@
-import { EnvVariableNotLoadedError } from "@lib/errors/envVariableNotLoadedError";
-import isLoadedDotenv from "@lib/utils/loadDotenv";
+import isSetupOK from "@server/core/setup";
 import Server from "@server/core/server";
 
-if (!isLoadedDotenv) throw new EnvVariableNotLoadedError("DOTENV");
+if (!isSetupOK) throw new Error("Environment setup not OK. Check logs to see what's wrong.");
 
 const server = new Server();
 
