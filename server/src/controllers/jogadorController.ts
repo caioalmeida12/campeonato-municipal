@@ -1,4 +1,4 @@
-import SequelizeNullishResultError from "@lib/errors/sequelizeNullishResultError";
+import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
 import jogadorService from "@server/services/jogadorService";
 import { NextFunction, Request, Response } from "express";
 
@@ -7,7 +7,7 @@ class JogadorController {
         try {
             const jogadores = await jogadorService.get(req.query)
 
-            if (!jogadores) throw new SequelizeNullishResultError(Object.keys(req.query), Object.values(req.query));
+            if (!jogadores?.length) throw new SequelizeEmptyResponse(req.query);
 
             return res.json(jogadores);
         } catch (error) {

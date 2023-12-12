@@ -1,8 +1,8 @@
 import helmet from "helmet";
-import envVariableNotLoadedErrorMiddleWare from "./errors/envVariableNotLoadedErrorMiddleware";
+import envVariableNotLoadedErrorMiddleWare from "./error/envVariableNotLoadedErrorMiddleware";
 import jwtValidationMiddleware from "./request/jwtValidationMiddleware";
-import jwtUnauthorizedErrorMiddleware from "./errors/jwtUnauthorizedErrorMiddleware";
-import sequelizeNullishResultErrorMiddleware from "./errors/sequelizeNullishResultErrorMiddleware";
+import jwtUnauthorizedErrorMiddleware from "./error/jwtUnauthorizedErrorMiddleware";
+import sequelizeEmptyResponseMiddleware from "./response/sequelizeEmptyResponseMiddleware";
 
 const requestMiddlewares: Array<Function> = [
     helmet,
@@ -13,10 +13,11 @@ if (process.env.AUTHENTICATION_NEEDED === "true") requestMiddlewares.push(jwtVal
 const errorMiddlewares: Array<Function> = [
     envVariableNotLoadedErrorMiddleWare,
     jwtUnauthorizedErrorMiddleware,
-    sequelizeNullishResultErrorMiddleware
 ];
 
-const responseMiddlewares: Array<Function> = [];
+const responseMiddlewares: Array<Function> = [
+    sequelizeEmptyResponseMiddleware,
+];
 
 export {
     requestMiddlewares,
