@@ -1,5 +1,5 @@
 export default class EnvVariableNotLoadedError extends Error {
     constructor(variable: string) {
-        super(`.env variable ${variable} could not be loaded, either because it is not set or because it is set to an invalid value.`);
+        super(`A variável .env ${variable} não pôde ser carregada, seja porque não está definida ou porque está definida com um valor inválido.`);
     }
 }

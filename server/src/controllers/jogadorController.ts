@@ -14,6 +14,36 @@ class JogadorController {
             next(error);
         }
     }
+
+    async create(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+        try {
+            const jogador = await jogadorService.create(req.body);
+
+            return res.status(201).json(jogador);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async update(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+        try {
+            const jogador = await jogadorService.update(req.params.id, req.body);
+
+            return res.json(jogador);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async delete(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+        try {
+            const jogador = await jogadorService.delete(req.params.id);
+
+            return res.json(jogador);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export default new JogadorController();
