@@ -1,5 +1,5 @@
 export default class JWTUnauthorizedError extends Error {
     constructor(message?: string) {
-        super(message ?? "Unauthorized");
+        super(message ?? "Não autorizado");
     }
 }

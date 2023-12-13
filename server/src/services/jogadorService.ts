@@ -1,3 +1,5 @@
+import NotImplementedError from "@lib/errors/notImplementedError"
+import jogadorSchema from "@lib/types/jogadorType"
 import JogadorModel from "@server/models/jogadorModel"
 import jogadorRepository from "@server/repositories/jogadorRepository"
 
@@ -6,14 +8,28 @@ const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "
 class JogadorService {
     async get(query: Record<string, unknown>): Promise<JogadorModel[] | null> {
         const camposValidadosParaBusca = camposPermitidosParaBusca.filter(campo => query[campo])
-
+        
         const camposEValoresValidadosParaBusca = camposValidadosParaBusca.map(campo => { return { campo, valor: query[campo] } })
-
+        
         const resultado = await jogadorRepository.findAll(camposEValoresValidadosParaBusca)
+                
+        return resultado
+    }
 
-        if (!resultado.length && camposEValoresValidadosParaBusca.length) return null
+    async create(body: any) {
+        const post = jogadorSchema.omit({ id: true }).parse(body)
+
+        const resultado = await jogadorRepository.create(post)
 
         return resultado
+    }
+
+    async update(id: string, body: any) {
+        throw new NotImplementedError("JogadorService.update()")
+    }
+
+    async delete(id: string) {
+        throw new NotImplementedError("JogadorService.delete()")
     }
 }
 
