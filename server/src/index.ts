@@ -8,3 +8,5 @@ const server = new Server();
 server.start(() => {
     console.log(`Servidor rodando na porta ${server.port}`);
 });
+
+// 
