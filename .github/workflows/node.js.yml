@@ -1,10 +1,4 @@
-on:
-  push:
-    branches:
-      - 'incoming-branch-name' # replace with your branch name
-  pull_request:
-    branches:
-      - 'incoming-branch-name' # replace with your branch name
+on: [push, pull_request]
 
 jobs:
   build:
@@ -25,24 +19,28 @@ jobs:
       run: |
         cd client
         npm ci
-    - name: Build client
-      run: |
-        cd client
-        npm run build --if-present
 
     - name: Install server dependencies
       run: |
         cd server
         npm ci
-    - name: Build server
-      run: |
-        cd server
-        npm run build --if-present
 
     - name: Install root dependencies
       run: |
         npm ci
 
+    - name: Run server
+      run: |
+        npm run action-server &
+
+    - name: Wait for server to start
+      run: |
+        until $(curl --output /dev/null --silent --head --fail http://localhost:5000/health); do
+          printf '.'
+          sleep 5
+        done
+
     - name: Run tests
       run: |
+        npm ci
         npm test

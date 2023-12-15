@@ -11,6 +11,7 @@
     "test": "jest",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon --watch server/src/**/*.ts --exec ts-node -r tsconfig-paths/register server/src/index.ts",
+    "action-server": "npx nodemon --exec ts-node -r tsconfig-paths/register server/src/index.ts",
     "client": "npm run --prefix client start"
   },
   "repository": {
