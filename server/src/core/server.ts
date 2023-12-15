@@ -21,6 +21,8 @@ class Server {
         this.addComponent(routes);
         this.addComponent(responseMiddlewares);
         this.addComponent(errorMiddlewares);
+
+        this.app.use("/health", (req, res) => res.status(200).json({ status: "OK" }));
     }
 
     start(callback: Function) {
