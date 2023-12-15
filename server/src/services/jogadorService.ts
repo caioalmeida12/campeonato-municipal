@@ -1,9 +1,7 @@
-import { SequelizeValidationError } from "@lib/errors/customSequelizeValidationError"
 import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
 import JogadorModel from "@server/models/jogadorModel"
 import jogadorRepository from "@server/repositories/jogadorRepository"
-import { Sequelize, ValidationError } from "sequelize"
 
 const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "cpf", "data_nascimento", "posicao"]
 
