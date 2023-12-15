@@ -1,4 +1,10 @@
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - 'incoming-branch-name' # replace with your branch name
+  pull_request:
+    branches:
+      - 'incoming-branch-name' # replace with your branch name
 
 jobs:
   build:
@@ -35,5 +41,4 @@ jobs:
 
     - name: Run tests
       run: |
-        cd server
         npm test
