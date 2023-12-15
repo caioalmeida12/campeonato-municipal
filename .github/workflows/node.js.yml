@@ -40,7 +40,7 @@ jobs:
 
     - name: Run server
       run: |
-        npm run server
+        npm run server &
 
     - name: Run tests
       run: |
