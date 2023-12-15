@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 
 const zodErrorMiddleware = (error: any, req: Request, res: Response, next: NextFunction) => {
     if (error.name == "ZodError") {
-        console.table(error.issues)
-
         let response = {
             message: "",
             campos: error.issues.map((issue: any) => { return {

@@ -21,6 +21,8 @@ class JogadorController {
 
             return res.status(201).json(jogador);
         } catch (error) {
+            console.log(error)
+
             next(error);
         }
     }

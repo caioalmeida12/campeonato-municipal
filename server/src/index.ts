@@ -6,5 +6,5 @@ if (!isSetupOK) throw new Error("Environment setup not OK. Check logs to see wha
 const server = new Server();
 
 server.start(() => {
-    console.log(`Server running on port ${server.port}`);
+    console.log(`Servidor rodando na porta ${server.port}`);
 });

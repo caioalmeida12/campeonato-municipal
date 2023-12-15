@@ -17,6 +17,8 @@ class JogadorService {
     }
 
     async create(body: any) {
+        console.table(body)
+
         const post = jogadorSchema.omit({ id: true }).parse(body)
 
         const resultado = await jogadorRepository.create(post)

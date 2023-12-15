@@ -33,8 +33,6 @@ const sequelizeErrorMiddleware = (error: any, req: Request, res: Response, next:
     }
 
     if (error instanceof ValidationError) {
-        console.table(error.errors)
-
         response.message = "Você preencheu um ou mais campos com valores inválidos"
 
         response.campos = error.errors.map(error => {
