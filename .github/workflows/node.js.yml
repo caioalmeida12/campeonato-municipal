@@ -1,10 +1,4 @@
-on:
-  push:
-    branches:
-      - 'incoming-branch-name' # replace with your branch name
-  pull_request:
-    branches:
-      - 'incoming-branch-name' # replace with your branch name
+on: [push, pull_request]
 
 jobs:
   build:
