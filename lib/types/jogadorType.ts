@@ -22,7 +22,7 @@ const jogadorSchema = z.object({
         (val) => String(val),
         z.string().email().max(128)
     ),
-    responsavel: responsavelSchema.omit({ id: true})
+    responsavel: responsavelSchema.omit({ id: true}).optional()
 })
 
 export default jogadorSchema

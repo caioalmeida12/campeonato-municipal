@@ -17,18 +17,10 @@ class JogadorService {
     }
 
     async create(body: any) {
-        const post = {
-            jogador: jogadorSchema.omit({ id: true }).parse(body),
-            responsavel: responsavelSchema.omit({ id: true }).parse(body)
-        }
+        const post = jogadorSchema.omit({ id: true }).parse(body)
 
         const resultado = sequelize.transaction(async (t) => {
-            const jogador = await JogadorModel.create({
-                ...post.jogador,
-                responsavel: {
-                    ...post.responsavel
-                }
-            }, {
+            const jogador = await JogadorModel.create(post, {
                 include: [ResponsavelModel],
                 transaction: t
             });

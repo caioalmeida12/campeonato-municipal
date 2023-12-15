@@ -112,7 +112,16 @@ describe("server/integration/crudJogadores.test.ts", () => {
             });
         })
 
-        it("deve criar um jogador", async () => {
+        it("deve criar um jogador sem responsável", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                ...jogadorPost,
+                responsavel: undefined,
+            });
+
+            expect(response.status).toBe(201);
+        });
+
+        it("deve criar um jogador com responsável", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
 
             expect(response.status).toBe(201);
@@ -120,9 +129,8 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         it("deve retornar 400 quando não enviar um campo (ex: nome)", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                telefone: "12345678911",
-                cpf: "12345678911",
-                email: "",
+                ...jogadorPost,
+                nome_completo: undefined,
             });
 
             expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
@@ -130,10 +138,8 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         it("deve retornar 400 quando enviar um campo inválido (ex: telefone com dígitos a mais)", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                nome_completo: "Teste da Silva",
-                telefone: "12345678911111",
-                cpf: "12345678911",
-                email: "email@email.com",
+                ...jogadorPost,
+                telefone: "123456789111111",
             });
 
             expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
@@ -141,10 +147,8 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         it("deve retornar 400 quando enviar um campo inválido (ex: nome com caracteres especiais)", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                ...jogadorPost,
                 nome_completo: "Teste da Silva 123",
-                telefone: "12345678911",
-                cpf: "12345678911",
-                email: "email@email.com",
             });
 
             expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
@@ -152,10 +156,20 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         it("deve retornar 400 quando enviar um campo inválido (ex: nome sem sobrenome)", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                nome_completo: "Testador",
-                telefone: "12345678911",
-                cpf: "12345678911",
-                email: "email@email.com",
+                ...jogadorPost,
+                nome_completo: "Teste",
+            });
+
+            expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
+        });
+
+        it("deve retornar 400 quando enviar um campo inválido no responsável (ex: cpf com dígitos a mais)", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                ...jogadorPost,
+                responsavel: {
+                    ...jogadorPost.responsavel,
+                    cpf: "123456789111",
+                }
             });
 
             expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
