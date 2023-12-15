@@ -28,6 +28,7 @@ jobs:
       run: |
         cd server
         npm ci
+
     - name: Build server
       run: |
         cd server
@@ -36,6 +37,10 @@ jobs:
     - name: Install root dependencies
       run: |
         npm ci
+
+    - name: Run server
+      run: |
+        npm run server
 
     - name: Run tests
       run: |
