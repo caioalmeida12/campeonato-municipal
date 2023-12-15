@@ -11,7 +11,7 @@ const jogadorSchema = z.object({
     ),
     nome_completo: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(128)
+        z.string().min(8).max(256).regex(RegExp("^(?!.*\\s{2,})(?!\\s)(?!.*\\s$)(?=.*\\s)[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$"), "O nome deve conter apenas letras e espaços. Insira nome e sobrenome.")
     ),
     telefone: z.preprocess(
         (val) => String(val),

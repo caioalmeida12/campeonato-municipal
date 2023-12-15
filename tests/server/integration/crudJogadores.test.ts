@@ -8,6 +8,10 @@ if (process.env.NODE_ENV == 'production') {
     throw new Error('You cannot run tests in production mode');
 }
 
+if (!process.env.DB_DATABASE?.includes('test')) {
+    throw new Error('You cannot run tests without a test database');
+}
+
 describe("server/integration/crudJogadores.test.ts", () => {
     beforeAll(async () => {
         isSetupOK;
@@ -25,7 +29,7 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         beforeEach(async () => {
             jogador = await JogadorModel.create({
-                nome_completo: "Teste",
+                nome_completo: "Teste da Silva",
                 telefone: "12345678911",
                 cpf: "12345678911",
                 email: "asd@gmail.com"
@@ -88,6 +92,67 @@ describe("server/integration/crudJogadores.test.ts", () => {
         });
     });
 
-    
+    describe("POST", () => {
+        afterEach(async () => {
+            await JogadorModel.destroy({
+                truncate: true,
+                force: true,
+            });
+        })
+
+        it("deve criar um jogador", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                nome_completo: "Teste da Silva",
+                telefone: "12345678911",
+                cpf: "12345678911",
+                email: "email@email.com",
+            });
+
+            expect(response.status).toBe(201);
+        });
+
+        it("deve retornar 400 quando não enviar um campo (ex: nome)", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                telefone: "12345678911",
+                cpf: "12345678911",
+                email: "",
+            });
+
+            expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
+        });
+
+        it("deve retornar 400 quando enviar um campo inválido (ex: telefone com dígitos a mais)", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                nome_completo: "Teste da Silva",
+                telefone: "12345678911111",
+                cpf: "12345678911",
+                email: "email@email.com",
+            });
+
+            expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
+        });
+
+        it("deve retornar 400 quando enviar um campo inválido (ex: nome com caracteres especiais)", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                nome_completo: "Teste da Silva 123",
+                telefone: "12345678911",
+                cpf: "12345678911",
+                email: "email@email.com",
+            });
+
+            expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
+        });
+
+        it("deve retornar 400 quando enviar um campo inválido (ex: nome sem sobrenome)", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                nome_completo: "Testador",
+                telefone: "12345678911",
+                cpf: "12345678911",
+                email: "email@email.com",
+            });
+
+            expect(response.status).toBe(Number(process.env.SEQUELIZE_VALIDATION_ERROR));
+        });
+    })
 });
 

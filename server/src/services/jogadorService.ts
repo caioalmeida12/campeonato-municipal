@@ -1,7 +1,9 @@
+import { SequelizeValidationError } from "@lib/errors/customSequelizeValidationError"
 import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
 import JogadorModel from "@server/models/jogadorModel"
 import jogadorRepository from "@server/repositories/jogadorRepository"
+import { Sequelize, ValidationError } from "sequelize"
 
 const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "cpf", "data_nascimento", "posicao"]
 
@@ -17,6 +19,8 @@ class JogadorService {
     }
 
     async create(body: any) {
+        console.table(body)
+
         const post = jogadorSchema.omit({ id: true }).parse(body)
 
         const resultado = await jogadorRepository.create(post)
