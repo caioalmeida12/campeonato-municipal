@@ -1,6 +1,7 @@
 import isSetupOK from '@server/core/setup';
 import sequelize from '@server/database/connection';
 import JogadorModel from '@server/models/jogadorModel';
+import ResponsavelModel from '@server/models/responsavelModel';
 
 import request from 'supertest'
 
@@ -13,6 +14,19 @@ if (!process.env.DB_DATABASE?.includes('test')) {
 }
 
 describe("server/integration/crudJogadores.test.ts", () => {
+    const jogadorPost = {
+        nome_completo: "Teste da Silva",
+        telefone: "12345678911",
+        cpf: "12345678911",
+        email: "asd@gmail.com",
+        responsavel: {
+            nome_completo: "Teste da Silva",
+            telefone: "12345678911",
+            cpf: "12345678911",
+            email: "asd@gmail.com",
+        }
+    }
+
     beforeAll(async () => {
         isSetupOK;
         await sequelize.sync();
@@ -21,18 +35,16 @@ describe("server/integration/crudJogadores.test.ts", () => {
         await JogadorModel.destroy({
             truncate: true,
             force: true,
+            cascade: true,
         });
     });
 
     describe("GET", () => {
-        let jogador: any;
+        let jogador: JogadorModel;
 
         beforeEach(async () => {
-            jogador = await JogadorModel.create({
-                nome_completo: "Teste da Silva",
-                telefone: "12345678911",
-                cpf: "12345678911",
-                email: "asd@gmail.com"
+            jogador = await JogadorModel.create(jogadorPost, {
+                include: ResponsavelModel,
             })
         })
 
@@ -101,12 +113,7 @@ describe("server/integration/crudJogadores.test.ts", () => {
         })
 
         it("deve criar um jogador", async () => {
-            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                nome_completo: "Teste da Silva",
-                telefone: "12345678911",
-                cpf: "12345678911",
-                email: "email@email.com",
-            });
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
 
             expect(response.status).toBe(201);
         });

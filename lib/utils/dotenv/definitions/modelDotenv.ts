@@ -1,3 +1,4 @@
 export default [
     "MODEL_JOGADOR_TABLE_NAME",
+    "MODEL_RESPONSAVEL_TABLE_NAME",
 ];

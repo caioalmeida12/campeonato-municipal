@@ -1,5 +1,7 @@
 import { JogadorType } from '@lib/types/jogadorType';
-import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, HasMany, Min, Max, PrimaryKey, Unique, Scopes, DefaultScope, Default} from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, HasMany, Min, Max, PrimaryKey, Unique, Scopes, DefaultScope, Default, HasOne} from "sequelize-typescript";
+
+import ResponsavelModel from './responsavelModel';
 
 @Scopes(() => ({
     full: {
@@ -44,4 +46,10 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
     @Length({ min: 1, max: 128 })
     @Column(DataType.STRING(128))
     declare email: string;
+
+    @HasOne(() => ResponsavelModel, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
+    declare responsavel: ResponsavelModel;
 }
