@@ -28,8 +28,6 @@ jobs:
       run: |
         cd server
         npm ci
-    - name: Install Jest and ts-node
-      run: npm install -g jest ts-node
     - name: Build server
       run: |
         cd server
@@ -37,4 +35,5 @@ jobs:
 
     - name: Run tests
       run: |
+        npm ci
         npm test
