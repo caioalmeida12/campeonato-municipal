@@ -11,12 +11,14 @@ const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "
 
 class JogadorService {
     async get(query: Record<string, unknown>): Promise<JogadorModel[] | null> {
+        console.log(validarCamposParaBusca(query, camposPermitidosParaBusca))
+
         const resultado = await jogadorRepository.findAll(validarCamposParaBusca(query, camposPermitidosParaBusca))
 
         return resultado
     }
 
-    async create(body: any) {
+    async create(body: unknown) {
         const post = jogadorSchema.omit({ id: true }).parse(body)
 
         const resultado = sequelize.transaction(async (t) => {

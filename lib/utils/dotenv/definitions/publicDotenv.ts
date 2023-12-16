@@ -2,6 +2,7 @@ export default [
     "PORT",
     "NODE_ENV",
     "ROUTE_JOGADORES",
+    "ROUTE_RESPONSAVEIS",
     "DB_HOST",
     "DB_PORT",
     "DB_DIALECT",

@@ -1,13 +1,26 @@
 import JogadorModel from "@server/models/jogadorModel";
+import ResponsavelModel from "@server/models/responsavelModel";
 import { Op } from "sequelize";
 
 class JogadorRepository {
     async findAll(camposParaBusca?: Array<{ campo: string, valor: unknown }>): Promise<JogadorModel[]> {
-        const where = { [Op.and]: [{}] }
+        const where = {
+            [Op.or]: {
+                [Op.and]: camposParaBusca?.map(campoParaBusca => ({ [campoParaBusca.campo]: campoParaBusca.valor })),
+                "$responsavel.nome_completo$": { [Op.like]: `%${camposParaBusca?.find(campoParaBusca => campoParaBusca.campo === "nome_completo")?.valor}%`},
+            }
+        }
 
-        camposParaBusca?.map(campoParaBusca => where[Op.and].push({ [campoParaBusca.campo]: campoParaBusca.valor }))
-
-        return JogadorModel.findAll({ where });
+        if (!camposParaBusca?.length) return JogadorModel.findAll();
+        
+        return JogadorModel.findAll({
+            where: {
+                [Op.or]: {
+                    ...where
+                }
+            },
+            include: [ResponsavelModel]
+        });
     }
 
     async create(body: any): Promise<JogadorModel> {

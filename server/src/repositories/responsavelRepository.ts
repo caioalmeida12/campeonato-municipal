@@ -7,7 +7,9 @@ class ResponsavelRepository {
     }
     
     async findAll(camposParaBusca?: Array<{ campo: string, valor: unknown }>): Promise<ResponsavelModel[]> {
-        const where = { [Op.and]: [{}] }
+        const where = { [Op.and]: [{}], [Op.or]: [{}]}
+
+        if (camposParaBusca?.includes({ campo: "nome_completo", valor: "" })) where[Op.or].push({ "$responsavel.nome_completo$": { [Op.like]: `%${camposParaBusca.find(campoParaBusca => campoParaBusca.campo === "nome_completo")?.valor}%` } })
 
         camposParaBusca?.map(campoParaBusca => where[Op.and].push({ [campoParaBusca.campo]: campoParaBusca.valor }))
 

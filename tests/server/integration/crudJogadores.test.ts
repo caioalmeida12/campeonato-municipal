@@ -6,24 +6,24 @@ import ResponsavelModel from '@server/models/responsavelModel';
 import request from 'supertest'
 
 if (process.env.NODE_ENV == 'production') {
-    throw new Error('You cannot run tests in production mode');
+    throw new Error('Você não pode rodar testes em modo de produção');
 }
 
 if (!process.env.DB_DATABASE?.includes('test')) {
-    throw new Error('You cannot run tests without a test database');
+    throw new Error('Você não pode rodar testes sem um banco de dados de teste');
 }
 
 describe("server/integration/crudJogadores.test.ts", () => {
     const jogadorPost = {
-        nome_completo: "Teste da Silva",
+        nome_completo: "Jogador da Silva",
         telefone: "12345678911",
         cpf: "12345678911",
         email: "asd@gmail.com",
         responsavel: {
-            nome_completo: "Teste da Silva",
+            nome_completo: "Responsavel da Silva",
             telefone: "12345678911",
             cpf: "12345678911",
-            email: "asd@gmail.com",
+            email: "asd1@gmail.com",
         }
     }
 
@@ -64,17 +64,32 @@ describe("server/integration/crudJogadores.test.ts", () => {
         it("deve buscar um jogador específico com base no id", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?id=${jogador.getDataValue('id')}`);
 
+            expect(response.body[0].id).toBe(jogador.getDataValue('id'));
+
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no nome", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome=${jogador.getDataValue('nome_completo')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}`);
+
+            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
 
             expect(response.status).toBe(200);
         });
 
+        it("deve buscar um jogador específico com base no nome do responsável", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogadorPost.responsavel.nome_completo}`);
+
+            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
+
+            expect(response.status).toBe(200);
+        });
+
+
         it("deve buscar um jogador específico com base no cpf", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogador.getDataValue('cpf')}`);
+
+            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
 
             expect(response.status).toBe(200);
         });
@@ -82,17 +97,24 @@ describe("server/integration/crudJogadores.test.ts", () => {
         it("deve buscar um jogador específico com base no email", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?email=${jogador.getDataValue('email')}`);
 
+            expect(response.body[0].email).toBe(jogador.getDataValue('email'));
+
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no telefone", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?telefone=${jogador.getDataValue('telefone')}`);
 
+            expect(response.body[0].telefone).toBe(jogador.getDataValue('telefone'));
+
             expect(response.status).toBe(200);
         });
 
         it("deve ser possível buscar um jogador com base em mais de um parâmetro", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}&cpf=${jogador.getDataValue('cpf')}`);
+
+            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
+            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
 
             expect(response.status).toBe(200);
         });
