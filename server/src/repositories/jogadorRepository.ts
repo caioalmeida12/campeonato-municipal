@@ -4,12 +4,19 @@ import { Op } from "sequelize";
 
 class JogadorRepository {
     async findAll(camposParaBusca?: Array<{ campo: string, valor: unknown }>): Promise<JogadorModel[]> {
+        const filtros = {
+            jogador: camposParaBusca?.map(campoParaBusca => ({ [campoParaBusca.campo]: campoParaBusca.valor })),
+            responsavel: camposParaBusca?.map(campoParaBusca => ({ [`$responsavel.${campoParaBusca.campo}$`]: campoParaBusca.valor }))
+        }
+
         const where = {
             [Op.or]: {
-                [Op.and]: camposParaBusca?.map(campoParaBusca => ({ [campoParaBusca.campo]: campoParaBusca.valor })),
-                "$responsavel.nome_completo$": { [Op.like]: `%${camposParaBusca?.find(campoParaBusca => campoParaBusca.campo === "nome_completo")?.valor}%`},
+                [Op.and]: filtros.jogador,
+                [Op.or]: filtros.responsavel
             }
         }
+
+        console.table(where[Op.or])
 
         if (!camposParaBusca?.length) return JogadorModel.findAll();
         
