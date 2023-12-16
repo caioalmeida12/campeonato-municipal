@@ -85,11 +85,27 @@ describe("server/integration/crudJogadores.test.ts", () => {
             expect(response.status).toBe(200);
         });
 
-
         it("deve buscar um jogador específico com base no cpf", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogador.getDataValue('cpf')}`);
 
             expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
+
+            expect(response.status).toBe(200);
+        });
+
+        it("deve buscar um jogador específico com base no cpf do responsável", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogadorPost.responsavel.cpf}`);
+
+            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
+
+            expect(response.status).toBe(200);
+        });
+
+        it("deve buscar um jogador específico com base no nome do jogador e no telefone do responsável", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}&telefone=${jogadorPost.responsavel.telefone}`);
+
+            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
+            expect(response.body[0].responsavel.telefone).toBe(jogadorPost.responsavel.telefone);
 
             expect(response.status).toBe(200);
         });
@@ -145,6 +161,15 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
         it("deve criar um jogador com responsável", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
+
+            expect(response.status).toBe(201);
+        });
+
+        it("deve criar um jogador com nome com acentos", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                ...jogadorPost,
+                nome_completo: "João da Silva Esaú",
+            });
 
             expect(response.status).toBe(201);
         });
