@@ -16,15 +16,10 @@ class JogadorRepository {
             }
         }
 
-        if (!camposParaBusca?.length) return JogadorModel.findAll();
+        if (!camposParaBusca?.length) return JogadorModel.scope("full").findAll();
         
-        return JogadorModel.findAll({
-            where: {
-                [Op.or]: {
-                    ...where
-                }
-            },
-            include: [ResponsavelModel]
+        return JogadorModel.scope("full").findAll({
+            where
         });
     }
 
