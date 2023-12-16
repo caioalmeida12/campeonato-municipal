@@ -16,8 +16,6 @@ class JogadorRepository {
             }
         }
 
-        console.table(where[Op.or])
-
         if (!camposParaBusca?.length) return JogadorModel.findAll();
         
         return JogadorModel.findAll({
