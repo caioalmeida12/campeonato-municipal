@@ -23,11 +23,29 @@ class ResponsavelController {
 
             return response.status(201).json(responsavel);
         } catch (error) {
-            next
+            next(error)
         }
     }
 
+    async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
+        try {
+            const jogador = await responsavelService.update(req.params.id, req.body);
+    
+            return res.json(jogador);
+        } catch (error: unknown) {
+            next(error)
+        }
+    }
 
+    async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
+        try {
+            const jogador = await responsavelService.delete(req.params.id);
+    
+            return res.json(jogador);
+        } catch (error: unknown) {
+            next(error)
+        }
+    }
 }
 
 export default new ResponsavelController();

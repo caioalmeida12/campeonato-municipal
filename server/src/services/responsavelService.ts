@@ -1,3 +1,4 @@
+import NotImplementedError from "@lib/errors/notImplementedError";
 import responsavelSchema from "@lib/types/responsavelType";
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca";
 import ResponsavelModel from "@server/models/responsavelModel";
@@ -13,12 +14,20 @@ class ResponsavelService {
         return resultado
     }
     
-    public async create(body: unknown): Promise<ResponsavelModel> {
+    async create(body: unknown): Promise<ResponsavelModel> {
         const post = responsavelSchema.omit({ id: true }).parse(body);
 
         const resultado = await ResponsavelModel.create(post);
 
         return resultado;
+    }
+
+    async update(id: string, body: any) {
+        throw new NotImplementedError("ResponsavelService.update()")
+    }
+
+    async delete(id: string) {
+        throw new NotImplementedError("ResponsavelService.delete()")
     }
 }
 
