@@ -16,9 +16,9 @@ class JogadorRepository {
             }
         }
 
-        if (!camposParaBusca?.length) return JogadorModel.scope("full").findAll();
+        if (!camposParaBusca?.length) return JogadorModel.findAll();
         
-        return JogadorModel.scope("full").findAll({
+        return JogadorModel.findAll({
             where
         });
     }

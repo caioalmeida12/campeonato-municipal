@@ -3,18 +3,11 @@ import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsT
 
 import ResponsavelModel from './responsavelModel';
 
-@Scopes(() => ({
-    full: {
-        include: {
-            all: true,
-            nested: true,
-        }
-    },
-}))
 @DefaultScope(() => ({
-    attributes: {
-        exclude: ["createdAt", "updatedAt", "deletedAt"],
-    },
+    include: {
+        all: true,
+        nested: true,
+    }
 }))
 @Table({
     tableName: process.env.MODEL_JOGADOR_TABLE_NAME,
