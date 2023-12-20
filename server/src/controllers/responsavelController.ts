@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 
-import NotImplementedError from "@lib/errors/notImplementedError";
 import responsavelService from "@server/services/responsavelService";
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
 

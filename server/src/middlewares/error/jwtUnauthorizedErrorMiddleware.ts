@@ -11,4 +11,4 @@ const jwtUnauthorizedErrorMiddleware = (error: unknown, req: Request, res: Respo
     next(error)
 }
 
-export default () => jwtUnauthorizedErrorMiddleware;
+export default jwtUnauthorizedErrorMiddleware;

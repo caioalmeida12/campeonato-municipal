@@ -1,17 +1,31 @@
 import { NextFunction, Request, Response } from "express";
 
-const zodErrorMiddleware = (error: any, req: Request, res: Response, next: NextFunction) => {
+interface ZodIssue {
+    path: string[];
+    message: string;
+    code: string;
+    validation: string;
+}
+
+interface ZodError {
+    name: string;
+    message: string;
+    issues: ZodIssue[];
+    stack: string;
+}
+
+const zodErrorMiddleware = (error: Error, req: Request, res: Response, next: NextFunction) => {
     if (error.name == "ZodError") {
-        let response = {
+        const response = {
             message: "",
-            campos: error.issues.map((issue: any) => { return {
+            campos: (error as ZodError).issues.map((issue: ZodIssue) => { return {
                 nome: issue.path[0],
                 validacao: issue.validation
             }}),
             stack: (process.env.NODE_ENV == "development" ? error.stack : undefined)
         }
 
-        response.message = error.issues.map((issue: any) => `${issue.message} ${issue.validation ? `(método de validação: ${issue.validation})` : ""} [campo: ${issue.path[0]}]`).join(", ")
+        response.message = (error as ZodError).issues.map((issue: ZodIssue) => `${issue.message} ${issue.validation ? `(método de validação: ${issue.validation})` : ""} [campo: ${issue.path[0]}]`).join(", ")
         
         return res.status(Number(process.env.ZOD_ERROR)).json(response)
     }
@@ -19,4 +33,4 @@ const zodErrorMiddleware = (error: any, req: Request, res: Response, next: NextF
     next(error)
 }
 
-export default () => zodErrorMiddleware;
+export default zodErrorMiddleware;

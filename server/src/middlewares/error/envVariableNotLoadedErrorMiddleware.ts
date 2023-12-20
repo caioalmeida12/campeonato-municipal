@@ -11,4 +11,4 @@ const envVariableNotLoadedErrorMiddleWare = (error: unknown, req: Request, res: 
     next(error)
 }
 
-export default () => envVariableNotLoadedErrorMiddleWare;
+export default envVariableNotLoadedErrorMiddleWare;

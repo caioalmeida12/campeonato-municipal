@@ -8,4 +8,4 @@ responsavelRouter.post(String(process.env.ROUTE_RESPONSAVEIS), responsavelContro
 responsavelRouter.put(String(process.env.ROUTE_RESPONSAVEIS), responsavelController.update);
 responsavelRouter.delete(String(process.env.ROUTE_RESPONSAVEIS), responsavelController.delete);
 
-export default () => responsavelRouter;
+export default responsavelRouter;

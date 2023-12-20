@@ -8,4 +8,4 @@ jogadorRouter.post(String(process.env.ROUTE_JOGADORES), jogadorController.create
 jogadorRouter.put(String(process.env.ROUTE_JOGADORES), jogadorController.update);
 jogadorRouter.delete(String(process.env.ROUTE_JOGADORES), jogadorController.delete);
 
-export default () => jogadorRouter;
+export default jogadorRouter;

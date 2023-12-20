@@ -9,4 +9,4 @@ const isLoadedDatabaseDotenv = loadEnvVariables(".env.database.local", databaseD
 const isLoadedModelsDotenv = loadEnvVariables(".env.models.local", modelsDotenv);
 const isLoadedJwtDotenv = loadEnvVariables(".env.jwt.local", jwtDotenv);
 
-export default true;
+export default Boolean(isLoadedPublicDotenv && isLoadedDatabaseDotenv && isLoadedModelsDotenv && isLoadedJwtDotenv);

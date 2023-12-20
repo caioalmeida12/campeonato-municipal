@@ -1,5 +1,5 @@
 import { JogadorType } from '@lib/types/jogadorType';
-import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, HasMany, Min, Max, PrimaryKey, Unique, Scopes, DefaultScope, Default, HasOne} from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, DefaultScope, Default, HasOne} from "sequelize-typescript";
 
 import ResponsavelModel from './responsavelModel';
 

@@ -1,4 +1,3 @@
-import JogadorModel from '@server/models/jogadorModel';
 import request from 'supertest'
 
 import env from '@lib/utils/dotenv';

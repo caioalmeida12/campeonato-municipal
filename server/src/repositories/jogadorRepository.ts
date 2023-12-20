@@ -1,5 +1,5 @@
+import { JogadorType } from "@lib/types/jogadorType";
 import JogadorModel from "@server/models/jogadorModel";
-import ResponsavelModel from "@server/models/responsavelModel";
 import { Op } from "sequelize";
 
 class JogadorRepository {
@@ -23,11 +23,11 @@ class JogadorRepository {
         });
     }
 
-    async create(body: any): Promise<JogadorModel> {
+    async create(body: Omit<JogadorType, "id">): Promise<JogadorModel> {
         return JogadorModel.create(body);
     }
 
-    async update(id: string, body: any): Promise<JogadorModel | undefined> {
+    async update(id: string, body: Omit<JogadorType, "id">): Promise<JogadorModel | undefined> {
         const jogador = await JogadorModel.findByPk(id);
 
         return jogador?.update(body);

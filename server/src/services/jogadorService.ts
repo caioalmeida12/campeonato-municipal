@@ -1,6 +1,5 @@
 import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
-import responsavelSchema from "@lib/types/responsavelType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import sequelize from "@server/database/connection"
 import JogadorModel from "@server/models/jogadorModel"
@@ -31,10 +30,12 @@ class JogadorService {
         return resultado
     }
 
-    async update(id: string, body: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async update(id: string, body: unknown) {
         throw new NotImplementedError("JogadorService.update()")
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
         throw new NotImplementedError("JogadorService.delete()")
     }

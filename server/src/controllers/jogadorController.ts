@@ -20,7 +20,7 @@ class JogadorController {
             const jogador = await jogadorService.create(req.body);
     
             return res.status(201).json(jogador);   
-        } catch (error: any) {
+        } catch (error: unknown) {
             next(error);
         }
     }

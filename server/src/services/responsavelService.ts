@@ -25,10 +25,12 @@ class ResponsavelService {
         return resultado;
     }
 
-    async update(id: string, body: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async update(id: string, body: unknown) {
         throw new NotImplementedError("ResponsavelService.update()")
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
         throw new NotImplementedError("ResponsavelService.delete()")
     }
