@@ -35,7 +35,7 @@ switch (process.env.DB_DIALECT) {
 
 const sequelize = new Sequelize(sequelizeConfig);
 
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
     console.log(`\x1b[36m\nSuccessfully connected to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);
 }).catch((error) => {
     console.log(`\x1b[31m\nError connecting to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);

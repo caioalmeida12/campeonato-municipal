@@ -24,7 +24,8 @@ const responsavelSchema = z.object({
     fk_jogador_id: z.preprocess(
         (val) => String(val),
         z.string().uuid()
-    ).optional()
+    ).optional(),
+    jogador: z.any().optional()
 })
 
 export default responsavelSchema

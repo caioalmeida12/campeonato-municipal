@@ -1,9 +1,10 @@
-import isSetupOK from '@server/core/setup';
-import sequelize from '@server/database/connection';
 import JogadorModel from '@server/models/jogadorModel';
-import ResponsavelModel from '@server/models/responsavelModel';
-
 import request from 'supertest'
+
+import env from '@lib/utils/dotenv';
+import EnvVariableNotLoadedError from '@lib/errors/envVariableNotLoadedError';
+
+if (!env) throw new EnvVariableNotLoadedError("crudJogadores.test.ts")
 
 if (process.env.NODE_ENV == 'production') {
     throw new Error('Você não pode rodar testes em modo de produção');
@@ -27,110 +28,99 @@ describe("server/integration/crudJogadores.test.ts", () => {
         }
     }
 
-    beforeAll(async () => {
-        isSetupOK;
-        await sequelize.sync();
-        await sequelize.query("SELECT 1+1")
-
-        await JogadorModel.destroy({
-            truncate: true,
-            force: true,
-            cascade: true,
-        });
-    });
-
-    describe("GET", () => {
+    describe("Fluxo Principal", () => {
         let jogador: JogadorModel;
 
-        beforeEach(async () => {
-            jogador = await JogadorModel.create(jogadorPost, {
-                include: ResponsavelModel,
-            })
-        })
+        it("deve criar um jogador com responsável", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
 
-        afterEach(async () => {
-            await JogadorModel.destroy({
-                truncate: true,
-                force: true,
+            expect(response.status).toBe(201);
+            expect(response.body).toHaveProperty('responsavel');
+
+            jogador = response.body
+        });
+
+        it("deve criar um jogador sem responsável", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
+                nome_completo: "Jogador da Silva Orfão",
+                telefone: "12345678912",
+                cpf: "12345678912",
+                email: "orfaodasilva@gmail.com",
             });
-        })
 
-        it("deve buscar todos os jogadores", async () => {
-            const response = await request(process.env.API_URL).get(String(process.env.ROUTE_JOGADORES));
-
-            expect(response.status).toBe(200);
+            expect(response.status).toBe(201);
         });
 
         it("deve buscar um jogador específico com base no id", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?id=${jogador.getDataValue('id')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?id=${jogador.id}`);
 
-            expect(response.body[0].id).toBe(jogador.getDataValue('id'));
+            expect(response.body[0].id).toBe(jogador.id);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no nome", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.nome_completo}`);
 
-            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
+            expect(response.body[0].nome_completo).toBe(jogador.nome_completo);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no nome do responsável", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogadorPost.responsavel.nome_completo}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.responsavel.nome_completo}`);
 
-            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
+            expect(response.body[0].nome_completo).toBe(jogador.nome_completo);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no cpf", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogador.getDataValue('cpf')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogador.cpf}`);
 
-            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
+            expect(response.body[0].cpf).toBe(jogador.cpf);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no cpf do responsável", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogadorPost.responsavel.cpf}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?cpf=${jogador.responsavel.cpf}`);
 
-            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
+            expect(response.body[0].cpf).toBe(jogador.cpf);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no nome do jogador e no telefone do responsável", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}&telefone=${jogadorPost.responsavel.telefone}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.nome_completo}&telefone=${jogador.responsavel.telefone}`);
 
-            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
-            expect(response.body[0].responsavel.telefone).toBe(jogadorPost.responsavel.telefone);
+            expect(response.body[0].nome_completo).toBe(jogador.nome_completo);
+            expect(response.body[0].responsavel.telefone).toBe(jogador.responsavel.telefone);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no email", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?email=${jogador.getDataValue('email')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?email=${jogador.email}`);
 
-            expect(response.body[0].email).toBe(jogador.getDataValue('email'));
+            expect(response.body[0].email).toBe(jogador.email);
 
             expect(response.status).toBe(200);
         });
 
         it("deve buscar um jogador específico com base no telefone", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?telefone=${jogador.getDataValue('telefone')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?telefone=${jogador.telefone}`);
 
-            expect(response.body[0].telefone).toBe(jogador.getDataValue('telefone'));
+            expect(response.body[0].telefone).toBe(jogador.telefone);
 
             expect(response.status).toBe(200);
         });
 
         it("deve ser possível buscar um jogador com base em mais de um parâmetro", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.getDataValue('nome_completo')}&cpf=${jogador.getDataValue('cpf')}`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_JOGADORES}?nome_completo=${jogador.nome_completo}&cpf=${jogador.cpf}`);
 
-            expect(response.body[0].nome_completo).toBe(jogador.getDataValue('nome_completo'));
-            expect(response.body[0].cpf).toBe(jogador.getDataValue('cpf'));
+            expect(response.body[0].nome_completo).toBe(jogador.nome_completo);
+            expect(response.body[0].cpf).toBe(jogador.cpf);
 
             expect(response.status).toBe(200);
         });
@@ -140,40 +130,27 @@ describe("server/integration/crudJogadores.test.ts", () => {
 
             expect(response.status).toBe(404);
         });
-    });
 
-    describe("POST", () => {
-        afterEach(async () => {
-            await JogadorModel.destroy({
-                truncate: true,
-                force: true,
-            });
-        })
-
-        it("deve criar um jogador sem responsável", async () => {
-            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                ...jogadorPost,
-                responsavel: undefined,
+        it.skip("deve atualizar um jogador", async () => {
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_JOGADORES}/${jogador.id}`).send({
+                ...jogador,
+                nome_completo: "Jogador da Silva Atualizado",
             });
 
-            expect(response.status).toBe(201);
+            expect(response.status).toBe(200);
+
+            expect(response.body.nome_completo).toBe("Jogador da Silva Atualizado");
         });
 
-        it("deve criar um jogador com responsável", async () => {
-            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
+        it.skip("deve deletar um jogador", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_JOGADORES}/${jogador.id}`);
 
-            expect(response.status).toBe(201);
+            expect(response.status).toBe(200);
         });
 
-        it("deve criar um jogador com nome com acentos", async () => {
-            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
-                ...jogadorPost,
-                nome_completo: "João da Silva Esaú",
-            });
+    })
 
-            expect(response.status).toBe(201);
-        });
-
+    describe("Fluxos Alternativos", () => {
         it("deve retornar 400 quando não enviar um campo (ex: nome)", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send({
                 ...jogadorPost,

@@ -1,3 +1,5 @@
+import { ResponsavelType } from "@lib/types/responsavelType";
+import JogadorModel from "@server/models/jogadorModel";
 import ResponsavelModel from "@server/models/responsavelModel";
 import { Op } from "sequelize";
 
@@ -22,8 +24,10 @@ class ResponsavelRepository {
         });
     }
 
-    async create(responsavel: ResponsavelModel) {
-        return await ResponsavelModel.create(responsavel);
+    async create(body: Omit<ResponsavelType, "id">): Promise<ResponsavelModel> {
+        return await ResponsavelModel.create(body, {
+            include: JogadorModel.unscoped()
+        });
     }
 }
 

@@ -1,4 +1,5 @@
 import NotImplementedError from "@lib/errors/notImplementedError";
+import jogadorSchema from "@lib/types/jogadorType";
 import responsavelSchema from "@lib/types/responsavelType";
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca";
 import ResponsavelModel from "@server/models/responsavelModel";
@@ -17,7 +18,9 @@ class ResponsavelService {
     async create(body: unknown): Promise<ResponsavelModel> {
         const post = responsavelSchema.omit({ id: true }).parse(body);
 
-        const resultado = await ResponsavelModel.create(post);
+        if (post.jogador) jogadorSchema.omit({ id: true }).parse(post.jogador);
+
+        const resultado = await responsavelRepository.create(post);
 
         return resultado;
     }
