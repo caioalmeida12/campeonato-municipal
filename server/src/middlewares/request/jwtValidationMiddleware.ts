@@ -2,8 +2,8 @@
 // https://nozzlegear.com/blog/implementing-a-jwt-auth-system-with-typescript-and-node
 
 import { DecodeResult, ExpirationStatus } from "@lib/types/jwtTypes";
-import { decodeSession, encodeSession } from "@lib/utils/handleJWT";
-import { checkExpirationStatus } from "@lib/utils/handleJWT";
+import { decodeSession, encodeSession } from "@lib/utils/jwt/handleJWT";
+import { checkExpirationStatus } from "@lib/utils/jwt/handleJWT";
 import { Request, Response, NextFunction } from "express";
 import { Session } from "@lib/types/jwtTypes";
 import JWTUnauthorizedError from "@lib/errors/jwtUnauthorizedError";

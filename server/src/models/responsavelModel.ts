@@ -1,19 +1,16 @@
-import { JogadorType } from '@lib/types/jogadorType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, DefaultScope, Default, HasOne} from "sequelize-typescript";
+import { ResponsavelType } from '@lib/types/responsavelType';
+import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, DefaultScope, Default } from "sequelize-typescript";
 
-import ResponsavelModel from './responsavelModel';
+import JogadorModel from './jogadorModel';
 
 @DefaultScope(() => ({
-    include: {
-        all: true,
-        nested: true,
-    }
+    include: [JogadorModel.unscoped()]
 }))
 @Table({
-    tableName: process.env.MODEL_JOGADOR_TABLE_NAME,
+    tableName: process.env.MODEL_RESPONSAVEL_TABLE_NAME,
     paranoid: true,
 })
-export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "id">> {
+export default class ResponsavelModel extends Model<ResponsavelType, Omit<ResponsavelType, "id">> {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)
@@ -23,7 +20,7 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
     @AllowNull(false)
     @Length({ min: 11, max: 11 })
     @Column(DataType.STRING(11))
-    declare cpf: string;   
+    declare cpf: string;
 
     @AllowNull(false)
     @Length({ min: 1, max: 128 })
@@ -40,9 +37,13 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
     @Column(DataType.STRING(128))
     declare email: string;
 
-    @HasOne(() => ResponsavelModel, {
+    @ForeignKey(() => JogadorModel)
+    @Column(DataType.UUIDV4)
+    declare fk_jogador_id: string;
+
+    @BelongsTo(() => JogadorModel, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     })
-    declare responsavel: ResponsavelModel;
+    declare jogador: JogadorModel;
 }

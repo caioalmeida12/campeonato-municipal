@@ -1,12 +1,12 @@
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
 import { Request, Response, NextFunction } from "express";
 
-const sequelizeEmptyResponse = (err: any, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof SequelizeEmptyResponse) {
-        return res.status(404).json({ message: err.message });
+const sequelizeEmptyResponse = (error: unknown, req: Request, res: Response, next: NextFunction) => {
+    if (error instanceof SequelizeEmptyResponse) {
+        return res.status(404).json({ message: error.message });
     }
 
-    next(err);
+    next(error);
 };
 
-export default () => sequelizeEmptyResponse;
+export default sequelizeEmptyResponse;

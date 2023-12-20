@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from "express";
 import { DatabaseError, ForeignKeyConstraintError, UniqueConstraintError, ValidationError } from "sequelize";
 
-const sequelizeErrorMiddleware = (error: any, req: Request, res: Response, next: NextFunction) => {
-    let response = {
+import { Request, Response, NextFunction } from "express";
+
+const sequelizeErrorMiddleware = (error: Error, req: Request, res: Response, next: NextFunction) => {
+    const response = {
         message: "Ocorreu um erro no banco de dados",
         stack: process.env.NODE_ENV == "development" ? error.stack : undefined,
         campos: [{
@@ -48,4 +49,4 @@ const sequelizeErrorMiddleware = (error: any, req: Request, res: Response, next:
     next(error)
 }
 
-export default () => sequelizeErrorMiddleware;
+export default sequelizeErrorMiddleware;

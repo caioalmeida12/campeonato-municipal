@@ -2,7 +2,10 @@ import { Request, Response, NextFunction } from "express"
 
 const syntaxErrorNotValidJsonErrorMiddleware = (error: unknown, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof SyntaxError) {
-        if (!error.message.includes("JSON")) return next(error);
+        if (!error.message.includes("JSON")) {
+            next(error)
+            return undefined
+        }
 
         error.message = "O formato da sua requisição não é um JSON válido";
 
@@ -14,4 +17,4 @@ const syntaxErrorNotValidJsonErrorMiddleware = (error: unknown, req: Request, re
     next(error)
 }
 
-export default () => syntaxErrorNotValidJsonErrorMiddleware;
+export default syntaxErrorNotValidJsonErrorMiddleware;

@@ -1,7 +1,6 @@
 import z from "zod"
-import responsavelSchema from "./responsavelType"
 
-const jogadorSchema = z.object({
+const responsavelSchema = z.object({
     id: z.preprocess(
         (val) => String(val),
         z.string().uuid()
@@ -22,8 +21,12 @@ const jogadorSchema = z.object({
         (val) => String(val),
         z.string().email().max(128)
     ),
-    responsavel: responsavelSchema.omit({ id: true}).optional()
+    fk_jogador_id: z.preprocess(
+        (val) => String(val),
+        z.string().uuid()
+    ).optional(),
+    jogador: z.any().optional()
 })
 
-export default jogadorSchema
-export type JogadorType = z.infer<typeof jogadorSchema>
+export default responsavelSchema
+export type ResponsavelType = z.infer<typeof responsavelSchema>

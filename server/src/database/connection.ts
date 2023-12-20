@@ -13,7 +13,7 @@ let sequelizeConfig = {
     username: "" as string | undefined,
     password: "" as string | undefined,
     database: "" as string | undefined,
-    logging: Boolean(process.env.DB_LOGGING == "true") ? console.log : false,
+    logging: process.env.DB_LOGGING == "true" ? console.log : false,
 }
 
 switch (process.env.DB_DIALECT) {
@@ -35,7 +35,9 @@ switch (process.env.DB_DIALECT) {
 
 const sequelize = new Sequelize(sequelizeConfig);
 
-sequelize.sync().then(() => {
+sequelize.sync({ 
+    force: Boolean(process.env.DB_DATABASE?.includes("test")), 
+ }).then(() => {
     console.log(`\x1b[36m\nSuccessfully connected to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);
 }).catch((error) => {
     console.log(`\x1b[31m\nError connecting to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);

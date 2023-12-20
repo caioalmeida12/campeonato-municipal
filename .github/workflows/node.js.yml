@@ -44,3 +44,7 @@ jobs:
       run: |
         npm ci
         npm test
+
+    - name: Lint root
+      run: |
+        npm run lint
