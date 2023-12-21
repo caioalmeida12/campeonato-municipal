@@ -10,7 +10,6 @@ const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "
 class ResponsavelService {
     async get(query: Record<string, unknown>): Promise<ResponsavelModel[] | null> {
         const resultado = await responsavelRepository.findAll(validarCamposParaBusca(query, camposPermitidosParaBusca))
-        
                 
         return resultado
     }

@@ -1,4 +1,5 @@
 import { ResponsavelType } from "@lib/types/responsavelType";
+import sequelize from "@server/database/connection";
 import JogadorModel from "@server/models/jogadorModel";
 import ResponsavelModel from "@server/models/responsavelModel";
 import { Op } from "sequelize";
@@ -25,9 +26,16 @@ class ResponsavelRepository {
     }
 
     async create(body: Omit<ResponsavelType, "id">): Promise<ResponsavelModel> {
-        return await ResponsavelModel.create(body, {
-            include: [JogadorModel.unscoped()]
+        const resultado = await sequelize.transaction(async (t) => {
+            const responsavel = await ResponsavelModel.create(body, {
+                transaction: t,
+                include: [JogadorModel.unscoped()]
+            });
+
+            return responsavel;
         });
+
+        return resultado;
     }
 }
 

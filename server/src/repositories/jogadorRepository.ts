@@ -1,4 +1,5 @@
 import { JogadorType } from "@lib/types/jogadorType";
+import sequelize from "@server/database/connection";
 import JogadorModel from "@server/models/jogadorModel";
 import { Op } from "sequelize";
 
@@ -24,7 +25,18 @@ class JogadorRepository {
     }
 
     async create(body: Omit<JogadorType, "id">): Promise<JogadorModel> {
-        return JogadorModel.create(body);
+        const resultado = await sequelize.transaction(async (t) => {
+            const jogador = await JogadorModel.create(body, {
+                transaction: t,
+                include: {
+                    all: true,
+                }
+            });
+
+            return jogador;
+        });
+
+        return resultado;
     }
 
     async update(id: string, body: Omit<JogadorType, "id">): Promise<JogadorModel | undefined> {
