@@ -25,6 +25,15 @@ describe("server/integration/crudJogadores.test.ts", () => {
             telefone: "12345678911",
             cpf: "12345678911",
             email: "asd1@gmail.com",
+        },
+        endereco: {
+            logradouro: "Rua da Silva",
+            numero: "123",
+            bairro: "Bairro da Silva",
+            cidade: "Cidade da Silva",
+            cep: "12345678",
+            estado: "Estado da Silva",
+            pais: "Pais da Silva",
         }
     }
 

@@ -26,7 +26,7 @@ class ResponsavelRepository {
 
     async create(body: Omit<ResponsavelType, "id">): Promise<ResponsavelModel> {
         return await ResponsavelModel.create(body, {
-            include: JogadorModel.unscoped()
+            include: [JogadorModel.unscoped()]
         });
     }
 }
