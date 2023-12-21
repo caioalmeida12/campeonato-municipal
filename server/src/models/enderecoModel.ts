@@ -9,7 +9,7 @@ import JogadorModel from './jogadorModel';
     tableName: process.env.MODEL_ENDERECO_TABLE_NAME,
     paranoid: true,
 })
-export default class EnderecoModel extends Model<EnderecoType> {
+export default class EnderecoModel extends Model<EnderecoType, Omit<EnderecoType, "fk_jogador_id">> {
     @PrimaryKey
     @ForeignKey(() => JogadorModel)
     @Default(DataType.UUIDV4)

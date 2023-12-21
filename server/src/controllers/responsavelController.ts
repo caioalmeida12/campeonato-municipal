@@ -6,11 +6,11 @@ import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
 class ResponsavelController {
     async get(request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const responsavel = await responsavelService.get(request.query);
+            const resposta = await responsavelService.get(request.query);
 
-            if (!responsavel?.length) throw new SequelizeEmptyResponse(request.query);
+            if (!resposta?.length) throw new SequelizeEmptyResponse(request.query);
 
-            return response.json(responsavel);
+            return response.json(resposta);
         } catch (error: unknown) {
             next(error)
         }
@@ -18,9 +18,9 @@ class ResponsavelController {
 
     async create(request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const responsavel = await responsavelService.create(request.body);
+            const resposta = await responsavelService.create(request.body);
 
-            return response.status(201).json(responsavel);
+            return response.status(201).json(resposta);
         } catch (error) {
             next(error)
         }
@@ -28,9 +28,9 @@ class ResponsavelController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const jogador = await responsavelService.update(req.params.id, req.body);
+            const resposta = await responsavelService.update(req.params.id, req.body);
     
-            return res.json(jogador);
+            return res.json(resposta);
         } catch (error: unknown) {
             next(error)
         }
@@ -38,9 +38,9 @@ class ResponsavelController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const jogador = await responsavelService.delete(req.params.id);
+            const resposta = await responsavelService.delete(req.params.id);
     
-            return res.json(jogador);
+            return res.json(resposta);
         } catch (error: unknown) {
             next(error)
         }
