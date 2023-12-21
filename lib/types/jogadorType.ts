@@ -1,5 +1,6 @@
 import z from "zod"
 import responsavelSchema from "./responsavelType"
+import enderecoSchema from "./enderecoType"
 
 const jogadorSchema = z.object({
     id: z.preprocess(
@@ -22,7 +23,8 @@ const jogadorSchema = z.object({
         (val) => String(val),
         z.string().email().max(128)
     ),
-    responsavel: responsavelSchema.omit({ id: true}).optional()
+    responsavel: responsavelSchema.omit({ id: true}).optional(),
+    endereco: enderecoSchema.omit({ fk_jogador_id: true}).optional(),
 })
 
 export default jogadorSchema
