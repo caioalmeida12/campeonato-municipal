@@ -1,9 +1,7 @@
 import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
-import sequelize from "@server/database/connection"
 import JogadorModel from "@server/models/jogadorModel"
-import ResponsavelModel from "@server/models/responsavelModel"
 import jogadorRepository from "@server/repositories/jogadorRepository"
 
 const camposPermitidosParaBusca = ["id", "nome_completo", "email", "telefone", "cpf", "data_nascimento", "posicao"]
@@ -18,14 +16,7 @@ class JogadorService {
     async create(body: unknown) {
         const post = jogadorSchema.omit({ id: true }).parse(body)
 
-        const resultado = sequelize.transaction(async (t) => {
-            const jogador = await JogadorModel.create(post, {
-                include: [ResponsavelModel],
-                transaction: t
-            });
-
-            return jogador;
-        });
+        const resultado = await jogadorRepository.create(post)
 
         return resultado
     }
