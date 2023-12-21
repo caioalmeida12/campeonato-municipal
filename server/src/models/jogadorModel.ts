@@ -1,7 +1,8 @@
 import { JogadorType } from '@lib/types/jogadorType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, DefaultScope, Default, HasOne} from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, DefaultScope, Default, HasOne } from "sequelize-typescript";
 
 import ResponsavelModel from './responsavelModel';
+import EnderecoModel from './enderecoModel';
 
 @DefaultScope(() => ({
     include: {
@@ -23,7 +24,7 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
     @AllowNull(false)
     @Length({ min: 11, max: 11 })
     @Column(DataType.STRING(11))
-    declare cpf: string;   
+    declare cpf: string;
 
     @AllowNull(false)
     @Length({ min: 1, max: 128 })
@@ -45,4 +46,10 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
         onUpdate: "CASCADE",
     })
     declare responsavel: ResponsavelModel;
+
+    @HasOne(() => EnderecoModel, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
+    declare endereco: EnderecoModel;
 }
