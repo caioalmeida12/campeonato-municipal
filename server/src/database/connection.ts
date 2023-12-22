@@ -27,9 +27,9 @@ switch (process.env.DB_DIALECT) {
     case "postgres":
         sequelizeConfig = {
             ...sequelizeConfig,
-            username: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_NAME,
+            username: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE,
         };
         break;
 }
@@ -39,9 +39,9 @@ const sequelize = new Sequelize(sequelizeConfig);
 sequelize.sync({ 
     force: Boolean(process.env.DB_DATABASE?.includes("test")), 
  }).then(() => {
-    console.log(`\x1b[36m\nSuccessfully connected to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);
+    console.log(`\x1b[36m\nConectado o banco de dados "${process.env.DB_DATABASE}" com o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
 }).catch((error) => {
-    console.log(`\x1b[31m\nError connecting to database "${process.env.DB_NAME}" with "${process.env.DB_DIALECT}" dialect\n\x1b[0m`);
+    console.log(`\x1b[31m\nErro ao conectar com o banco de dados "${process.env.DB_DATABASE}" com o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
     console.log(error);
 });
 
