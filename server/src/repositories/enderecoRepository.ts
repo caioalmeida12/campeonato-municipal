@@ -1,6 +1,7 @@
 import { EnderecoType } from "@lib/types/enderecoType";
 import sequelize from "@server/database/connection";
 import EnderecoModel from "@server/models/enderecoModel";
+import JogadorModel from "@server/models/jogadorModel";
 import { Op } from "sequelize";
 
 class EnderecoRepository {
@@ -24,9 +25,7 @@ class EnderecoRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const endereco = await EnderecoModel.create(body, {
                 transaction: t,
-                include: {
-                    all: true,
-                }
+                include: [JogadorModel.unscoped()]
             });
 
             return endereco;

@@ -1,3 +1,4 @@
+import customDatabaseLogger from "@lib/utils/database/customDatabaseLogger";
 import path from "path";
 import { Dialect } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
@@ -13,7 +14,7 @@ let sequelizeConfig = {
     username: "" as string | undefined,
     password: "" as string | undefined,
     database: "" as string | undefined,
-    logging: process.env.DB_LOGGING == "true" ? console.log : false,
+    logging: process.env.DB_LOGGING == "true" ? customDatabaseLogger : false,
 }
 
 switch (process.env.DB_DIALECT) {
