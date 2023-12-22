@@ -33,6 +33,7 @@ const enderecoSchema = z.object({
         (val) => String(val),
         z.string().min(1).max(64)
     ),
+    jogador: z.any().optional(),
 });
 
 export default enderecoSchema;
