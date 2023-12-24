@@ -1,5 +1,5 @@
 import { EnderecoType } from '@lib/types/enderecoType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultScope, Default, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultScope, ForeignKey, BelongsTo } from "sequelize-typescript";
 import JogadorModel from './jogadorModel';
 
 @DefaultScope(() => ({
@@ -12,7 +12,6 @@ import JogadorModel from './jogadorModel';
 export default class EnderecoModel extends Model<EnderecoType, Omit<EnderecoType, "fk_jogador_id">> {
     @PrimaryKey
     @ForeignKey(() => JogadorModel)
-    @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)
     declare fk_jogador_id: string;
 

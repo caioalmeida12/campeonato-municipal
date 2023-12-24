@@ -7,7 +7,7 @@ const enderecoSchema = z.object({
     ),
     logradouro: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(128)
+        z.string().min(1).max(128).refine((val) => val != 'undefined')
     ),
     numero: z.preprocess(
         (val) => String(val),
@@ -15,11 +15,11 @@ const enderecoSchema = z.object({
     ),
     bairro: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(64)
+        z.string().min(1).max(64).refine((val) => val != 'undefined')
     ),
     cidade: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(64)
+        z.string().min(1).max(64).refine((val) => val != 'undefined')
     ),
     cep: z.preprocess(
         (val) => String(val),
@@ -27,11 +27,11 @@ const enderecoSchema = z.object({
     ),
     estado: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(64)
+        z.string().min(1).max(64).refine((val) => val != 'undefined')
     ),
     pais: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(64)
+        z.string().min(1).max(64).refine((val) => val != 'undefined')
     ),
     jogador: z.any().optional(),
 });

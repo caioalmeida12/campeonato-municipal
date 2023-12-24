@@ -39,9 +39,9 @@ const sequelize = new Sequelize(sequelizeConfig);
 sequelize.sync({ 
     force: Boolean(process.env.DB_DATABASE?.includes("test")), 
  }).then(() => {
-    console.log(`\x1b[36m\nConectado o banco de dados "${process.env.DB_DATABASE}" com o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
+    console.log(`\x1b[36m\nConectado o banco de dados "${process.env.DB_DATABASE}" usando o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
 }).catch((error) => {
-    console.log(`\x1b[31m\nErro ao conectar com o banco de dados "${process.env.DB_DATABASE}" com o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
+    console.log(`\x1b[31m\nErro ao conectar com o banco de dados "${process.env.DB_DATABASE}" usando o dialeto "${process.env.DB_DIALECT}"\n\x1b[0m`);
     console.log(error);
 });
 

@@ -15,7 +15,7 @@ class EnderecolService {
 
     async create(body: unknown) {
         const post = enderecoSchema.omit({ fk_jogador_id: true }).parse(body)
-
+        
         const resultado = await enderecoRepository.create(post)
 
         return resultado
