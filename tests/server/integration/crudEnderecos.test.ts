@@ -47,6 +47,7 @@ describe("server/integration/crudEnderecos.test.ts", () => {
         it("deve buscar um endereço específico com base no id", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_ENDERECOS!}?id=${endereco.fk_jogador_id}`);
 
+            // 
             expect(response.body[0].fk_jogador_id).toBe(endereco.fk_jogador_id);
 
             expect(response.status).toBe(200);
