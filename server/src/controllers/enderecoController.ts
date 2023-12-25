@@ -1,15 +1,15 @@
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
-import jogadorService from "@server/services/jogadorService";
+import enderecoService from "@server/services/enderecoService";
 import { NextFunction, Request, Response } from "express";
 
-class JogadorController {
+class EnderecoController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await jogadorService.get(req.query)
+            const reposta = await enderecoService.get(req.query)
     
-            if (!resposta?.length) throw new SequelizeEmptyResponse(req.query);
+            if (!reposta?.length) throw new SequelizeEmptyResponse(req.query);
     
-            return res.json(resposta);
+            return res.json(reposta);
         } catch (error: unknown) {
             next(error);
         }
@@ -17,7 +17,7 @@ class JogadorController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await jogadorService.create(req.body);
+            const resposta = await enderecoService.create(req.body);
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
@@ -27,7 +27,7 @@ class JogadorController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await jogadorService.update(req.params.id, req.body);
+            const resposta = await enderecoService.update(req.params.id, req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,7 +37,7 @@ class JogadorController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await jogadorService.delete(req.params.id);
+            const resposta = await enderecoService.delete(req.params.id);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -46,4 +46,4 @@ class JogadorController {
     }
 }
 
-export default new JogadorController();
+export default new EnderecoController();

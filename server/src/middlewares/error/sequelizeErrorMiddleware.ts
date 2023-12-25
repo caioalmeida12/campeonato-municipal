@@ -12,11 +12,6 @@ const sequelizeErrorMiddleware = (error: Error, req: Request, res: Response, nex
         }]
     }
 
-    if (error instanceof DatabaseError) {
-        response.message = "Ocorreu um erro no banco de dados"
-        return res.status(Number(process.env.SEQUELIZE_DATABASE_ERROR)).json(response)
-    }
-
     if (error instanceof UniqueConstraintError) {
         response.message = "Você pode ter infringido uma ou mais restrições de campo que possuem valores necessáriamente únicos"
         response.campos = error.errors.map(error => {
@@ -44,6 +39,11 @@ const sequelizeErrorMiddleware = (error: Error, req: Request, res: Response, nex
         })
 
         return res.status(Number(process.env.SEQUELIZE_VALIDATION_ERROR)).json(response)
+    }
+
+    if (error instanceof DatabaseError) {
+        response.message = "Ocorreu um erro no banco de dados"
+        return res.status(Number(process.env.SEQUELIZE_DATABASE_ERROR)).json(response)
     }
 
     next(error)

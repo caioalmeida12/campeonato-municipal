@@ -11,6 +11,8 @@ export default function loadEnvVariables(fileName: string, variables: Array<stri
     
     variables.map((variable) => {
         if (!(variable in process.env)) throw new EnvVariableNotLoadedError(variable);
+
+        console.log(`[ENV] ${variable} = ${process.env[variable]}`)
     });
 
     return true;
