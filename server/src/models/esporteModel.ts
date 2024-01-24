@@ -1,5 +1,5 @@
 import { EsporteType } from '@lib/types/esporteType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultScope, ForeignKey, BelongsTo, Default } from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Default } from "sequelize-typescript";
 
 @Table({
     tableName: process.env.MODEL_ESPORTE_TABLE_NAME,
