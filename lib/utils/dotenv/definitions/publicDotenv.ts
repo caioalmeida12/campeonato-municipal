@@ -4,6 +4,7 @@ export default [
     "ROUTE_JOGADORES",
     "ROUTE_RESPONSAVEIS",
     "ROUTE_ENDERECOS",
+    "ROUTE_ESPORTES",
     "DB_HOST",
     "DB_PORT",
     "DB_DIALECT",
