@@ -7,9 +7,9 @@ const esporteSchema = z.object({
     ),
     nome: z.preprocess(
         (val) => String(val),
-        z.string().min(2).max(64)
+        z.string().min(1).max(128).refine((val) => val != 'undefined')
     ),
-    maximo_jogador_por_time: z.preprocess(
+    maximo_jogadores_por_time: z.preprocess(
         (val) => Number(val),
         z.number().int().positive().max(255)
     ),

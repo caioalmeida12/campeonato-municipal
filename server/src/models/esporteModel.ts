@@ -1,5 +1,5 @@
 import { EsporteType } from '@lib/types/esporteType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultScope, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultScope, ForeignKey, BelongsTo, Default } from "sequelize-typescript";
 
 @Table({
     tableName: process.env.MODEL_ESPORTE_TABLE_NAME,
@@ -7,6 +7,7 @@ import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, DefaultS
 })
 export default class EsporteModel extends Model<EsporteType, Omit<EsporteType, "id">> {
     @PrimaryKey
+    @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)
     declare id: string;
 
@@ -17,7 +18,7 @@ export default class EsporteModel extends Model<EsporteType, Omit<EsporteType, "
 
     @AllowNull(false)
     @Column(DataType.TINYINT.UNSIGNED)
-    declare maximo_jogador_por_time: number;
+    declare maximo_jogadores_por_time: number;
 
     @AllowNull(false)
     @Column(DataType.TINYINT.UNSIGNED)
