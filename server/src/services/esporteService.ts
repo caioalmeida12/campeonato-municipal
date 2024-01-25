@@ -1,3 +1,4 @@
+import ZodError from "@lib/errors/customZodError"
 import NotImplementedError from "@lib/errors/notImplementedError"
 import esporteSchema from "@lib/types/esporteType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
@@ -15,6 +16,13 @@ class EsporteService {
 
     async create(body: unknown) {
         const post = esporteSchema.omit({ id: true }).parse(body)
+
+        console.table(post)
+        
+        if (post.maximo_jogadores_por_time < post.maximo_jogadores_titulares) throw new ZodError(
+            "O número máximo de jogadores por time não pode ser menor que o número máximo de jogadores titulares",
+            [{ path: ["maximo_jogadores_por_time"], message: "O número máximo de jogadores por time não pode ser menor que o número máximo de jogadores titulares", code: "invalid", validation: "min" }]
+        )
         
         const resultado = await esporteRepository.create(post)
 

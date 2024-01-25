@@ -54,7 +54,8 @@ describe("server/integration/crudEsportes.test.ts", () => {
         it("deve buscar um esporte específico com base no máximo de jogadores por time", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_ESPORTES!}?maximo_jogadores_por_time=${esporte.maximo_jogadores_por_time}`);
 
-            expect(response.body[0].maximo_jogadores_por_time).toBe(esporte.maximo_jogadores_por_time);
+            const foundEsporte = response.body.find((esp: EsporteModel) => esporte.maximo_jogadores_por_time == esp.maximo_jogadores_por_time);
+            expect(foundEsporte).toBeTruthy();
 
             expect(response.status).toBe(200);
         });
@@ -99,5 +100,16 @@ describe("server/integration/crudEsportes.test.ts", () => {
 
             expect(response.status).toBe(400);
         });
+
+        it("deve retornar 400 quando o número máximo de jogadores por time for menor que o número máximo de jogadores titulares", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_ESPORTES!).send({
+                ...esportePost,
+                maximo_jogadores_por_time: 10,
+                nmaximo_jogadores_titulares: 11,
+            });
+
+            expect(response.status).toBe(400);
+        });
+            
     });
 });
