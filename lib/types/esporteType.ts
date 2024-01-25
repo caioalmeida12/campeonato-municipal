@@ -16,7 +16,7 @@ const esporteSchema = z.object({
     maximo_jogadores_titulares: z.preprocess(
         (val) => Number(val),
         z.number().int().positive().max(255)
-    ),
+    )
 })
 
 export default esporteSchema

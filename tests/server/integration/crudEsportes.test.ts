@@ -99,5 +99,16 @@ describe("server/integration/crudEsportes.test.ts", () => {
 
             expect(response.status).toBe(400);
         });
+
+        it("deve retornar 400 quando o número máximo de jogadores por time for menor que o número máximo de jogadores titulares", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_ESPORTES!).send({
+                ...esportePost,
+                maximo_jogadores_por_time: 10,
+                nmaximo_jogadores_titulares: 11,
+            });
+
+            expect(response.status).toBe(400);
+        });
+            
     });
 });
