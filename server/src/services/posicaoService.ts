@@ -4,7 +4,7 @@ import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import PosicaoModel from "@server/models/posicaoModel"
 import posicaoRepository from "@server/repositories/posicaoRepository"
 
-const camposPermitidosParaBusca = ["nome", "fk_esporte_id"]
+const camposPermitidosParaBusca = ["id", "nome", "fk_esporte_id"]
 
 class PosicaoService {
     async get(query: Record<string, unknown>): Promise<PosicaoModel[] | null> {

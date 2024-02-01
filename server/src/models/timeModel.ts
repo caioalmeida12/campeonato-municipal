@@ -1,4 +1,4 @@
-import { ResponsavelType } from '@lib/types/responsavelType';
+import { TimeType } from '@lib/types/timeType';
 import { AllowNull, Column, Length, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, DefaultScope, Default, Table } from "sequelize-typescript";
 
 import EsporteModel from './esporteModel';
@@ -10,7 +10,7 @@ import EsporteModel from './esporteModel';
     tableName: process.env.MODEL_TIME_TABLE_NAME,
     paranoid: true,
 })
-export default class TimeModel extends Model<ResponsavelType, Omit<ResponsavelType, "id">> {
+export default class TimeModel extends Model<TimeType, Omit<TimeType, "id">> {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)

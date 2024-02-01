@@ -47,3 +47,4 @@ class TimeRepository {
     }
 }
 
+export default new TimeRepository();
