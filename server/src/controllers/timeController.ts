@@ -18,8 +18,6 @@ class TimeController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            console.log(req.body)
-
             const resposta = await timeService.create(req.body);
     
             return res.status(201).json(resposta);   

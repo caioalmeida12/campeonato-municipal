@@ -27,7 +27,7 @@ describe("server/integration/crudTimes.test.ts", () => {
         localidade: "Lá na casa do time",
         responsavel: "Zé do time",
         telefone: "88994495885",
-        email: "time@teste.com",
+        email: "timeteste@teste.com",
         escudo: "indefinido",
         fk_esporte_id: "indefinido"
     }
