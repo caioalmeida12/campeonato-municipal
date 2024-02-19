@@ -2,7 +2,7 @@ import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
 import posicaoService from "@server/services/posicaoService";
 import { NextFunction, Request, Response } from "express";
 
-class EnderecoController {
+class PosicaoController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
             const reposta = await posicaoService.get(req.query)
@@ -47,4 +47,4 @@ class EnderecoController {
     }
 }
 
-export default new EnderecoController();
+export default new PosicaoController();

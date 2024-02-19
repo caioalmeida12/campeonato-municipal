@@ -13,7 +13,7 @@ const timeSchema = z.object({
         (val) => String(val),
         z.string().min(1).max(128)
     ),
-    responsavel: z.preprocess(
+    resposavel: z.preprocess(
         (val) => String(val),
         z.string().min(1).max(128)
     ),
@@ -23,7 +23,7 @@ const timeSchema = z.object({
     ),
     email: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(128)
+        z.string().email()
     ),
     escudo: z.preprocess(
         (val) => String(val),

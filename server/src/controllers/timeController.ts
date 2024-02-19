@@ -1,29 +1,28 @@
+import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
+import timeService from "@server/services/timeService";
 import { NextFunction, Request, Response } from "express";
 
-import timeService from "@server/services/timeService";
-import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
-
 class TimeController {
-    async get(request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
+    async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await timeService.get(request.query);
-
-            if (!resposta?.length) throw new SequelizeEmptyResponse(request.query);
-
-            return response.json(resposta);
+            const reposta = await timeService.get(req.query)
+    
+            if (!reposta?.length) throw new SequelizeEmptyResponse(req.query);
+    
+            return res.json(reposta);
         } catch (error: unknown) {
-            next(error)
+            console.table(error);
+            next(error);
         }
     }
 
-    async create(request: Request, response: Response, next: NextFunction): Promise<Response | undefined> {
+    async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await timeService.create(request.body);
-
-            return response.status(201).json(resposta);
-        } catch (error) {
-            console.log(error)
-            next(error)
+            const resposta = await timeService.create(req.body);
+    
+            return res.status(201).json(resposta);   
+        } catch (error: unknown) {
+            next(error);
         }
     }
 

@@ -4,21 +4,21 @@ import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import TimeModel from "@server/models/timeModel"
 import timeRepository from "@server/repositories/timeRepository"
 
-const camposPermitidosParaBusca = ["id", "nome", "localidade", "responsavel", "telefone", "email", "escudo", "fk_esporte_id"]
+const camposPermitidosParaBusca = ["id", "nome", "localidade", "responsavel", "telefone", "email", "fk_esporte_id"]
 
 class TimeService {
     async get(query: Record<string, unknown>): Promise<TimeModel[] | null> {
         const resultado = await timeRepository.findAll(validarCamposParaBusca(query, camposPermitidosParaBusca))
-                
+
         return resultado
     }
 
-    async create(body: unknown): Promise<TimeModel> {
-        const post = timeSchema.omit({ id: true }).parse(body);
+    async create(body: unknown) {
+        const post = timeSchema.parse(body)
 
-        const resultado = await timeRepository.create(post);
+        const resultado = await timeRepository.create(post)
 
-        return resultado;
+        return resultado
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
