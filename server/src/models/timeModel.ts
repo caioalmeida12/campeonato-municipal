@@ -4,7 +4,7 @@ import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsT
 import Esporte from './esporteModel';
 
 @Table({
-    tableName: process.env.MODEL_POSICAO_TABLE_NAME,
+    tableName: process.env.MODEL_TIME_TABLE_NAME,
     paranoid: true,
 })
 export default class TimeModel extends Model<TimeType> {
