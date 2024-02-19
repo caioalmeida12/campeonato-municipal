@@ -6,6 +6,7 @@ export default [
     "ROUTE_ENDERECOS",
     "ROUTE_ESPORTES",
     "ROUTE_POSICOES",
+    "ROUTE_TIMES",
     "DB_HOST",
     "DB_PORT",
     "DB_DIALECT",
