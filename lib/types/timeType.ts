@@ -13,7 +13,7 @@ const timeSchema = z.object({
         (val) => String(val),
         z.string().min(1).max(128)
     ),
-    resposavel: z.preprocess(
+    responsavel: z.preprocess(
         (val) => String(val),
         z.string().min(1).max(128)
     ),

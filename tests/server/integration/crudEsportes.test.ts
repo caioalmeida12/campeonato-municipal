@@ -4,7 +4,7 @@ import request from 'supertest';
 import env from '@lib/utils/dotenv';
 import EnvVariableNotLoadedError from '@lib/errors/envVariableNotLoadedError';
 
-if (!env) throw new EnvVariableNotLoadedError("crudJogadores.test.ts")
+if (!env) throw new EnvVariableNotLoadedError("crudEsportes.test.ts")
 
 if (process.env.NODE_ENV == 'production') {
     throw new Error('Você não pode rodar testes em modo de produção');

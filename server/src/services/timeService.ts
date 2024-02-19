@@ -14,7 +14,7 @@ class TimeService {
     }
 
     async create(body: unknown) {
-        const post = timeSchema.parse(body)
+        const post = timeSchema.omit({ id: true }).parse(body)
 
         const resultado = await timeRepository.create(post)
 
