@@ -5,7 +5,7 @@ import EnvVariableNotLoadedError from '@lib/errors/envVariableNotLoadedError';
 import EsporteModel from '@server/models/esporteModel';
 import PosicaoModel from '@server/models/posicaoModel';
 
-if (!env) throw new EnvVariableNotLoadedError("crudJogadores.test.ts")
+if (!env) throw new EnvVariableNotLoadedError("crudPosicoes.test.ts")
 
 if (process.env.NODE_ENV == 'production') {
     throw new Error('Você não pode rodar testes em modo de produção');

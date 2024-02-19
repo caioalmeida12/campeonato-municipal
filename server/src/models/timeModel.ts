@@ -7,7 +7,7 @@ import Esporte from './esporteModel';
     tableName: process.env.MODEL_TIME_TABLE_NAME,
     paranoid: true,
 })
-export default class TimeModel extends Model<TimeType> {
+export default class TimeModel extends Model<TimeType, Omit<TimeType, "id">> {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column(DataType.UUIDV4)

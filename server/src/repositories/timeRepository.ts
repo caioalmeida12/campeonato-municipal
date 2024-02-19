@@ -20,7 +20,7 @@ class TimeRepository {
         });
     }
 
-    async create(body: TimeType): Promise<TimeModel> {
+    async create(body: Omit<TimeType, "id">): Promise<TimeModel> {
         const resultado = await sequelize.transaction(async (t) => {
             const time = await TimeModel.create(body, {
                 transaction: t,
