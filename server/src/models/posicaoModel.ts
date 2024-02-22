@@ -1,7 +1,8 @@
 import { PosicaoType } from '@lib/types/posicaoType';
-import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique } from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, HasOne, HasMany } from "sequelize-typescript";
 
 import Esporte from './esporteModel';
+import FichaTecnicaModel from './fichaTecnicaModel';
 
 @Table({
     tableName: process.env.MODEL_POSICAO_TABLE_NAME,
@@ -24,4 +25,10 @@ export default class PosicaoModel extends Model<PosicaoType> {
         onUpdate: "CASCADE",
     })
     declare esporte: Esporte;
+    
+    @HasMany(() => FichaTecnicaModel, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
+    declare fichaTecnica: FichaTecnicaModel;
 }

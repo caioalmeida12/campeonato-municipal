@@ -1,7 +1,8 @@
 import { ResponsavelType } from '@lib/types/responsavelType';
-import { AllowNull, Column, Length, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, DefaultScope, Default, Table } from "sequelize-typescript";
+import { AllowNull, Column, Length, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, DefaultScope, Default, Table, HasMany } from "sequelize-typescript";
 
 import EsporteModel from './esporteModel';
+import FichaTecnicaModel from './fichaTecnicaModel';
 
 @DefaultScope(() => ({
     include: [EsporteModel.unscoped()]
@@ -56,4 +57,10 @@ export default class TimeModel extends Model<ResponsavelType, Omit<ResponsavelTy
         onUpdate: "CASCADE",
     })
     declare esporte: EsporteModel;
+
+    @HasMany(() => FichaTecnicaModel, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
+    declare fichaTecnica: FichaTecnicaModel;
 }
