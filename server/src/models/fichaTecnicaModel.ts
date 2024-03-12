@@ -51,7 +51,10 @@ export default class FichaTecnicaModel extends Model<FichaTecnicaType> {
     @Column(DataType.BOOLEAN)
     declare is_capitao: boolean;
 
-    @BelongsTo(() => PosicaoModel)
+    @BelongsTo(() => PosicaoModel, {
+        foreignKey: 'fk_posicao_id',
+        targetKey: 'id'
+    })
     declare posicao: PosicaoModel;
 
     @BelongsTo(() => TimeModel)
