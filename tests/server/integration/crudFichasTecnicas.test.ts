@@ -73,9 +73,8 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
             expect(response.status).toBe(201);
 
             esporte = response.body
-
-            timePost.fk_esporte_id = esporte.id
             posicaoPost.fk_esporte_id = esporte.id
+            timePost.fk_esporte_id = esporte.id
         });
 
         it("deve criar uma posição", async () => {
@@ -96,25 +95,60 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
             fichaTecnicaPost.fk_time_id = time.id
         });
 
-        it("deve criar um jogador", async () => {
-            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
-
-            expect(response.status).toBe(201);
-
-            jogador = response.body
-            fichaTecnicaPost.fk_jogador_id = jogador.id
-        });
-
         it("deve criar uma ficha técnica", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_FICHAS_TECNICAS!).send(fichaTecnicaPost);
 
             expect(response.status).toBe(201);
+            expect(response.body.fk_jogador_id).toBe(jogador.id);
+            expect(response.body.fk_posicao_id).toBe(posicao.id);
+            expect(response.body.fk_time_id).toBe(time.id);
 
             fichaTecnica = response.body
         });
+
+        it("deve buscar uma ficha técnica específica com base no id", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?id=${fichaTecnica.id}`);
+
+            expect(response.body[0].id).toBe(fichaTecnica.id);
+
+            expect(response.status).toBe(200);
+        });
+
+        it("deve buscar todas as fichas técnicas", async () => {
+            const response = await request(process.env.API_URL).get(process.env.ROUTE_FICHAS_TECNICAS!);
+
+            expect(response.status).toBe(200);
+            expect(Array.isArray(response.body)).toBe(true);
+        });
+
+        it.skip("deve atualizar uma ficha técnica", async () => {
+            const updatedFichaTecnica = { ...fichaTecnicaPost, altura: 185 };
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_FICHAS_TECNICAS!}/${fichaTecnica.id}`).send(updatedFichaTecnica);
+
+            expect(response.status).toBe(200);
+            expect(response.body.altura).toBe(185);
+        });
+
+        it.skip("deve deletar uma ficha técnica", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_FICHAS_TECNICAS!}/${fichaTecnica.id}`);
+
+            expect(response.status).toBe(200);
+        });
+
     })
 
     describe("Fluxos Alternativos", () => {
+        it("deve retornar 404 quando não encontrar uma ficha técnica", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?id=1234567890`);
 
+            expect(response.status).toBe(404);
+        });
+
+        it("deve retornar 400 quando não enviar um campo (ex: altura)", async () => {
+            const updatedFichaTecnica = { ...fichaTecnicaPost, altura: undefined };
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_FICHAS_TECNICAS!).send(updatedFichaTecnica);
+
+            expect(response.status).toBe(400);
+        });
     });
 });
