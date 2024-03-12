@@ -1,6 +1,10 @@
 import z from 'zod';
 
 const timeSchema = z.object({
+    id: z.preprocess(
+        (val) => String(val),
+        z.string().uuid()
+    ),
     nome: z.preprocess(
         (val) => String(val),
         z.string().min(1).max(64)

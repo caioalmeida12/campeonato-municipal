@@ -1,15 +1,15 @@
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
-import posicaoService from "@server/services/posicaoService";
+import timeService from "@server/services/timeService";
 import { NextFunction, Request, Response } from "express";
 
-class PosicaoController {
+class TimeController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const reposta = await posicaoService.get(req.query)
+            const resposta = await timeService.get(req.query)
     
-            if (!reposta?.length) throw new SequelizeEmptyResponse(req.query);
+            if (!resposta?.length) throw new SequelizeEmptyResponse(req.query);
     
-            return res.json(reposta);
+            return res.json(resposta);
         } catch (error: unknown) {
             next(error);
         }
@@ -17,18 +17,17 @@ class PosicaoController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.create(req.body);
+            const resposta = await timeService.create(req.body);
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
-            console.error(error);
             next(error);
         }
     }
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.update(req.params.id, req.body);
+            const resposta = await timeService.update(req.params.id, req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -38,7 +37,7 @@ class PosicaoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.delete(req.params.id);
+            const resposta = await timeService.delete(req.params.id);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -47,4 +46,4 @@ class PosicaoController {
     }
 }
 
-export default new PosicaoController();
+export default new TimeController();

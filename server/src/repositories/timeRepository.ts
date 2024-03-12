@@ -1,7 +1,7 @@
 import { TimeType } from "@lib/types/timeType";
 import sequelize from "@server/database/connection";
 import TimeModel from "@server/models/timeModel";
-import JogadorModel from "@server/models/jogadorModel";
+import EsporteModel from "@server/models/esporteModel";
 import { Op } from "sequelize";
 
 class TimeRepository {
@@ -25,7 +25,7 @@ class TimeRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const time = await TimeModel.create(body, {
                 transaction: t,
-                include: [JogadorModel.unscoped()]
+                include: [EsporteModel.unscoped()]
             });
 
             return time;
@@ -34,7 +34,7 @@ class TimeRepository {
         return resultado;
     }
 
-    async update(id: string, body: Omit<TimeType, "fk_jogador_id">): Promise<TimeModel | undefined> {
+    async update(id: string, body: Omit<TimeType, "fk_esporte_id">): Promise<TimeModel | undefined> {
         const time = await TimeModel.findByPk(id);
 
         return time?.update(body);
@@ -47,3 +47,4 @@ class TimeRepository {
     }
 }
 
+export default new TimeRepository()

@@ -11,7 +11,6 @@ class FichaTecnicaController {
     
             return res.json(reposta);
         } catch (error: unknown) {
-            console.table(error);
             next(error);
         }
     }
@@ -22,6 +21,7 @@ class FichaTecnicaController {
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
+            console.error(error)
             next(error);
         }
     }

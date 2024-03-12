@@ -1,10 +1,13 @@
 import { FichaTecnicaType } from '@lib/types/fichaTecnicaType';
-import { AllowNull, Column, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey} from "sequelize-typescript";
+import { AllowNull, Column, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, DefaultScope} from "sequelize-typescript";
 
 import PosicaoModel from './posicaoModel';
 import TimeModel from './timeModel';
 import JogadorModel from './jogadorModel';
 
+@DefaultScope(() => ({
+    include: [JogadorModel.unscoped(), PosicaoModel.unscoped(), TimeModel.unscoped()]
+}))
 @Table({
     tableName: process.env.MODEL_FICHA_TECNICA_TABLE_NAME,
     paranoid: true,

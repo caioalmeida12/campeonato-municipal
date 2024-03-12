@@ -5,6 +5,7 @@ import esporteRouter from "./esporteRouter";
 import posicaoRouter from "./posicaoRouter";
 import fichaTecnicaRouter from "./fichaTecnicaRouter";
 import documentoRouter from "./documentoRouter";
+import timeRouter from "./timeRouter";
 
 export default [
     jogadorRouter,
@@ -13,5 +14,6 @@ export default [
     esporteRouter,
     posicaoRouter,
     fichaTecnicaRouter,
-    documentoRouter
+    documentoRouter,
+    timeRouter
 ]

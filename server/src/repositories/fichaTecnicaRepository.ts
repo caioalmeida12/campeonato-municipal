@@ -1,6 +1,9 @@
 import { FichaTecnicaType } from "@lib/types/fichaTecnicaType";
 import sequelize from "@server/database/connection";
 import FichaTecnicaModel from "@server/models/fichaTecnicaModel";
+import JogadorModel from "@server/models/jogadorModel";
+import PosicaoModel from "@server/models/posicaoModel";
+import TimeModel from "@server/models/timeModel";
 import { Op } from "sequelize";
 
 class FichaTecnicaRepository {
@@ -24,9 +27,8 @@ class FichaTecnicaRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const fichaTecnica = await FichaTecnicaModel.create(body, {
                 transaction: t,
-                include: {
-                    all: true,
-                }
+                include: [JogadorModel.unscoped(), PosicaoModel.unscoped(), TimeModel.unscoped()],
+
             });
 
             return fichaTecnica;

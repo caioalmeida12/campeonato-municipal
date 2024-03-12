@@ -5,6 +5,10 @@ const posicaoSchema = z.object({
         (val) => String(val),
         z.string().uuid()
     ),
+    id: z.preprocess(
+        (val) => String(val),
+        z.string().uuid()
+    ),
     nome: z.preprocess(
         (val) => String(val),
         z.string().min(1).max(128)
