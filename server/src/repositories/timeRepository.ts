@@ -1,10 +1,7 @@
 import { TimeType } from "@lib/types/timeType";
 import sequelize from "@server/database/connection";
 import TimeModel from "@server/models/timeModel";
-<<<<<<< HEAD
-=======
 import EsporteModel from "@server/models/esporteModel";
->>>>>>> fichasTecnicas
 import { Op } from "sequelize";
 
 class TimeRepository {
@@ -28,13 +25,7 @@ class TimeRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const time = await TimeModel.create(body, {
                 transaction: t,
-<<<<<<< HEAD
-                include: {
-                    all: true,
-                }
-=======
                 include: [EsporteModel.unscoped()]
->>>>>>> fichasTecnicas
             });
 
             return time;
@@ -56,8 +47,4 @@ class TimeRepository {
     }
 }
 
-<<<<<<< HEAD
-export default new TimeRepository();
-=======
 export default new TimeRepository()
->>>>>>> fichasTecnicas

@@ -6,11 +6,8 @@ export default [
     "ROUTE_ENDERECOS",
     "ROUTE_ESPORTES",
     "ROUTE_POSICOES",
-<<<<<<< HEAD
     "ROUTE_TIMES",
-=======
     "ROUTE_DOCUMENTOS",
->>>>>>> fichasTecnicas
     "DB_HOST",
     "DB_PORT",
     "DB_DIALECT",

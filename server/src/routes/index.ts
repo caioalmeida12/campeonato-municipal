@@ -3,11 +3,8 @@ import jogadorRouter from "./jogadorRoute";
 import responsavelRouter from "./responsavelRouter";
 import esporteRouter from "./esporteRouter";
 import posicaoRouter from "./posicaoRouter";
-<<<<<<< HEAD
-=======
 import fichaTecnicaRouter from "./fichaTecnicaRouter";
 import documentoRouter from "./documentoRouter";
->>>>>>> fichasTecnicas
 import timeRouter from "./timeRouter";
 
 export default [
@@ -16,10 +13,7 @@ export default [
     enderecoRouter,
     esporteRouter,
     posicaoRouter,
-<<<<<<< HEAD
-=======
     fichaTecnicaRouter,
     documentoRouter,
->>>>>>> fichasTecnicas
     timeRouter
 ]

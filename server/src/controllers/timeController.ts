@@ -5,22 +5,12 @@ import { NextFunction, Request, Response } from "express";
 class TimeController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-<<<<<<< HEAD
-            const reposta = await timeService.get(req.query)
-    
-            if (!reposta?.length) throw new SequelizeEmptyResponse(req.query);
-    
-            return res.json(reposta);
-        } catch (error: unknown) {
-            console.table(error);
-=======
             const resposta = await timeService.get(req.query)
     
             if (!resposta?.length) throw new SequelizeEmptyResponse(req.query);
     
             return res.json(resposta);
         } catch (error: unknown) {
->>>>>>> fichasTecnicas
             next(error);
         }
     }

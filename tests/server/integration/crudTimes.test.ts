@@ -34,8 +34,10 @@ describe("server/integration/crudTimes.test.ts", () => {
     };
 
     describe("Fluxo Principal", () => {
-        let esporte: EsporteModel;
         let time: TimeModel;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        let esporte: EsporteModel;
+        
 
         it("deve criar um esporte", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_ESPORTES!).send(esportePost);

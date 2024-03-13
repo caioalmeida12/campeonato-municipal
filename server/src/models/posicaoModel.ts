@@ -3,7 +3,6 @@ import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsT
 
 import Esporte from './esporteModel';
 import FichaTecnicaModel from './fichaTecnicaModel';
-import { Col } from 'sequelize/lib/utils';
 
 @Table({
     tableName: process.env.MODEL_POSICAO_TABLE_NAME,

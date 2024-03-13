@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import { TimeType } from '@lib/types/timeType';
-import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, Default } from "sequelize-typescript";
-
 import Esporte from './esporteModel';
-=======
-import { AllowNull, Column, Length, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, DefaultScope, Default, Table, HasMany } from "sequelize-typescript";
-
-import EsporteModel from './esporteModel';
-import FichaTecnicaModel from './fichaTecnicaModel';
+import { AllowNull, Column, Length, Table, DataType, Model, ForeignKey, BelongsTo, PrimaryKey, Unique, Default, HasMany } from "sequelize-typescript";
 import { TimeType } from '@lib/types/timeType';
->>>>>>> fichasTecnicas
+import FichaTecnicaModel from './fichaTecnicaModel';
+import EsporteModel from './esporteModel';
 
 @Table({
     tableName: process.env.MODEL_TIME_TABLE_NAME,
@@ -65,10 +58,6 @@ export default class TimeModel extends Model<TimeType, Omit<TimeType, "id">> {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     })
-<<<<<<< HEAD
-    declare esporte: Esporte;
-}
-=======
     declare esporte: EsporteModel;
 
     @HasMany(() => FichaTecnicaModel, {
@@ -77,4 +66,3 @@ export default class TimeModel extends Model<TimeType, Omit<TimeType, "id">> {
     })
     declare fichaTecnica: FichaTecnicaModel;
 }
->>>>>>> fichasTecnicas
