@@ -16,8 +16,6 @@ class EsporteService {
 
     async create(body: unknown) {
         const post = esporteSchema.omit({ id: true }).parse(body)
-
-        console.table(post)
         
         if (post.maximo_jogadores_por_time < post.maximo_jogadores_titulares) throw new ZodError(
             "O número máximo de jogadores por time não pode ser menor que o número máximo de jogadores titulares",

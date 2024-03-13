@@ -22,8 +22,8 @@ describe("server/integration/crudResponsaveis.test.ts", () => {
         email: "souza@gmail.com",
         jogador: {
             nome_completo: "Jogador de Souza",
-            telefone: "12345678311",
-            cpf: "12345678311",
+            telefone: "12345678321",
+            cpf: "12345678321",
             email: "souza@gmail.com",
         }
     }

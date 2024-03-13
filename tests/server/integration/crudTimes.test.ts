@@ -61,8 +61,6 @@ describe("server/integration/crudTimes.test.ts", () => {
         it("deve buscar um time específico com base no id", async () => {
             const response = await request(process.env.API_URL).get(`${process.env.ROUTE_TIMES!}?id=${time.id}`);
 
-            console.table(response.body);
-
             expect(response.body[0].id).toBe(time.id);
             expect(response.status).toBe(200);
         });

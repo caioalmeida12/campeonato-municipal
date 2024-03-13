@@ -19,7 +19,7 @@ if (!process.env.DB_DATABASE?.includes('test')) {
     throw new Error('Você não pode rodar testes sem um banco de dados de teste');
 }
 
-describe("server/integration/crudFichaTecnica.test.ts", () => {
+describe("server/integration/crudFichasTecnicas.test.ts", () => {
     const jogadorPost = {
         nome_completo: "Jogador Teste",
         email: "asdsad@gmail.com",
@@ -39,12 +39,12 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
     }
 
     const timePost = {
-        nome: "Time Teste",
-        localidade: "Localidade Teste",
-        responsavel: "Responsável Teste",
-        telefone: "12345678901",
-        email: "timetrês@teste.com",
-        escudo: "http://linkparaescudo.com",
+        nome: "Time da ficha",
+        localidade: "Localidade da ficha",
+        responsavel: "Responsável Teste da ficha",
+        telefone: "12345678955",
+        email: "timetres@teste.com",
+        escudo: "http://linkparaescudoficha.com",
         fk_esporte_id: ""
     };
 
