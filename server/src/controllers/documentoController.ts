@@ -1,4 +1,5 @@
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
+import JogadorModel from "@server/models/jogadorModel";
 import documentoService from "@server/services/documentoService";
 import { NextFunction, Request, Response } from "express";
 
@@ -17,6 +18,17 @@ class DocumentoController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
+            const jogador = await JogadorModel.create({
+                cpf: "12345678961",
+                email: "asdaa@adsa.afs",
+                nome_completo: "asdasd",
+                telefone: "12345678999", 
+            })
+
+            req.body.jogador = jogador
+
+            req.body.fk_jogador_id = jogador.id
+
             const resposta = await documentoService.create(req.body);
     
             return res.status(201).json(resposta);   
