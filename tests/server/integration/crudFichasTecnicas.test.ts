@@ -95,6 +95,16 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
             fichaTecnicaPost.fk_time_id = time.id
         });
 
+        it("deve criar um jogador", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_JOGADORES!).send(jogadorPost);
+
+            expect(response.status).toBe(201);
+            expect(response.body.nome_completo).toBe(jogadorPost.nome_completo);
+
+            jogador = response.body
+            fichaTecnicaPost.fk_jogador_id = jogador.id
+        });
+
         it("deve criar uma ficha técnica", async () => {
             const response = await request(process.env.API_URL).post(process.env.ROUTE_FICHAS_TECNICAS!).send(fichaTecnicaPost);
 
@@ -106,10 +116,10 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
             fichaTecnica = response.body
         });
 
-        it("deve buscar uma ficha técnica específica com base no id", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?id=${fichaTecnica.id}`);
+        it("deve buscar uma ficha técnica específica com base no id do jogador", async () => {
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?fk_jogador_id=${fichaTecnica.fk_jogador_id}`);
 
-            expect(response.body[0].id).toBe(fichaTecnica.id);
+            expect(response.body[0].fk_jogador_id).toBe(fichaTecnica.fk_jogador_id);
 
             expect(response.status).toBe(200);
         });
@@ -139,7 +149,7 @@ describe("server/integration/crudFichaTecnica.test.ts", () => {
 
     describe("Fluxos Alternativos", () => {
         it("deve retornar 404 quando não encontrar uma ficha técnica", async () => {
-            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?id=1234567890`);
+            const response = await request(process.env.API_URL).get(`${process.env.ROUTE_FICHAS_TECNICAS!}?fk_jogador_id=1234567890`);
 
             expect(response.status).toBe(404);
         });

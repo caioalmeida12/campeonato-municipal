@@ -21,7 +21,6 @@ class FichaTecnicaController {
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
-            console.error(error)
             next(error);
         }
     }
