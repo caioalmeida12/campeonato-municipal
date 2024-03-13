@@ -1,4 +1,4 @@
-import { AllowNull, Column, Table, DataType, Model, PrimaryKey, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { AllowNull, Column, Table, DataType, Model, PrimaryKey, ForeignKey, BelongsTo, Length } from "sequelize-typescript";
 import JogadorModel from './jogadorModel';
 import { DocumentoType } from "@lib/types/documentoType";
 
@@ -14,12 +14,30 @@ export default class DocumentoModel extends Model<DocumentoType> {
 
     @PrimaryKey
     @AllowNull(false)
-    @Column(DataType.STRING)
-    declare tipo: string;
+    @Column(DataType.ENUM(
+        'RG', 
+        'CPF', 
+        'CNH', 
+        'Passaporte', 
+        'Certidão de Nascimento', 
+        'Título de Eleitor', 
+        'Carteira de Trabalho', 
+        'Certificado de Reservista', 
+        'Cartão do SUS', 
+        'Carteira de Estudante', 
+        'Cartão de Crédito', 
+        'Carteira de Identidade Profissional', 
+        'Carteira de Habilitação Internacional', 
+        'Comprovante de Residência',
+        'Certificado de Conclusão de Curso',
+        'Certificado de premiação',
+        'Outro documento não listado'
+    ))
+    declare tipo: 'RG' | 'CPF' | 'CNH' | 'Passaporte' | 'Certidão de Nascimento' | 'Título de Eleitor' | 'Carteira de Trabalho' | 'Certificado de Reservista' | 'Cartão do SUS' | 'Carteira de Estudante' | 'Cartão de Crédito' | 'Carteira de Identidade Profissional' | 'Carteira de Habilitação Internacional' | 'Comprovante de Residência' | 'Certificado de Conclusão de Curso' | 'Certificado de premiação' | 'Outro documento não listado';
 
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    declare link: string;
+    @Length({ min: 32, max: 32 })
+    @Column(DataType.STRING(32))
+    declare iv: string;
 
     @AllowNull(false)
     @Column(DataType.DATE)

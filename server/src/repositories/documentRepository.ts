@@ -1,7 +1,6 @@
 import { DocumentoType } from "@lib/types/documentoType";
 import sequelize from "@server/database/connection";
 import DocumentoModel from "@server/models/documentoModel";
-import JogadorModel from "@server/models/jogadorModel";
 import { Op } from "sequelize";
 
 class DocumentoRepository {
@@ -25,7 +24,6 @@ class DocumentoRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const documento = await DocumentoModel.create(body, {
                 transaction: t,
-                include: [JogadorModel.unscoped()]
             });
 
             return documento;
