@@ -1,9 +1,6 @@
 import ZodError from "@lib/errors/customZodError";
-import EnvVariableNotLoadedError from "@lib/errors/envVariableNotLoadedError";
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
-import documentoSchema from "@lib/types/documentoType";
 import jogadorSchema from "@lib/types/jogadorType";
-import JogadorModel from "@server/models/jogadorModel";
 import documentoService from "@server/services/documentoService";
 import jogadorService from "@server/services/jogadorService";
 import { NextFunction, Request, Response } from "express";
