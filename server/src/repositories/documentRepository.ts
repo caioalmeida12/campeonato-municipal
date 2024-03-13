@@ -25,7 +25,7 @@ class DocumentoRepository {
         const resultado = await sequelize.transaction(async (t) => {
             const documento = await DocumentoModel.create(body, {
                 transaction: t,
-                include: [JogadorModel.unscoped()]
+                // include: [JogadorModel.unscoped()]
             });
 
             return documento;

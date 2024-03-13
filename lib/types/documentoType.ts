@@ -1,14 +1,26 @@
 import z from 'zod';
 
-const DocumentoSchema = z.object({
+const documentoSchema = z.object({
     fk_jogador_id: z.preprocess(
         (val) => String(val),
         z.string().uuid()
     ),
-    tipo: z.preprocess(
-        (val) => String(val),
-        z.string().min(1).max(128).refine((val) => val != 'undefined')
-    ),
+    tipo: z.enum([
+        'RG', 
+        'CPF', 
+        'CNH', 
+        'Passaporte', 
+        'Certidão de Nascimento', 
+        'Título de Eleitor', 
+        'Carteira de Trabalho', 
+        'Certificado de Reservista', 
+        'Cartão do SUS', 
+        'Carteira de Estudante', 
+        'Cartão de Crédito', 
+        'Carteira de Identidade Profissional', 
+        'Carteira de Habilitação Internacional', 
+        'Outro documento não listado'
+    ]),
     iv: z.preprocess(
         (val) => String(val),
         z.string()
@@ -21,5 +33,5 @@ const DocumentoSchema = z.object({
     jogador: z.any().optional(),
 });
 
-export default DocumentoSchema;
-export type DocumentoType = z.infer<typeof DocumentoSchema>;
+export default documentoSchema;
+export type DocumentoType = z.infer<typeof documentoSchema>;

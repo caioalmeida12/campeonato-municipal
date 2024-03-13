@@ -14,8 +14,26 @@ export default class DocumentoModel extends Model<DocumentoType> {
 
     @PrimaryKey
     @AllowNull(false)
-    @Column(DataType.STRING)
-    declare tipo: string;
+    @Column(DataType.ENUM(
+        'RG', 
+        'CPF', 
+        'CNH', 
+        'Passaporte', 
+        'Certidão de Nascimento', 
+        'Título de Eleitor', 
+        'Carteira de Trabalho', 
+        'Certificado de Reservista', 
+        'Cartão do SUS', 
+        'Carteira de Estudante', 
+        'Cartão de Crédito', 
+        'Carteira de Identidade Profissional', 
+        'Carteira de Habilitação Internacional', 
+        'Comprovante de Residência',
+        'Certificado de Conclusão de Curso',
+        'Certificado de premiação',
+        'Outro documento não listado'
+    ))
+    declare tipo: 'RG' | 'CPF' | 'CNH' | 'Passaporte' | 'Certidão de Nascimento' | 'Título de Eleitor' | 'Carteira de Trabalho' | 'Certificado de Reservista' | 'Cartão do SUS' | 'Carteira de Estudante' | 'Cartão de Crédito' | 'Carteira de Identidade Profissional' | 'Carteira de Habilitação Internacional' | 'Comprovante de Residência' | 'Certificado de Conclusão de Curso' | 'Certificado de premiação' | 'Outro documento não listado';
 
     @Length({ min: 32, max: 32 })
     @Column(DataType.STRING(32))

@@ -1,16 +1,26 @@
+import ZodError from "@lib/errors/customZodError";
+import EnvVariableNotLoadedError from "@lib/errors/envVariableNotLoadedError";
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
+import documentoSchema from "@lib/types/documentoType";
+import jogadorSchema from "@lib/types/jogadorType";
 import JogadorModel from "@server/models/jogadorModel";
 import documentoService from "@server/services/documentoService";
+import jogadorService from "@server/services/jogadorService";
 import { NextFunction, Request, Response } from "express";
 
 class DocumentoController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await documentoService.get(req.query)
-    
-            if (!resposta?.length) throw new SequelizeEmptyResponse(req.query);
-    
-            return res.json(resposta);
+            const documentosEncriptados = await documentoService.get(req.query)
+
+            if (!documentosEncriptados?.length) throw new SequelizeEmptyResponse(req.query);
+
+            const documentosDesencriptados = documentosEncriptados.map((documento) => {
+                const desencriptado = documentoService.getDecryptedData(documento.data, documento.iv)
+                return { ...documento, data: desencriptado }
+            })
+
+            return res.json(documentosDesencriptados);
         } catch (error: unknown) {
             next(error);
         }
@@ -18,27 +28,33 @@ class DocumentoController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const jogador = await JogadorModel.create({
-                cpf: "12345378961",
-                email: "asdaa@adsa.afs",
-                nome_completo: "asdasd",
-                telefone: "12345678999", 
-            })
+            if (!req.file?.buffer) throw new ZodError("Nenhum arquivo enviado", [{
+                message: "Nenhum arquivo enviado",
+                validation: "required",
+                path: ["req.file"],
+                code: "invalid"
+            }])
 
-            // req.body.jogador = jogador
+            if (req.body.jogador) req.body.jogador = jogadorSchema.omit({ id: true }).parse(JSON.parse(req.body.jogador))
 
-            req.body.fk_jogador_id = jogador.id
+            const jogadorCriado = req.body.jogador && await jogadorService.create(req.body.jogador)
 
-            if (!req.file?.buffer) throw new Error("file requird")
-            
-            const encryption = documentoService.getEncriptedData(req.file?.buffer)
+            if (!jogadorCriado) throw new ZodError("Não foi possível encontrar o jogador", [{
+                message: "Jogador não encontrado",
+                validation: "required",
+                path: ["req.body.jogador"],
+                code: "invalid"
+            }])
 
-            req.body.iv = encryption.iv
-            req.body.data = encryption.encryptedData
+            const dadosEncriptados = documentoService.getEncryptedData(req.file?.buffer)
+
+            req.body.iv = dadosEncriptados.iv
+            req.body.data = dadosEncriptados.dadosEncriptados
+            req.body.fk_jogador_id = jogadorCriado.id
 
             const resposta = await documentoService.create(req.body);
-    
-            return res.status(201).json(resposta);   
+
+            return res.status(201).json(resposta);
         } catch (error: unknown) {
 
             console.error(error)
@@ -49,7 +65,7 @@ class DocumentoController {
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
             const resposta = await documentoService.update(req.params.id, req.body);
-    
+
             return res.json(resposta);
         } catch (error: unknown) {
             next(error)
@@ -59,7 +75,7 @@ class DocumentoController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
             const resposta = await documentoService.delete(req.params.id);
-    
+
             return res.json(resposta);
         } catch (error: unknown) {
             next(error)

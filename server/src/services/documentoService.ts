@@ -6,7 +6,7 @@ import documentoRepository from "@server/repositories/documentRepository"
 
 import crypto from "crypto"
 
-const camposPermitidosParaBusca = ["fk_jogador_id", "tipo", "link", "validade"]
+const camposPermitidosParaBusca = ["fk_jogador_id", "tipo", "iv", "validade"]
 
 class DocumentoService {
     async get(query: Record<string, unknown>): Promise<DocumentoModel[] | null> {
@@ -33,19 +33,29 @@ class DocumentoService {
         throw new NotImplementedError("DocumentoService.delete()")
     }
 
-    getEncriptedData(data: Buffer) {
-        const algorithm = 'aes-256-ctr';
-        const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
+    getEncryptedData(dados: Buffer) {
+        const algoritmo = 'aes-256-ctr';
         const iv = crypto.randomBytes(16);
 
-        const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
-        const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
+        const cifrador = crypto.createCipheriv(algoritmo, process.env.CRYPTO_SECRET_KEY!, iv);
+        const encriptado = Buffer.concat([cifrador.update(dados), cifrador.final()]);
 
         return {
             iv: iv.toString('hex'),
-            encryptedData: encrypted.toString('hex')
+            dadosEncriptados: encriptado.toString('hex')
         }
     }
+
+    getDecryptedData(dadosEncriptados: Buffer, iv: string) {
+        const algoritmo = 'aes-256-ctr';
+        const ivBuffer = Buffer.from(iv, 'hex');
+        const decifrador = crypto.createDecipheriv(algoritmo, process.env.CRYPTO_SECRET_KEY!, ivBuffer);
+
+        const desencriptado = Buffer.concat([decifrador.update(dadosEncriptados), decifrador.final()]);
+
+        return desencriptado.toString();
+    }
+    
 }
 
 export default new DocumentoService();
