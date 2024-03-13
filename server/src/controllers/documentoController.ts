@@ -19,20 +19,29 @@ class DocumentoController {
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
             const jogador = await JogadorModel.create({
-                cpf: "12345678961",
+                cpf: "12345378961",
                 email: "asdaa@adsa.afs",
                 nome_completo: "asdasd",
                 telefone: "12345678999", 
             })
 
-            req.body.jogador = jogador
+            // req.body.jogador = jogador
 
             req.body.fk_jogador_id = jogador.id
+
+            if (!req.file?.buffer) throw new Error("file requird")
+            
+            const encryption = documentoService.getEncriptedData(req.file?.buffer)
+
+            req.body.iv = encryption.iv
+            req.body.data = encryption.encryptedData
 
             const resposta = await documentoService.create(req.body);
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
+
+            console.error(error)
             next(error);
         }
     }

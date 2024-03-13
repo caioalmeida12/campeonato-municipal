@@ -1,4 +1,4 @@
-import { AllowNull, Column, Table, DataType, Model, PrimaryKey, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { AllowNull, Column, Table, DataType, Model, PrimaryKey, ForeignKey, BelongsTo, Length } from "sequelize-typescript";
 import JogadorModel from './jogadorModel';
 import { DocumentoType } from "@lib/types/documentoType";
 
@@ -17,9 +17,9 @@ export default class DocumentoModel extends Model<DocumentoType> {
     @Column(DataType.STRING)
     declare tipo: string;
 
-    @AllowNull(false)
-    @Column(DataType.STRING)
-    declare link: string;
+    @Length({ min: 32, max: 32 })
+    @Column(DataType.STRING(32))
+    declare iv: string;
 
     @AllowNull(false)
     @Column(DataType.DATE)

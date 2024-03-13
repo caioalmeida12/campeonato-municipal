@@ -9,12 +9,15 @@ const DocumentoSchema = z.object({
         (val) => String(val),
         z.string().min(1).max(128).refine((val) => val != 'undefined')
     ),
-    link: z.preprocess(
+    iv: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(256)
+        z.string()
+    ).nullable(),
+    validade: z.preprocess(
+        (val) => new Date(String(val)),
+        z.date(),
     ),
-    validade: z.date(),
-    data: z.instanceof(Buffer),
+    data: z.string(),
     jogador: z.any().optional(),
 });
 

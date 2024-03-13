@@ -4,6 +4,8 @@ import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import DocumentoModel from "@server/models/documentoModel"
 import documentoRepository from "@server/repositories/documentRepository"
 
+import crypto from "crypto"
+
 const camposPermitidosParaBusca = ["fk_jogador_id", "tipo", "link", "validade"]
 
 class DocumentoService {
@@ -15,7 +17,7 @@ class DocumentoService {
 
     async create(body: unknown) {
         const post = documentoSchema.parse(body)
-        
+
         const resultado = await documentoRepository.create(post)
 
         return resultado
@@ -29,6 +31,20 @@ class DocumentoService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(fk_jogador_id: string) {
         throw new NotImplementedError("DocumentoService.delete()")
+    }
+
+    getEncriptedData(data: Buffer) {
+        const algorithm = 'aes-256-ctr';
+        const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3';
+        const iv = crypto.randomBytes(16);
+
+        const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
+        const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
+
+        return {
+            iv: iv.toString('hex'),
+            encryptedData: encrypted.toString('hex')
+        }
     }
 }
 
