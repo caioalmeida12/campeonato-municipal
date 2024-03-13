@@ -3,6 +3,7 @@ import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, 
 
 import ResponsavelModel from './responsavelModel';
 import EnderecoModel from './enderecoModel';
+import FichaTecnicaModel from './fichaTecnicaModel';
 
 @DefaultScope(() => ({
     include: {
@@ -52,4 +53,10 @@ export default class JogadorModel extends Model<JogadorType, Omit<JogadorType, "
         onUpdate: "CASCADE",
     })
     declare endereco: EnderecoModel;
+
+    @HasOne(() => FichaTecnicaModel, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
+    declare fichaTecnica: FichaTecnicaModel;
 }

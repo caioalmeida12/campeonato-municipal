@@ -14,7 +14,7 @@ class PosicaoService {
     }
 
     async create(body: unknown) {
-        const post = posicaoSchema.parse(body)
+        const post = posicaoSchema.omit({ id: true }).parse(body)
 
         const resultado = await posicaoRepository.create(post)
 

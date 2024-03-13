@@ -20,7 +20,7 @@ class PosicaoRepository {
         });
     }
 
-    async create(body: PosicaoType): Promise<PosicaoModel> {
+    async create(body: Omit<PosicaoType, "id">): Promise<PosicaoModel> {
         const resultado = await sequelize.transaction(async (t) => {
             const posicao = await PosicaoModel.create(body, {
                 transaction: t,

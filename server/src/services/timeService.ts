@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 import NotImplementedError from "@lib/errors/notImplementedError"
+=======
+>>>>>>> fichasTecnicas
 import timeSchema from "@lib/types/timeType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import TimeModel from "@server/models/timeModel"
 import timeRepository from "@server/repositories/timeRepository"
 
+<<<<<<< HEAD
 const camposPermitidosParaBusca = ["id", "nome", "localidade", "responsavel", "telefone", "email", "fk_esporte_id"]
+=======
+const camposPermitidosParaBusca = ["id", "nome", "localidade", "responsavel", "telefone", "email", "escudo", "fk_esporte_id"]
+>>>>>>> fichasTecnicas
 
 class TimeService {
     async get(query: Record<string, unknown>): Promise<TimeModel[] | null> {
@@ -15,12 +22,17 @@ class TimeService {
 
     async create(body: unknown) {
         const post = timeSchema.omit({ id: true }).parse(body)
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> fichasTecnicas
         const resultado = await timeRepository.create(post)
 
         return resultado
     }
 
+<<<<<<< HEAD
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
         throw new NotImplementedError("TimeService.update()")
@@ -33,3 +45,21 @@ class TimeService {
 }
 
 export default new TimeService()
+=======
+    async update(id: string, body: unknown) {
+        const post = timeSchema.parse(body)
+
+        const resultado = await timeRepository.update(id, post)
+
+        return resultado
+    }
+
+    async delete(id: string) {
+        const resultado = await timeRepository.delete(id)
+
+        return resultado
+    }
+}
+
+export default new TimeService()
+>>>>>>> fichasTecnicas

@@ -7,7 +7,7 @@ const timeSchema = z.object({
     ),
     nome: z.preprocess(
         (val) => String(val),
-        z.string().min(1).max(64)
+        z.string().min(1).max(128).refine((val) => val != 'undefined')
     ),
     localidade: z.preprocess(
         (val) => String(val),

@@ -1,11 +1,11 @@
 import SequelizeEmptyResponse from "@lib/responses/sequelizeEmptyResponse";
-import posicaoService from "@server/services/posicaoService";
+import fichaTecnicaService from "@server/services/fichaTecnicaService";
 import { NextFunction, Request, Response } from "express";
 
-class PosicaoController {
+class FichaTecnicaController {
     async get(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const reposta = await posicaoService.get(req.query)
+            const reposta = await fichaTecnicaService.get(req.query)
     
             if (!reposta?.length) throw new SequelizeEmptyResponse(req.query);
     
@@ -17,7 +17,7 @@ class PosicaoController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.create(req.body);
+            const resposta = await fichaTecnicaService.create(req.body);
     
             return res.status(201).json(resposta);   
         } catch (error: unknown) {
@@ -27,7 +27,7 @@ class PosicaoController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.update(req.params.id, req.body);
+            const resposta = await fichaTecnicaService.update(req.params.id, req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,7 +37,7 @@ class PosicaoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.delete(req.params.id);
+            const resposta = await fichaTecnicaService.delete(req.params.id);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -46,4 +46,4 @@ class PosicaoController {
     }
 }
 
-export default new PosicaoController();
+export default new FichaTecnicaController();
