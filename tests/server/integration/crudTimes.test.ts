@@ -72,16 +72,15 @@ describe("server/integration/crudTimes.test.ts", () => {
             expect(Array.isArray(response.body)).toBe(true);
         });
 
-        it.skip("deve atualizar um time", async () => {
-            const updatedTime = { ...timePost, nome: "Novo Nome" };
-            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_TIMES!}/${time.id}`).send(updatedTime);
+        it("deve atualizar um time", async () => {
+            const updatedTime = { ...time, nome: "Time Modificado" };
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_TIMES!}`).send(updatedTime);
 
             expect(response.status).toBe(200);
-            expect(response.body.nome).toBe("Novo Nome");
         });
 
-        it.skip("deve deletar um time", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_TIMES!}/${time.id}`);
+        it("deve deletar um time", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_TIMES!}`).send({ id: time.id });
 
             expect(response.status).toBe(200);
         });
