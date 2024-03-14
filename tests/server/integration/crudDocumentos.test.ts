@@ -81,6 +81,19 @@ describe("server/integration/crudDocumentos.test.ts", () => {
     })
 
     describe("Fluxo Alternativo", () => {
+        it("Deve retornar 400 ao criar um documento com campos inválidos", async () => {
+            const response = await request(process.env.API_URL).post(process.env.ROUTE_DOCUMENTOS!).send({
+                ...documentoPost,
+                fk_jogador_id: "asdasd",
+            });
 
+            expect(response.status).toBe(400);
+        })
+
+        it("Deve retornar 400 ao buscar um documento com base no id inexistente do jogador", async () => {
+            const response = await request(process.env.API_URL).get(process.env.ROUTE_DOCUMENTOS!).query({ fk_jogador_id: "asdasd" });
+
+            expect(response.status).toBe(404);
+        })
     })
 })
