@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import documentoSchema from "@lib/types/documentoType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import DocumentoModel from "@server/models/documentoModel"
@@ -23,14 +22,18 @@ class DocumentoService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(fk_jogador_id: string, body: unknown) {
-        throw new NotImplementedError("DocumentoService.update()")
+        const post = documentoSchema.parse(body)
+
+        const resultado = await documentoRepository.update(fk_jogador_id, post)
+
+        return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async delete(fk_jogador_id: string) {
-        throw new NotImplementedError("DocumentoService.delete()")
+    async delete(fk_jogador_id: string, tipo: string) {
+        const resultado = await documentoRepository.delete(fk_jogador_id, tipo)
+
+        return resultado
     }
 
     getEncryptedData(dados: Buffer) {

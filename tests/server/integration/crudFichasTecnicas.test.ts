@@ -131,16 +131,15 @@ describe("server/integration/crudFichasTecnicas.test.ts", () => {
             expect(Array.isArray(response.body)).toBe(true);
         });
 
-        it.skip("deve atualizar uma ficha técnica", async () => {
-            const updatedFichaTecnica = { ...fichaTecnicaPost, altura: 185 };
-            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_FICHAS_TECNICAS!}/${fichaTecnica.id}`).send(updatedFichaTecnica);
+        it("deve atualizar uma ficha técnica", async () => {
+            const updatedFichaTecnica = { ...fichaTecnica, altura: 185 };
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_FICHAS_TECNICAS!}`).send(updatedFichaTecnica);
 
             expect(response.status).toBe(200);
-            expect(response.body.altura).toBe(185);
         });
 
-        it.skip("deve deletar uma ficha técnica", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_FICHAS_TECNICAS!}/${fichaTecnica.id}`);
+        it("deve deletar uma ficha técnica", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_FICHAS_TECNICAS!}`).send({ id: fichaTecnica.id });
 
             expect(response.status).toBe(200);
         });

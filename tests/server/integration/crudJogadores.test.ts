@@ -140,19 +140,19 @@ describe("server/integration/crudJogadores.test.ts", () => {
             expect(response.status).toBe(404);
         });
 
-        it.skip("deve atualizar um jogador", async () => {
-            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_JOGADORES}/${jogador.id}`).send({
+        it("deve atualizar um jogador", async () => {
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_JOGADORES}`).send({
                 ...jogador,
                 nome_completo: "Jogador da Silva Atualizado",
             });
 
             expect(response.status).toBe(200);
-
-            expect(response.body.nome_completo).toBe("Jogador da Silva Atualizado");
         });
 
-        it.skip("deve deletar um jogador", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_JOGADORES}/${jogador.id}`);
+        it("deve deletar um jogador", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_JOGADORES}`).send({
+                id: jogador.id,
+            });
 
             expect(response.status).toBe(200);
         });

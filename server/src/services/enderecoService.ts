@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import enderecoSchema from "@lib/types/enderecoType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import EnderecoModel from "@server/models/enderecoModel"
@@ -21,14 +20,18 @@ class EnderecoService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(fk_jogador_id: string, body: unknown) {
-        throw new NotImplementedError("EnderecoService.update()")
+        const put = enderecoSchema.parse(body)
+
+        const resultado = await enderecoRepository.update(fk_jogador_id, put)
+
+        return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(fk_jogador_id: string) {
-        throw new NotImplementedError("EnderecoService.delete()")
+        const resultado = await enderecoRepository.delete(fk_jogador_id)
+
+        return resultado
     }
 }
 

@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import JogadorModel from "@server/models/jogadorModel"
@@ -21,14 +20,18 @@ class JogadorService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
-        throw new NotImplementedError("JogadorService.update()")
+        const put = jogadorSchema.parse(body)
+
+        const resultado = await jogadorRepository.update(id, put)
+
+        return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
-        throw new NotImplementedError("JogadorService.delete()")
+        const resultado = await jogadorRepository.delete(id)
+
+        return resultado
     }
 }
 

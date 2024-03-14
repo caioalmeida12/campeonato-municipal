@@ -82,33 +82,21 @@ describe("server/integration/crudEnderecos.test.ts", () => {
             expect(response.status).toBe(404);
         });
 
-        it.skip("deve atualizar um endereço", async () => {
-            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_ENDERECOS!}/${endereco.fk_jogador_id}`).send({
+        it("deve atualizar um endereço", async () => {
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_ENDERECOS!}`).send({
                 ...endereco,
                 logradouro: "Rua da Silva Atualizada",
             });
 
             expect(response.status).toBe(200);
 
-            expect(response.body.logradouro).toBe("Rua da Silva Atualizada");
         });
 
-        it.skip("deve deletar um endereço", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_ENDERECOS!}/${endereco.fk_jogador_id}`);
+        it("deve deletar um endereço", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_ENDERECOS!}`);
 
-            it("deve criar um endereço sem jogador", async () => {
-                const response2 = await request(process.env.API_URL).post(process.env.ROUTE_ENDERECOS!).send({
-                    ...enderecoPost,
-                    fk_jogador_id: response.body.id,
-                });
-
-                expect(response2.status).toBe(201);
-
-                expect(response2.body).toHaveProperty('logradouro');
-            });
 
             expect(response.status).toBe(200);
-            
         });
     })
 

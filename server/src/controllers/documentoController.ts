@@ -32,28 +32,30 @@ class DocumentoController {
                 code: "invalid"
             }])
 
-            if (req.body.jogador) req.body.jogador = jogadorSchema.omit({ id: true }).parse(JSON.parse(req.body.jogador))
+            if (req.body.jogador) {
+                req.body.jogador = jogadorSchema.omit({ id: true }).parse(JSON.parse(req.body.jogador))
 
-            const jogadorCriado = req.body.jogador && await jogadorService.create(req.body.jogador)
+                const jogadorCriado = await jogadorService.create(req.body.jogador)
 
-            if (!jogadorCriado) throw new ZodError("Não foi possível encontrar o jogador", [{
-                message: "Jogador não encontrado",
-                validation: "required",
-                path: ["req.body.jogador"],
-                code: "invalid"
-            }])
+                if (!jogadorCriado) throw new ZodError("Não foi possível encontrar o jogador", [{
+                    message: "Jogador não encontrado",
+                    validation: "required",
+                    path: ["req.body.jogador"],
+                    code: "invalid"
+                }])
+
+                req.body.fk_jogador_id = jogadorCriado.id
+            }
 
             const dadosEncriptados = documentoService.getEncryptedData(req.file?.buffer)
 
             req.body.iv = dadosEncriptados.iv
             req.body.data = dadosEncriptados.dadosEncriptados
-            req.body.fk_jogador_id = jogadorCriado.id
 
             const resposta = await documentoService.create(req.body);
 
             return res.status(201).json(resposta);
         } catch (error: unknown) {
-
             console.error(error)
             next(error);
         }
@@ -71,7 +73,7 @@ class DocumentoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await documentoService.delete(req.params.id);
+            const resposta = await documentoService.delete(req.body.fk_jogador_id, req.body.tipo);
 
             return res.json(resposta);
         } catch (error: unknown) {

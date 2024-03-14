@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError";
 import jogadorSchema from "@lib/types/jogadorType";
 import responsavelSchema from "@lib/types/responsavelType";
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca";
@@ -24,14 +23,18 @@ class ResponsavelService {
         return resultado;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
-        throw new NotImplementedError("ResponsavelService.update()")
+        const put = responsavelSchema.parse(body);
+
+        const resultado = await responsavelRepository.update(id, put);
+
+        return resultado;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
-        throw new NotImplementedError("ResponsavelService.delete()")
+        const resultado = await responsavelRepository.delete(id);
+
+        return resultado;
     }
 }
 

@@ -1,5 +1,4 @@
 import ZodError from "@lib/errors/customZodError"
-import NotImplementedError from "@lib/errors/notImplementedError"
 import esporteSchema from "@lib/types/esporteType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import EsporteModel from "@server/models/esporteModel"
@@ -27,14 +26,15 @@ class EsporteService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
-        throw new NotImplementedError("EsporteService.update()")
+        const post = esporteSchema.parse(body);
+        const resultado = await esporteRepository.update(id, post);
+        return resultado;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
-        throw new NotImplementedError("EsporteService.delete()")
+        const resultado = await esporteRepository.delete(id);
+        return resultado;
     }
 }
 

@@ -32,14 +32,19 @@ class DocumentoRepository {
         return resultado;
     }
 
-    async update(id: string, body: DocumentoType): Promise<DocumentoModel | undefined> {
-        const documento = await DocumentoModel.findByPk(id);
+    async update(fk_jogador_id: string, body: DocumentoType): Promise<DocumentoModel | undefined> {
+        const documento = await DocumentoModel.findByPk(fk_jogador_id);
 
         return documento?.update(body);
     }
 
-    async delete(id: string): Promise<void | undefined> {
-        const documento = await DocumentoModel.findByPk(id);
+    async delete(fk_jogador_id: string, tipo: string): Promise<void | undefined> {
+        const documento = await DocumentoModel.findOne({
+            where: {
+                fk_jogador_id,
+                tipo
+            }
+        });
 
         return documento?.destroy();
     }

@@ -37,6 +37,19 @@ class ResponsavelRepository {
 
         return resultado;
     }
+
+    async update(id: string, body: Omit<ResponsavelType, "fk_esporte_id">): Promise<ResponsavelModel | undefined> {
+        const responsavel = await ResponsavelModel.findByPk(id);
+
+        return responsavel?.update(body);
+    }
+
+    async delete(id: string): Promise<void | undefined> {
+        const responsavel = await ResponsavelModel.findByPk(id);
+
+        return responsavel?.destroy();
+    }
+
 }
 
 export default new ResponsavelRepository()
