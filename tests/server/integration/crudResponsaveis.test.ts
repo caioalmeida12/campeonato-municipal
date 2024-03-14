@@ -109,10 +109,19 @@ describe("server/integration/crudResponsaveis.test.ts", () => {
             expect(response.status).toBe(404)
         })
 
-        it.skip("deve atualizar um responsável", async () => {
+        it("deve atualizar um responsável", async () => {
+            const response = await request(process.env.API_URL).put(process.env.ROUTE_RESPONSAVEIS!).send({
+                ...responsavel,
+                nome_completo: "Responsável de Souza e Silva",
+            });
+
+            expect(response.status).toBe(200)
         })
 
-        it.skip("deve deletar um responsável", async () => {
+        it("deve deletar um responsável", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_RESPONSAVEIS!}`).send({ id: responsavel.id });
+
+            expect(response.status).toBe(200)
         })
     })
 
