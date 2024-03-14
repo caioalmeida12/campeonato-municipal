@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response, Router } from "express";
 
 import morgan from "morgan";
-import { errorMiddlewares, requestMiddlewares, responseMiddlewares } from "@server/middlewares";
+import { errorMiddlewares, responseMiddlewares } from "@server/middlewares";
 import routes from "@server/routes";
 import helmet from "helmet";
+import jwtValidationMiddleware from "@server/middlewares/request/jwtValidationMiddleware";
 
 type Component = Router | ((error: Error, req: Request, res: Response, next: NextFunction) => Response | undefined);
 
@@ -21,7 +22,7 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(helmet())
 
-        this.addComponent(requestMiddlewares);
+        if (process.env.AUTHENTICATION_NEEDED == "true") this.app.use(jwtValidationMiddleware);
         this.addComponent(routes);
         this.addComponent(responseMiddlewares);
         this.addComponent(errorMiddlewares);
