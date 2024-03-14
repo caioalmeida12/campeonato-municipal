@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import documentoSchema from "@lib/types/documentoType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import DocumentoModel from "@server/models/documentoModel"
