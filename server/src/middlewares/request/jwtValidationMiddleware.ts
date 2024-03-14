@@ -1,29 +1,17 @@
-import { DecodeResult, ExpirationStatus, Session } from "@lib/types/jwtTypes";
-import { decodeSession, encodeSession } from "@lib/utils/jwt/handleJWT";
-import { checkExpirationStatus } from "@lib/utils/jwt/handleJWT";
+import { DecodeResult, ExpirationStatus } from "@lib/types/jwtTypes";
 import { Request, Response, NextFunction } from "express";
+import { Session } from "@lib/types/jwtTypes";
 import JWTUnauthorizedError from "@lib/errors/jwtUnauthorizedError";
+import { checkExpirationStatus, decodeSession, encodeSession } from "@lib/utils/jwt/handleJWT";
 
-const whiteListedRoutes = [
-    "/health",
-    "/login",
-];
+const whiteList = ["/health", "/auth"];
 
-const jwtValidationMiddleware = (error: unknown, req: Request, res: Response, next: NextFunction) => {
-    if (whiteListedRoutes.includes(req.path)) {
-        next();
-        return;
-    }
+const jwtValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    if (whiteList.includes(req.path)) return next();
 
     const reqHeader = "X-JWT-Token";
     const resHeader = "X-Renewed-JWT-Token";
     const header = req.header(reqHeader);
-    
-    if (error) {
-        console.error(error);
-        next(error);
-        return;
-    }
     
     if (!header) throw new JWTUnauthorizedError(`Authorization token is missing from the request header. Please add '${reqHeader}' header with a valid authorization token.`);
     
@@ -56,8 +44,6 @@ const jwtValidationMiddleware = (error: unknown, req: Request, res: Response, ne
     };
 
     next();
-
-    return res;
 }
 
 export default jwtValidationMiddleware;

@@ -1,5 +1,5 @@
 import { UsuarioType } from '@lib/types/usuarioType';
-import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, DefaultScope, Default, HasOne, BeforeSave } from "sequelize-typescript";
+import { AllowNull, Column, Length, Table, DataType, Model, PrimaryKey, Unique, Default, BeforeSave } from "sequelize-typescript";
 import bcrypt from 'bcrypt';
 
 @Table({
