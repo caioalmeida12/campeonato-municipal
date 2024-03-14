@@ -1,3 +1,5 @@
+import { UsuarioType } from "./usuarioType";
+
 export interface User {
     id: number;
     dateCreated: number;
@@ -5,15 +7,12 @@ export interface User {
     password: string;
 }
 
-export interface Session {
-    id: number;
-    dateCreated: number;
-    username: string;
-    issued: number;
+export interface Session extends UsuarioType{
     expires: number;
+    issued: number;
 }
 
-export type PartialSession = Omit<Session, "issued" | "expires">;
+export type PartialSession = Omit<UsuarioType, "issued" | "expires">;
 
 export interface EncodeResult {
     token: string,

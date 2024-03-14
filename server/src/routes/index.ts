@@ -6,6 +6,7 @@ import posicaoRouter from "./posicaoRouter";
 import fichaTecnicaRouter from "./fichaTecnicaRouter";
 import documentoRouter from "./documentoRouter";
 import timeRouter from "./timeRouter";
+import authRouter from "./authRouter";
 
 export default [
     jogadorRouter,
@@ -15,5 +16,6 @@ export default [
     posicaoRouter,
     fichaTecnicaRouter,
     documentoRouter,
-    timeRouter
+    timeRouter,
+    authRouter
 ]

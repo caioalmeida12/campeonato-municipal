@@ -8,6 +8,7 @@ export default [
     "ROUTE_POSICOES",
     "ROUTE_TIMES",
     "ROUTE_DOCUMENTOS",
+    "ROUTE_AUTH",
     "DB_HOST",
     "DB_PORT",
     "DB_DIALECT",

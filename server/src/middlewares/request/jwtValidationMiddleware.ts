@@ -1,17 +1,29 @@
-// READ MORE:
-// https://nozzlegear.com/blog/implementing-a-jwt-auth-system-with-typescript-and-node
-
-import { DecodeResult, ExpirationStatus } from "@lib/types/jwtTypes";
+import { DecodeResult, ExpirationStatus, Session } from "@lib/types/jwtTypes";
 import { decodeSession, encodeSession } from "@lib/utils/jwt/handleJWT";
 import { checkExpirationStatus } from "@lib/utils/jwt/handleJWT";
 import { Request, Response, NextFunction } from "express";
-import { Session } from "@lib/types/jwtTypes";
 import JWTUnauthorizedError from "@lib/errors/jwtUnauthorizedError";
 
-const jwtValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const whiteListedRoutes = [
+    "/health",
+    "/login",
+];
+
+const jwtValidationMiddleware = (error: unknown, req: Request, res: Response, next: NextFunction) => {
+    if (whiteListedRoutes.includes(req.path)) {
+        next();
+        return;
+    }
+
     const reqHeader = "X-JWT-Token";
     const resHeader = "X-Renewed-JWT-Token";
     const header = req.header(reqHeader);
+    
+    if (error) {
+        console.error(error);
+        next(error);
+        return;
+    }
     
     if (!header) throw new JWTUnauthorizedError(`Authorization token is missing from the request header. Please add '${reqHeader}' header with a valid authorization token.`);
     
@@ -26,7 +38,6 @@ const jwtValidationMiddleware = (req: Request, res: Response, next: NextFunction
     let session: Session;
 
     if (expiration === "grace") {
-        // Automatically renew the session and send it back with the res
         const { token, expires, issued } = encodeSession(String(process.env.JWT_SECRET_KEY), decodedSession.session);
         session = {
             ...decodedSession.session,
@@ -39,14 +50,14 @@ const jwtValidationMiddleware = (req: Request, res: Response, next: NextFunction
         session = decodedSession.session;
     }
 
-    // Set the session on res.locals object for routes to access
     res.locals = {
         ...res.locals,
         session: session
     };
 
-    // Request has a valid or renewed session. Call next to continue to the authenticated route handler
     next();
+
+    return res;
 }
 
-export default () => jwtValidationMiddleware;
+export default jwtValidationMiddleware;
