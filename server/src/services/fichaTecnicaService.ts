@@ -21,14 +21,18 @@ class FichaTecnicaService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
-        throw new NotImplementedError("FichaTecnicaService.update()")
+        const put = fichaTecnicaSchema.parse(body)
+
+        const resultado = await fichaTecnicaRepository.update(id, put)
+
+        return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
-        throw new NotImplementedError("FichaTecnicaService.delete()")
+        const resultado = await fichaTecnicaRepository.delete(id)
+
+        return resultado
     }
 }
 
