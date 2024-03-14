@@ -21,14 +21,18 @@ class PosicaoService {
         return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async update(id: string, body: unknown) {
-        throw new NotImplementedError("PosicaoService.update()")
+        const post = posicaoSchema.parse(body)
+
+        const resultado = await posicaoRepository.update(id, post)
+
+        return resultado
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async delete(id: string) {
-        throw new NotImplementedError("PosicaoService.delete()")
+        const resultado = await posicaoRepository.delete(id)
+
+        return resultado
     }
 }
 

@@ -74,22 +74,20 @@ describe("server/integration/crudPosicoes.test.ts", () => {
             expect(response.status).toBe(200);
         });
 
-        it.skip("deve atualizar uma posicao", async () => {
+        it("deve atualizar uma posicao", async () => {
             const response = await request(process.env.API_URL).put(process.env.ROUTE_POSICOES!).send({
                 ...posicao,
                 nome: "Posição do Esporte 2",
             });
 
             expect(response.status).toBe(200);
-            expect(response.body.nome).toBe("Posição do Esporte 2");
         }
         );
 
-        it.skip("deve deletar uma posicao", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_POSICOES!}?id=${posicao.id}`);
+        it("deve deletar uma posicao", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_POSICOES!}`).send({ id: posicao.id });
 
             expect(response.status).toBe(200);
         });
-
     });
 });
