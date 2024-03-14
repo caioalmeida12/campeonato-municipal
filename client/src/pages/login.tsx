@@ -9,8 +9,8 @@ const LoginPage: React.FC = () => {
 
     checkAuthentication()
 
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState('caiodealmeida12@gmail.com');
+    const [senha, setSenha] = useState('12345678');
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -28,6 +28,7 @@ const LoginPage: React.FC = () => {
         if (response.ok) {
             console.log(data)
             localStorage.setItem('cm-jwt-token', data.token);
+            window.location.href = "/";
             setBackendResponse("Logado com sucesso!");
         } else {
             console.error(data)
@@ -45,7 +46,7 @@ const LoginPage: React.FC = () => {
             </label>
             <label>
                 Senha:
-                <input type="senha" value={senha} onChange={e => setSenha(e.target.value)} />
+                <input type="password" value={senha} onChange={e => setSenha(e.target.value)} />
             </label>
             <button type="submit">Log in</button>
             {
