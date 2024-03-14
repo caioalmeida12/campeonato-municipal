@@ -1,5 +1,4 @@
 import ZodError from "@lib/errors/customZodError"
-import NotImplementedError from "@lib/errors/notImplementedError"
 import esporteSchema from "@lib/types/esporteType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import EsporteModel from "@server/models/esporteModel"

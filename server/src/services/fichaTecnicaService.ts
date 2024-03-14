@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import fichaTecnicaSchema from "@lib/types/fichaTecnicaType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import FichaTecnicaModel from "@server/models/fichaTecnicaModel"

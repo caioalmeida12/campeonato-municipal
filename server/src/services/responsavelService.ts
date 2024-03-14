@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError";
 import jogadorSchema from "@lib/types/jogadorType";
 import responsavelSchema from "@lib/types/responsavelType";
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca";

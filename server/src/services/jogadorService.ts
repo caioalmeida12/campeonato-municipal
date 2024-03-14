@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import jogadorSchema from "@lib/types/jogadorType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import JogadorModel from "@server/models/jogadorModel"

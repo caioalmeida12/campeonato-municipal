@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import enderecoSchema from "@lib/types/enderecoType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import EnderecoModel from "@server/models/enderecoModel"

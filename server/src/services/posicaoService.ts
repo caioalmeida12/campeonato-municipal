@@ -1,4 +1,3 @@
-import NotImplementedError from "@lib/errors/notImplementedError"
 import posicaoSchema from "@lib/types/posicaoType"
 import validarCamposParaBusca from "@lib/utils/services/validarCamposParaBusca"
 import PosicaoModel from "@server/models/posicaoModel"
