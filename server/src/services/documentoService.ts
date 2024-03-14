@@ -31,8 +31,8 @@ class DocumentoService {
         return resultado
     }
 
-    async delete(fk_jogador_id: string) {
-        const resultado = await documentoRepository.delete(fk_jogador_id)
+    async delete(fk_jogador_id: string, tipo: string) {
+        const resultado = await documentoRepository.delete(fk_jogador_id, tipo)
 
         return resultado
     }

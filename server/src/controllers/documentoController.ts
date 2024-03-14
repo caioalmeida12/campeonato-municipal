@@ -73,7 +73,7 @@ class DocumentoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await documentoService.delete(req.params.id);
+            const resposta = await documentoService.delete(req.body.fk_jogador_id, req.body.tipo);
 
             return res.json(resposta);
         } catch (error: unknown) {

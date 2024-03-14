@@ -44,41 +44,40 @@ describe("server/integration/crudDocumentos.test.ts", () => {
         })
 
         it("Deve criar um documento", async () => {
-            try {
-                const response = await request(process.env.API_URL)
-                    .post(process.env.ROUTE_DOCUMENTOS!)
-                    .attach('data', './.gitignore')
-                    .field('fk_jogador_id', documentoPost.fk_jogador_id)
-                    .field('tipo', documentoPost.tipo)
-                    .field('validade', documentoPost.validade)
+            const response = await request(process.env.API_URL)
+                .post(process.env.ROUTE_DOCUMENTOS!)
+                .attach('data', './.gitignore')
+                .field('fk_jogador_id', documentoPost.fk_jogador_id)
+                .field('tipo', documentoPost.tipo)
+                .field('validade', documentoPost.validade)
 
-                expect(response.status).toBe(201);
+            expect(response.status).toBe(201);
 
-                documento = response.body;
-            } catch (error) {
-                console.error(error);
-            }
+            documento = response.body;
         })
-        // it("Deve buscar um documento", async () => {
-        //     const response = await request(process.env.API_URL).get(process.env.ROUTE_DOCUMENTOS!).query({ fk_jogador_id: jogador.id });
 
-        //     expect(response.status).toBe(200);
-        //     expect(response.body).toEqual([documento]);
-        // })
+        it("Deve buscar um documento com base no id do jogador", async () => {
+            const response = await request(process.env.API_URL).get(process.env.ROUTE_DOCUMENTOS!).query({ fk_jogador_id: jogador.id });
 
-        // it("Deve atualizar um documento", async () => {
-        //     const response = await request(process.env.API_URL).put(`${process.env.ROUTE_DOCUMENTOS!}/${jogador.id}`).send({ validade: "2023-12-12" });
+            expect(response.status).toBe(200);
+        })
 
-        //     expect(response.status).toBe(200);
-        //     expect(response.body).toEqual({ ...documento, validade: "2023-12-12" });
-        // })
+        it("Deve atualizar um documento", async () => {
+            const response = await request(process.env.API_URL).put(`${process.env.ROUTE_DOCUMENTOS!}`).send({ ...documento, validade: "2023-12-12"});
 
-        // it("Deve deletar um documento", async () => {
-        //     const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_DOCUMENTOS!}/${jogador.id}`);
+            expect(response.status).toBe(200);
+        })
 
-        //     expect(response.status).toBe(200);
-        //     expect(response.body).toEqual({ ...documento, validade: "2023-12-12" });
-        // })
+        it("Deve deletar um documento", async () => {
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_DOCUMENTOS!}`).send({ 
+                fk_jogador_id: jogador.id,
+                tipo: documento.tipo
+             });
+
+             console.log(response.body);
+
+            expect(response.status).toBe(200);
+        })
     })
 
     describe("Fluxo Alternativo", () => {
