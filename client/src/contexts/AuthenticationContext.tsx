@@ -16,21 +16,16 @@ const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     const checkAuthentication = useCallback(() => {
-        setIsAuthenticated(!!localStorage.getItem("cm-jwt-token"));
+        if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+            setIsAuthenticated(!!localStorage.getItem("cm-jwt-token"));
+
+            if (!localStorage.getItem("cm-jwt-token")) {
+                window.location.href = "/login";
+            }
+        }
     }, []);
 
-    const checkWindow = () => {
-        if (typeof window !== 'undefined' && !isAuthenticated) {
-            return window.location.href = '/login';
-        }
-    
-        if (typeof window == 'undefined') {
-            return <p> Carregando </p>
-        }
-    }
-
     useEffect(() => {
-        checkWindow();
         checkAuthentication();
     }, [checkAuthentication]);
 
