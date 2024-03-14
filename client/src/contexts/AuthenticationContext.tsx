@@ -1,3 +1,5 @@
+"use client"
+
 import { createContext, useCallback, useEffect, useState } from "react";
 
 interface AuthenticationContextProps {
@@ -17,10 +19,22 @@ const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => 
         setIsAuthenticated(!!localStorage.getItem("cm-jwt-token"));
     }, []);
 
+    const checkWindow = () => {
+        if (typeof window !== 'undefined' && !isAuthenticated) {
+            return window.location.href = '/login';
+        }
+    
+        if (typeof window == 'undefined') {
+            return <p> Carregando </p>
+        }
+    }
+
     useEffect(() => {
+        checkWindow();
         checkAuthentication();
     }, [checkAuthentication]);
 
+    
     return (
         <AuthenticationContext.Provider value={{ isAuthenticated, checkAuthentication }}>
             {children}

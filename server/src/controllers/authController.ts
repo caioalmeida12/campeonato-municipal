@@ -3,20 +3,30 @@ import { Request, Response, NextFunction } from "express";
 
 import { encodeSession } from "@lib/utils/jwt/handleJWT";
 import UsuarioModel from "@server/models/usuarioModel";
+import z from "zod";
 
 class AuthController {
     async login(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const usuario = await UsuarioModel.findOrCreate({
-                where: {
+            const body = z.object({
+                email: z.string().email(),
+                senha: z.string().min(8)
+            }).parse(req.body);
+
+            const { email } = body;
+
+            let usuario = await UsuarioModel.findOne({ where: { email } });
+
+            if (!usuario) {
+                usuario = await UsuarioModel.create({
                     cpf: "08538732323",
                     data_nascimento: "2002-01-12",
-                    email: "caiodealmeida12@gmail.com",
+                    email,
                     nome_completo: "Caio de Almeida Araujo",
                     senha: "12345678",
                     telefone: "21999999999"
-                }
-            })
+                });
+            }
 
             if (!usuario) return res.status(400).json({ message: "Erro ao criar usuário" });
 

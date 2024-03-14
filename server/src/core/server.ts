@@ -5,6 +5,8 @@ import { errorMiddlewares, responseMiddlewares } from "@server/middlewares";
 import routes from "@server/routes";
 import helmet from "helmet";
 import jwtValidationMiddleware from "@server/middlewares/request/jwtValidationMiddleware";
+import cors from 'cors';
+
 
 type Component = Router | ((error: Error, req: Request, res: Response, next: NextFunction) => Response | undefined);
 
@@ -18,9 +20,12 @@ class Server {
 
         if (process.env.NODE_ENV === "development") this.app.use(morgan("dev"));
 
+        this.app.use(cors({ origin: 'http://localhost:3000' }));
+
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(helmet())
+        
 
         if (process.env.AUTHENTICATION_NEEDED == "true") this.app.use(jwtValidationMiddleware);
         this.addComponent(routes);
