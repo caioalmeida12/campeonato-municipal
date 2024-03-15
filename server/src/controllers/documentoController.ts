@@ -73,7 +73,7 @@ class DocumentoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await documentoService.delete(req.body.fk_jogador_id, req.body.tipo);
+            const resposta = await documentoService.delete(String(req.query.fk_jogador_id), String(req.query.tipo));
 
             if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
 

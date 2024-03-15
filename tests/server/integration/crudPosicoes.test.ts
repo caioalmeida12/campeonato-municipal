@@ -85,7 +85,7 @@ describe("server/integration/crudPosicoes.test.ts", () => {
         );
 
         it("deve deletar uma posicao", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_POSICOES!}`).send({ id: posicao.id });
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_POSICOES!}?id=${posicao.id}`);
 
             expect(response.status).toBe(200);
         });

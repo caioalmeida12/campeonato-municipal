@@ -37,9 +37,9 @@ class FichaTecnicaController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await fichaTecnicaService.delete(String(req.query.id));
+            const resposta = await fichaTecnicaService.delete(String(req.query.fk_jogador_id));
     
-            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
+            if (!resposta) throw new SequelizeEmptyResponse({ fk_jogador_id: String(req.query.fk_jogador_id) });
 
             return res.json(resposta);
         } catch (error: unknown) {

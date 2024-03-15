@@ -69,12 +69,7 @@ describe("server/integration/crudDocumentos.test.ts", () => {
         })
 
         it("Deve deletar um documento", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_DOCUMENTOS!}`).send({ 
-                fk_jogador_id: jogador.id,
-                tipo: documento.tipo
-             });
-
-             console.log(response.body);
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_DOCUMENTOS!}?fk_jogador_id=${jogador.id}&tipo=${documento.tipo}`);
 
             expect(response.status).toBe(200);
         })

@@ -93,7 +93,7 @@ describe("server/integration/crudEnderecos.test.ts", () => {
         });
 
         it("deve deletar um endereço", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_ENDERECOS!}`);
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_ENDERECOS!}?fk_jogador_id=${endereco.fk_jogador_id}`);
 
 
             expect(response.status).toBe(200);

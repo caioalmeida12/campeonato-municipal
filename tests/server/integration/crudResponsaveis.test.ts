@@ -119,7 +119,7 @@ describe("server/integration/crudResponsaveis.test.ts", () => {
         })
 
         it("deve deletar um responsável", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_RESPONSAVEIS!}`).send({ id: responsavel.id });
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_RESPONSAVEIS!}?id=${responsavel.id}`);
 
             expect(response.status).toBe(200)
         })

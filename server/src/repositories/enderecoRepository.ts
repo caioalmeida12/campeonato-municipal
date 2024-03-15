@@ -40,8 +40,8 @@ class EnderecoRepository {
         return endereco?.update(body);
     }
 
-    async delete(id: string): Promise<void | undefined> {
-        const endereco = await EnderecoModel.findByPk(id);
+    async delete(fk_jogador_id: string): Promise<void | undefined> {
+        const endereco = await EnderecoModel.findOne({ where: { fk_jogador_id } });
 
         return endereco?.destroy();
     }
