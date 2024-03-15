@@ -9,6 +9,7 @@ import Image from 'next/image';
 import logoPrefeitura from '@/../public/assets/img/logoPrefeitura.png';
 import logoSigae from '@/../public/assets/img/logoSigae.png';
 import Input from '@/components/Input/Input';
+import Label from '@/components/Label/Label';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
