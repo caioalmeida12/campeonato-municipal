@@ -1,0 +1,5 @@
+.active {
+    --amarelo: #FCEF02;
+
+    border-bottom: 2px var(--amarelo) solid;
+}
