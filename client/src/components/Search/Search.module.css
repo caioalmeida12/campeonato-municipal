@@ -1,0 +1,7 @@
+.searchGroup{
+    display: flex;
+    padding: 0px 36px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+}

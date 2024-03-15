@@ -13,6 +13,12 @@ const Footer = () => {
                 <h3>Desenvolvido por</h3>
                 <h3>Em parceria com</h3>
                 <h3>Informações Extras</h3>
+                {/* <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            size="small"
+        /> */}
             </div>
         </footer>
     );
