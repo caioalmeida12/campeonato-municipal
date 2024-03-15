@@ -47,45 +47,45 @@ const LoginPage: React.FC = () => {
 
     return (
         <>
-        <div className={styles.container}>
-            <div className={styles.leftSide}>
-                <Image src={logoPrefeitura} alt="Logo da prefeitura" />
-                <div className={styles.welcome}>
-                    <span className={styles.spanFirst}>Seja bem vindo!</span>
-                    <span className={styles.spanSecond}>Sistema de Cadastro de <br/>
-                        Atletas e Esporte</span>
+            <div className={styles.container}>
+                <div className={styles.leftSide}>
+                    <Image src={logoPrefeitura} alt="Logo da prefeitura" />
+                    <div className={styles.welcome}>
+                        <span className={styles.spanFirst}>Seja bem vindo!</span>
+                        <span className={styles.spanSecond}>Sistema de Cadastro de <br />
+                            Atletas e Esporte</span>
+                    </div>
+                </div>
+                <div className={styles.rightSide}>
+                    <Image src={logoSigae} alt="Logo do SIGAE" />
+                    <form onSubmit={handleSubmit} className={styles.form}>
+                        <div className={styles.groupForm}>
+                            <TextField
+                                label="Email"
+                                variant="outlined"
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.groupForm}>
+                            <TextField
+                                label="Senha"
+                                variant="outlined"
+                                type="password"
+                                value={senha}
+                                onChange={e => setSenha(e.target.value)}
+                            />
+                        </div>
+                        <Button variant="verde">Entrar</Button>
+                        {
+                            backendResponse && <p style={{color: "green"}}>{backendResponse}</p>
+                        }
+                    </form>
                 </div>
             </div>
-            <div className={styles.rightSide}>
-    <Image src={logoSigae} alt="Logo do SIGAE" />
-    <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.groupForm}>
-            <TextField 
-                label="Email" 
-                variant="outlined" 
-                type="email" 
-                value={email} 
-                onChange={e => setEmail(e.target.value)} 
-            />
-        </div>
-        <div className={styles.groupForm}>
-            <TextField 
-                label="Senha" 
-                variant="outlined" 
-                type="password" 
-                value={senha} 
-                onChange={e => setSenha(e.target.value)} 
-            />
-        </div>
-        <Button variant="verde">Entrar</Button>
-        {
-            backendResponse && <p>{backendResponse}</p>
-        }
-    </form>
-</div>
-        </div>
-        <Footer />
-        {/* <form onSubmit={handleSubmit}>
+            <Footer />
+            {/* <form onSubmit={handleSubmit}>
             <label>
                 Email:
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
