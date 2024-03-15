@@ -6,12 +6,13 @@ import OrderIcon from "../Icons/OrderIcon";
 import Search from "./Search";
 import PlusIcon from "../Icons/PlusIcon";
 import Button from "@mui/material/Button";
+import SearchSelect from "./SearchSelect";
 
 const SearchGroup = ({ buttonText }) =>{
     return (
         <div className={styles.searchGroup}>
             <Search label={"Buscar por nome"} icon={SearchIcon} />
-            <Search label={"Ordenar por"} icon={OrderIcon} /> 
+            <SearchSelect label={"Ordenar por"} /> 
             <Button variant="contained" color="primary" startIcon={<PlusIcon />}>
                 {buttonText}
             </Button>
