@@ -16,7 +16,7 @@ const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     const checkAuthentication = useCallback(() => {
-        if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+        if (typeof window !== "undefined" && typeof localStorage !== "undefined" && window.location.pathname !== "/login") {
             setIsAuthenticated(!!localStorage.getItem("cm-jwt-token"));
 
             if (!localStorage.getItem("cm-jwt-token")) {
