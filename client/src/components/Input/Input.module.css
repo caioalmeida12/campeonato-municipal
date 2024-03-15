@@ -1,0 +1,13 @@
+.input{
+    display: flex;
+    width: 22.6875rem;
+    height: 3.6875rem;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 0.25rem;
+}
+
+.cinza{
+    background: var(--cinza-claro);
+}

@@ -66,7 +66,7 @@
     line-height: normal;
 }
 
-.input{
+/* .input{
     display: flex;
     width: 22.6875rem;
     height: 3.6875rem;
@@ -75,4 +75,4 @@
     gap: 0.625rem;
     border-radius: 0.25rem;
     background: var(--cinza-claro);
-}
+} */

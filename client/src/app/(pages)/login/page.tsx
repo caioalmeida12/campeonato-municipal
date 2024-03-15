@@ -8,6 +8,7 @@ import Button from '@/components/Button/Button';
 import Image from 'next/image';
 import logoPrefeitura from '@/../public/assets/img/logoPrefeitura.png';
 import logoSigae from '@/../public/assets/img/logoSigae.png';
+import Input from '@/components/Input/Input';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -60,11 +61,13 @@ const LoginPage: React.FC = () => {
                 <form onSubmit={handleSubmit} className={styles.form}>
                     <div className={styles.groupForm}>
                         <label className={styles.label}>Email</label>
-                        <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                        <Input variant="cinza" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} />
+                        {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
                     </div>
                     <div className={styles.groupForm}>
                         <label className={styles.label}>Senha</label>
-                        <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                        <Input variant="cinza" type="password" placeholder="Digite sua senha" value={senha} onChange={e => setSenha(e.target.value)} />
+                        {/* <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} /> */}
                     </div>
                     <Button variant="verde" type="submit">Entrar</Button>
                     {
