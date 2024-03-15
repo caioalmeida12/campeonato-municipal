@@ -2,17 +2,17 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    margin: 80px;
-    border: 1px solid red;
-    padding: 10px;
+    margin: 5rem;
+    border: 0.0625rem solid red;
+    padding: 0.625rem;
 }
 
 .leftSide{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    border: 1px solid blue;
+    gap: 0.625rem;
+    border: 0.0625rem solid blue;
 }
 
 .welcome{
@@ -24,17 +24,15 @@
 
 .spanFirst{
     color: #6B6B6B;
-    font-family: Poppins;
-    font-size: 40px;
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 500;
     line-height: 100%;
 }
 
 .spanSecond{
-    color: #019340;
-    font-family: Poppins;
-    font-size: 40px;
+    color: var(--verde-400);
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -44,29 +42,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 17px;
-    flex-shrink: 0;
-    border: 1px solid green;
+    gap: 1.0625rem;
+    border: 0.0625rem solid green;
 }
 
 .form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 38px;
+    gap: 2.375rem;
 }
 
 .groupForm{
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 7px;
+    gap: 0.4375rem;
 }
 
 .label{
-    color: #000;
-    font-family: Poppins;
-    font-size: 20px;
+    color: var(--preto);
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -74,11 +70,11 @@
 
 .input{
     display: flex;
-    width: 363px;
-    height: 59px;
-    padding: 8px 16px;
+    width: 22.6875rem;
+    height: 3.6875rem;
+    padding: 0.5rem 1rem;
     align-items: center;
-    gap: 10px;
-    border-radius: 4px;
-    background: #E5E5E5;
+    gap: 0.625rem;
+    border-radius: 0.25rem;
+    background: var(--cinza);
 }
