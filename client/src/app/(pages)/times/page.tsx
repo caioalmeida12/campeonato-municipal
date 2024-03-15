@@ -10,11 +10,13 @@ import { handleCreate, handleDelete, handleGet } from "@/lib/tableHelper"
 import FormDialog from "@/containers/FormDialog/FormDialog"
 import TextField from '@mui/material/TextField';
 
+import styles from './page.module.css'
 
 const Times = () => {
     const [data, setData] = useState<TimeType[]>([])
     const [shouldRefetch, setShouldRefetch] = useState(false)
     const [error, setError] = useState<string | null>()
+    const [formMethod, setFormMethod] = useState<"POST" | "PUT">("POST")
 
     const [formValues, setFormValues] = useState({
         nome: '',
@@ -44,35 +46,45 @@ const Times = () => {
 
     const handleCreateButton = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-    
+
         const formData = new FormData(event.currentTarget)
         let formValues: any = {};
         formData.forEach((value, key) => {
             formValues[key] = value;
         });
-    
+
         const esportePost: EsporteType = {
             id: "",
             nome: "Esporte 1",
             maximo_jogadores_por_time: 10,
             maximo_jogadores_titulares: 10
         }
-    
+
         const esporte = await fetch(`http://localhost:5000/esportes`, {
-            method: "POST",
+            method: formMethod,
             headers: {
                 "Content-Type": "application/json",
                 "X-JWT-token": localStorage.getItem("cm-jwt-token") || ""
             },
             body: JSON.stringify(esportePost)
         }).then(data => data.json())
-    
+
         if (esporte.id) formValues.fk_esporte_id = esporte.id
-    
+
         handleCreate<TimeType>("times", formValues)
             .then((response) => {
                 response.success ? setShouldRefetch(!shouldRefetch) : setError(response.response as string)
             })
+    }
+
+    const handleEditButton = (id: string) => {
+        
+
+        const time = data.find((item) => item.id === id)
+        if (time) {
+            setFormValues(time)
+            setFormMethod("PUT")
+        }
     }
 
     const handleDeleteButton = (id: string) => {
@@ -95,7 +107,6 @@ const Times = () => {
         });
     };
 
-
     return (
         <Structure headerText="Controle de times">
             <FormDialog
@@ -112,16 +123,18 @@ const Times = () => {
                 <TextField id="responsavel" label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
 
             </FormDialog>
-            {
-                data[0] && (
-                    <CustomTable
-                        data={data}
-                        onEdit={(row) => console.log("Edit", row)}
-                        onDelete={(row) => handleDeleteButton(row.id)}
-                    />
-                )
-            }
-            {error}
+            <div className={styles.wrapper}>
+                {
+                    data[0] && (
+                        <CustomTable
+                            data={data}
+                            onEdit={(row) => handleEditButton(row.id)}
+                            onDelete={(row) => handleDeleteButton(row.id)}
+                        />
+                    )
+                }
+                <span className={styles.error}>{error}</span>
+            </div>
         </Structure>
     )
 }
