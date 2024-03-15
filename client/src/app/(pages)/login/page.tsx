@@ -2,6 +2,8 @@
 
 import AuthenticationContext from '@/contexts/AuthenticationContext';
 import React, { useState, useContext } from 'react';
+import styles from './page.module.css';
+import { Container } from 'postcss';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -39,6 +41,31 @@ const LoginPage: React.FC = () => {
     };
 
     return (
+        <>
+        <div className={styles.container}>
+            <div className={styles.leftSide}>
+                <img src="" alt="Logo aqui" />
+                <span>Seja bem vindo!Sistema de Cadastro de atletas e esporte</span>
+                
+            </div>
+            <div className={styles.rightSide}>
+                <img src="" alt="logo aqui" />
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.groupForm}>
+                        <label className={styles.label}>Email</label>
+                        <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    </div>
+                    <div className={styles.groupForm}>
+                        <label className={styles.label}>Senha</label>
+                        <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+                    </div>
+                    <button type="submit">Log in</button>
+                    {
+                        backendResponse && <p>{backendResponse}</p>
+                    }
+                </form>
+            </div>
+        </div>
         <form onSubmit={handleSubmit}>
             <label>
                 Email:
@@ -53,6 +80,7 @@ const LoginPage: React.FC = () => {
                 backendResponse && <p>{backendResponse}</p>
             }
         </form>
+        </>
     );
 };
 
