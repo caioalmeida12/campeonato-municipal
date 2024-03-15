@@ -24,7 +24,10 @@ const fichaTecnicaSchema = z.object({
     membro_inferior_dominante: z.enum(['DIR', 'ESQ', 'AMB']),
     membro_superior_dominante: z.enum(['DIR', 'ESQ', 'AMB']),
     experiencia: z.enum(['AMADOR', 'MODERADO', 'VETERANO', 'PROFISSIONAL']),
-    is_capitao: z.boolean()
+    is_capitao: z.preprocess(
+        (val) => Boolean(val),
+        z.boolean()
+    ),
 });
 
 export default fichaTecnicaSchema;

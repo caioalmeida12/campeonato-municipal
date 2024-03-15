@@ -11,6 +11,7 @@ import FormDialog from "@/containers/FormDialog/FormDialog"
 import TextField from '@mui/material/TextField';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 import styles from './page.module.css'
 
@@ -96,12 +97,12 @@ const Posicoes = () => {
                 content={"Insira os dados da posição"}
                 onSubmit={handleCreateButton}
             >
+                <InputLabel id="fk-esporte-id-label">Esporte</InputLabel>
                 <Select
                     labelId="fk-esporte-id-label"
                     id="fk-esporte-id"
                     name="fk_esporte_id"
                     value={formValues.fk_esporte_id || ""}
-                    label="Esporte da posição"
                     onChange={handleSelectChange}
                     displayEmpty
                 >
