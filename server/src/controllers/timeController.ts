@@ -27,7 +27,7 @@ class TimeController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await timeService.update(req.params.id, req.body);
+            const resposta = await timeService.update(String(req.query.id), req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,10 +37,13 @@ class TimeController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await timeService.delete(req.params.id);
+            const resposta = await timeService.delete(String(req.query.id));
+
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
     
             return res.json(resposta);
         } catch (error: unknown) {
+            console.error(error)
             next(error)
         }
     }
