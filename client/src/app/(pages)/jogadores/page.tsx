@@ -6,7 +6,7 @@ const Documentos = () => {
     return (
         <Structure headerText="Controle de jogadores">
             Jogadores
-            <SearchGroup />
+            <SearchGroup buttonText="Adicionar jogador" />
         </Structure>
     )
 }
