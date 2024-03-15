@@ -28,7 +28,7 @@ class ResponsavelController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await responsavelService.update(req.params.id, req.body);
+            const resposta = await responsavelService.update(String(req.query.id), req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -38,8 +38,11 @@ class ResponsavelController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await responsavelService.delete(req.params.id);
+            const resposta = await responsavelService.delete(String(req.query.id));
     
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
+
+
             return res.json(resposta);
         } catch (error: unknown) {
             next(error)

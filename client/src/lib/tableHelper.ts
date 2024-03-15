@@ -90,6 +90,11 @@ const handleDelete = async (route: string, id: string, shouldRefetch: boolean, s
 
 const errorFormatter = (error: ErrorType) => {
     let message = error.message
+
+    if (typeof error.campos === "undefined") {
+        return message
+    }
+
     error.campos.forEach((campo) => {
         message += `\n[${campo.nome}: ${campo.validacao}]`
     })

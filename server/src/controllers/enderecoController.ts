@@ -27,7 +27,7 @@ class EnderecoController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await enderecoService.update(req.params.id, req.body);
+            const resposta = await enderecoService.update(String(req.query.id), req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,8 +37,10 @@ class EnderecoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await enderecoService.delete(req.params.id);
+            const resposta = await enderecoService.delete(String(req.query.id));
     
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
+
             return res.json(resposta);
         } catch (error: unknown) {
             next(error)

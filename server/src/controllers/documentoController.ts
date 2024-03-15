@@ -63,7 +63,7 @@ class DocumentoController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await documentoService.update(req.params.id, req.body);
+            const resposta = await documentoService.update(String(req.query.id), req.body);
 
             return res.json(resposta);
         } catch (error: unknown) {
@@ -74,6 +74,8 @@ class DocumentoController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
             const resposta = await documentoService.delete(req.body.fk_jogador_id, req.body.tipo);
+
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
 
             return res.json(resposta);
         } catch (error: unknown) {

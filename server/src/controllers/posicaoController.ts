@@ -27,7 +27,7 @@ class PosicaoController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.update(req.params.id, req.body);
+            const resposta = await posicaoService.update(String(req.query.id), req.body);
     
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,8 +37,10 @@ class PosicaoController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await posicaoService.delete(req.params.id);
+            const resposta = await posicaoService.delete(String(req.query.id));
     
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
+
             return res.json(resposta);
         } catch (error: unknown) {
             next(error)

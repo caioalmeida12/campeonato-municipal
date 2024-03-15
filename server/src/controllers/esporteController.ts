@@ -27,7 +27,7 @@ class EsporteController {
 
     async update(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await esporteService.update(req.params.id, req.body);
+            const resposta = await esporteService.update(String(req.query.id), req.body);
 
             return res.json(resposta);
         } catch (error: unknown) {
@@ -37,7 +37,9 @@ class EsporteController {
 
     async delete(req: Request, res: Response, next: NextFunction): Promise<Response | undefined> {
         try {
-            const resposta = await esporteService.delete(req.params.id);
+            const resposta = await esporteService.delete(String(req.query.id));
+
+            if (!resposta) throw new SequelizeEmptyResponse({ id: String(req.query.id) });
 
             return res.json(resposta);
         } catch (error: unknown) {

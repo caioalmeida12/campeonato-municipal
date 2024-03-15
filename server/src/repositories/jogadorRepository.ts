@@ -46,7 +46,13 @@ class JogadorRepository {
     }
 
     async delete(id: string): Promise<void | undefined> {
-        const jogador = await JogadorModel.findByPk(id);
+        const jogador = await JogadorModel.findOne({
+            where: {
+                id
+            }
+        });
+
+        console.log(jogador);
 
         return jogador?.destroy();
     }
