@@ -27,7 +27,11 @@ const CustomTable = ({ data, onEdit, onDelete }: TableProps) => {
                             data.map((row, index) => (
                                 <TableRow key={index}>
                                     {columns.map((column, index) => (
-                                        <TableCell key={index}>{row[column]}</TableCell>
+                                        <TableCell key={index}>
+                                            {typeof row[column] === 'object' && row[column] !== null
+                                                ? Object.values(row[column]).join('\n')
+                                                : row[column]}
+                                        </TableCell>
                                     ))}
                                     <TableCell>
                                         {
