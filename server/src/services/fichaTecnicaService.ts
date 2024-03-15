@@ -28,8 +28,8 @@ class FichaTecnicaService {
         return resultado
     }
 
-    async delete(id: string) {
-        const resultado = await fichaTecnicaRepository.delete(id)
+    async delete(fk_jogador_id: string) {
+        const resultado = await fichaTecnicaRepository.delete(fk_jogador_id)
 
         return resultado
     }

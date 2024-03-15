@@ -80,11 +80,7 @@ describe("server/integration/crudEsportes.test.ts", () => {
         });
 
         it("deve deletar um esporte", async () => {
-            const response = await request(process.env.API_URL).delete(process.env.ROUTE_ESPORTES!).send({
-                id: esporte.id,
-            });
-
-            console.log(response);
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_ESPORTES!}?id=${esporte.id}`);
 
             expect(response.status).toBe(200);
         });

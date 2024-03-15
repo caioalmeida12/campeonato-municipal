@@ -43,8 +43,10 @@ class FichaTecnicaRepository {
         return fichaTecnica?.update(body);
     }
 
-    async delete(id: string): Promise<void | undefined> {
-        const fichaTecnica = await FichaTecnicaModel.findByPk(id);
+    async delete(fk_jogador_id: string): Promise<void | undefined> {
+        const fichaTecnica = await FichaTecnicaModel.findOne({ where: { 
+            fk_jogador_id
+         } });
 
         return fichaTecnica?.destroy();
     }

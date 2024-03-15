@@ -80,7 +80,7 @@ describe("server/integration/crudTimes.test.ts", () => {
         });
 
         it("deve deletar um time", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_TIMES!}`).send({ id: time.id });
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_TIMES!}?id=${time.id}`);
 
             expect(response.status).toBe(200);
         });

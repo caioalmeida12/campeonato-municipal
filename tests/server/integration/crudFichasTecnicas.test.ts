@@ -139,7 +139,7 @@ describe("server/integration/crudFichasTecnicas.test.ts", () => {
         });
 
         it("deve deletar uma ficha técnica", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_FICHAS_TECNICAS!}`).send({ id: fichaTecnica.id });
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_FICHAS_TECNICAS!}?fk_jogador_id=${fichaTecnica.fk_jogador_id}`);
 
             expect(response.status).toBe(200);
         });

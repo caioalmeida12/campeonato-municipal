@@ -150,9 +150,7 @@ describe("server/integration/crudJogadores.test.ts", () => {
         });
 
         it("deve deletar um jogador", async () => {
-            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_JOGADORES}`).send({
-                id: jogador.id,
-            });
+            const response = await request(process.env.API_URL).delete(`${process.env.ROUTE_JOGADORES}?id=${jogador.id}`);
 
             expect(response.status).toBe(200);
         });

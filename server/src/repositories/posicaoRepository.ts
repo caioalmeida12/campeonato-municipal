@@ -42,7 +42,7 @@ class PosicaoRepository {
     }
 
     async delete(id: string): Promise<void | undefined> {
-        const posicao = await PosicaoModel.findByPk(id);
+        const posicao = await PosicaoModel.findOne({ where: { id } });
 
         return posicao?.destroy();
     }
