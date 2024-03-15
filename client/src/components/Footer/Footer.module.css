@@ -1,0 +1,24 @@
+.footer{
+    display: flex;
+    width: 1440px;
+    height: 97px;
+    padding: 24px 64px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: var(--verde-400);
+}
+
+.footerLeft{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.footerRight{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
