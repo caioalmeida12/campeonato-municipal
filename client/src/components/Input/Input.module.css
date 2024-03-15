@@ -1,4 +1,4 @@
-.input{
+.inputBig{
     display: flex;
     width: 22.6875rem;
     height: 3.6875rem;
@@ -6,8 +6,23 @@
     align-items: center;
     gap: 0.625rem;
     border-radius: 0.25rem;
+    background: var(--cinza-claro);
 }
 
-.cinza{
+.inputSmall{
+    display: flex;
+    align-items: center;
+    width: 27.651rem;
+    height: 2.395rem;
+    border-radius: 0.625rem;
+    border: 0px solid #000;
     background: var(--cinza-claro);
+    mix-blend-mode: darken;
+    box-shadow: var(--sombra);
+    color: var(--cinza-escuro);
+    font-family: Poppins;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }

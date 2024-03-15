@@ -63,13 +63,13 @@ const LoginPage: React.FC = () => {
                     <div className={styles.groupForm}>
                         <Label variant="simples">Email</Label>
                         {/* <label className={styles.label}>Email</label> */}
-                        <Input variant="cinza" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} />
+                        <Input variant="inputBig" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} />
                         {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
                     </div>
                     <div className={styles.groupForm}>
                         <Label variant="simples">Senha</Label>
                         {/* <label className={styles.label}>Senha</label> */}
-                        <Input variant="cinza" type="password" placeholder="Digite sua senha" value={senha} onChange={e => setSenha(e.target.value)} />
+                        <Input variant="inputBig" type="password" placeholder="Digite sua senha" value={senha} onChange={e => setSenha(e.target.value)} />
                         {/* <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} /> */}
                     </div>
                     <Button variant="verde" type="submit">Entrar</Button>

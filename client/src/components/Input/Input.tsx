@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Input.module.css";
 
 interface InputProps {
-  variant: "cinza";
+  variant:  "inputBig" | "inputSmall";
   type: string;
   placeholder: string;
   value: string;
@@ -10,11 +10,12 @@ interface InputProps {
 }
 
 const variantStyles = {
-  "cinza": styles.cinza,
+  "inputBig": styles.inputBig,
+  "inputSmall": styles.inputSmall,
 };
 
 const Input = ({ variant, type, placeholder, value, onChange }: InputProps) => {
-  const style = `${styles.input} ${variantStyles[variant]}`;
+  const style = `${styles.inputBig} ${variantStyles[variant]}`;
 
   return (
     <input className={style} type={type} placeholder={placeholder} value={value} onChange={onChange} />
