@@ -5,14 +5,14 @@ const Footer = () => {
     return (
         <footer className={styles.footer}>
             <div className={styles.footerLeft}>
-                <h3>© 2021</h3>
-                <h3>© 2021</h3>
-                <h3>© 2021</h3>
+                <h3>SIGAE</h3>
+                <h3>Versão 1.0</h3>
+                <h3>Informações Extras</h3>
             </div>
             <div className={styles.footerRight}>
-                <h3>© 2021</h3>
-                <h3>© 2021</h3>
-                <h3>© 2021</h3>
+                <h3>Desenvolvido por</h3>
+                <h3>Em parceria com</h3>
+                <h3>Informações Extras</h3>
             </div>
         </footer>
     );

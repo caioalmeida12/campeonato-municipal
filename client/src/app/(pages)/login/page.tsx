@@ -10,6 +10,7 @@ import logoPrefeitura from '@/../public/assets/img/logoPrefeitura.png';
 import logoSigae from '@/../public/assets/img/logoSigae.png';
 import Input from '@/components/Input/Input';
 import Label from '@/components/Label/Label';
+import Footer from '@/components/Footer/Footer';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -79,6 +80,7 @@ const LoginPage: React.FC = () => {
                 </form>
             </div>
         </div>
+        <Footer />
         {/* <form onSubmit={handleSubmit}>
             <label>
                 Email:
