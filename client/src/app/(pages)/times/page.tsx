@@ -19,10 +19,15 @@ const Times = () => {
                 .then((response) => {
                     response.success ? setData(response.response as []) : setError(response.response as any)
                 })
-        }
-
+        }        
         fetchData()
     }, [shouldRefetch]);
+
+    useEffect(() => {
+        if (data[0]) {
+            setError(null)
+        }
+    }, [data])
 
     const handleCreateButton = async () => {
         const esportePost: EsporteType = {
@@ -54,14 +59,21 @@ const Times = () => {
 
         timePost.fk_esporte_id = esporte.id
 
-        const create = await handleCreate<TimeType>("times", timePost)
+        handleCreate<TimeType>("times", timePost)
+        .then((response) => {
+            response.success ? setShouldRefetch(!shouldRefetch) : setError(response.response as string)
+        })
 
-        create.success ? setData(create.response as []) : setError(create.response as any);
     }
 
     const handleDeleteButton = (id: string) => {
         try {
+            
             handleDelete("times", id, shouldRefetch, setShouldRefetch)
+            .then((response) => {
+                response.success ? setData(data.filter((item) => item.id !== id)) : setError(response.response as string)
+            })
+
         } catch (error: any) {
             setError(error)
         }
