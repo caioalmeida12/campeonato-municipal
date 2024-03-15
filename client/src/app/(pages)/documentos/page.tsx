@@ -72,12 +72,12 @@ const Documentos = () => {
         });
     };
 
-    const handleDeleteButton = (id: string) => {
+    const handleDeleteButton = (fk_jogador_id: string) => {
         try {
 
-            handleDelete("documentos", id, shouldRefetch, setShouldRefetch)
+            handleDelete("documentos", fk_jogador_id, shouldRefetch, setShouldRefetch)
                 .then((response) => {
-                    response.success ? setData(data.filter((item) => item.id !== id)) : setError(response.response as string)
+                    response.success ? setData(data.filter((item) => item.fk_jogador_id !== fk_jogador_id)) : setError(response.response as string)
                 })
 
         } catch (error: any) {
@@ -106,7 +106,7 @@ const Documentos = () => {
                     id="tipo"
                     name="tipo"
                     value={formValues.tipo}
-                    onChange={handleChange}
+                    onChange={handleSelectChange}
                     displayEmpty
                 >
                     <MenuItem value="" disabled>

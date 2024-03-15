@@ -1,7 +1,7 @@
 'use client'
 import Structure from "@/containers/Structure/Structure"
 import CustomTable from "@/containers/Table/Table"
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { EnderecoType } from "@/../../lib/types/enderecoType"
@@ -9,6 +9,8 @@ import { FormEvent, useEffect, useState } from "react"
 import { handleCreate, handleDelete, handleGet } from "@/lib/tableHelper"
 import FormDialog from "@/containers/FormDialog/FormDialog"
 import TextField from '@mui/material/TextField';
+
+import { JogadorType } from "../../../../../lib/types/jogadorType";
 
 import styles from './page.module.css'
 
@@ -65,12 +67,12 @@ const Enderecos = () => {
     }
     
 
-    const handleDeleteButton = (id: string) => {
+    const handleDeleteButton = (fk_jogador_id: string) => {
         try {
 
-            handleDelete("enderecos", id, shouldRefetch, setShouldRefetch)
+            handleDelete("enderecos", fk_jogador_id, shouldRefetch, setShouldRefetch)
                 .then((response) => {
-                    response.success ? setData(data.filter((item) => item.id !== id)) : setError(response.response as string)
+                    response.success ? setData(data.filter((item) => item.fk_jogador_id !== fk_jogador_id)) : setError(response.response as string)
                 })
 
         } catch (error: any) {
