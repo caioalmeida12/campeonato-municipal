@@ -18,7 +18,7 @@ class ResponsavelRepository {
             }
         }
 
-        if (!camposParaBusca?.length) return ResponsavelModel.findAll();
+        if (!camposParaBusca?.length) return ResponsavelModel.findAll({ paranoid: false});
         
         return ResponsavelModel.findAll({
             where

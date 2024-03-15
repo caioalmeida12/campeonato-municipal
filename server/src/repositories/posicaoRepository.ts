@@ -13,7 +13,7 @@ class PosicaoRepository {
             [Op.and]: filtros.posicao,
         }
 
-        if (!camposParaBusca?.length) return PosicaoModel.findAll();
+        if (!camposParaBusca?.length) return PosicaoModel.findAll({ paranoid: false});
 
         return PosicaoModel.findAll({
             where

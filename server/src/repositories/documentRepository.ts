@@ -13,7 +13,7 @@ class DocumentoRepository {
             [Op.and]: filtros.documento,
         }
 
-        if (!camposParaBusca?.length) return DocumentoModel.findAll();
+        if (!camposParaBusca?.length) return DocumentoModel.findAll({ paranoid: false});
 
         return DocumentoModel.findAll({
             where

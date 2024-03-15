@@ -3,7 +3,7 @@ import { TimeType } from "@/../../lib/types/timeType";
 
 interface TableProps {
     data: any[];
-    onEdit: (row: TimeType) => void;
+    onEdit?: (row: TimeType) => void;
     onDelete: (row: TimeType) => void;
 }
 
@@ -30,9 +30,13 @@ const CustomTable = ({ data, onEdit, onDelete }: TableProps) => {
                                         <TableCell key={index}>{row[column]}</TableCell>
                                     ))}
                                     <TableCell>
-                                        <Button variant="contained" color="primary" onClick={() => onEdit(row)}>
-                                            Edit
-                                        </Button>
+                                        {
+                                            onEdit && (
+                                                <Button variant="contained" color="primary" onClick={() => onEdit(row)}>
+                                                    Edit
+                                                </Button>
+                                            )
+                                        }
                                         <Button variant="contained" color="secondary" onClick={() => onDelete(row)}>
                                             Delete
                                         </Button>

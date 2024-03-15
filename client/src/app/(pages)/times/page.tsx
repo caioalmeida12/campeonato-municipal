@@ -16,7 +16,6 @@ const Times = () => {
     const [data, setData] = useState<TimeType[]>([])
     const [shouldRefetch, setShouldRefetch] = useState(false)
     const [error, setError] = useState<string | null>()
-    const [formMethod, setFormMethod] = useState<"POST" | "PUT">("POST")
 
     const [formValues, setFormValues] = useState({
         nome: '',
@@ -61,7 +60,7 @@ const Times = () => {
         }
 
         const esporte = await fetch(`http://localhost:5000/esportes`, {
-            method: formMethod,
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "X-JWT-token": localStorage.getItem("cm-jwt-token") || ""
@@ -75,16 +74,6 @@ const Times = () => {
             .then((response) => {
                 response.success ? setShouldRefetch(!shouldRefetch) : setError(response.response as string)
             })
-    }
-
-    const handleEditButton = (id: string) => {
-        
-
-        const time = data.find((item) => item.id === id)
-        if (time) {
-            setFormValues(time)
-            setFormMethod("PUT")
-        }
     }
 
     const handleDeleteButton = (id: string) => {
@@ -119,7 +108,7 @@ const Times = () => {
                 <TextField id="email" label="Email do time" name="email" variant="outlined" value={formValues.email} onChange={handleChange} />
                 <TextField id="telefone" label="Telefone do time" name="telefone" variant="outlined" value={formValues.telefone} onChange={handleChange} />
                 <TextField id="escudo" label="Escudo do time (link)" name="escudo" variant="outlined" value={formValues.escudo} onChange={handleChange} />
-                <TextField id="localidade" label="Localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
+                <TextField id="localidade" label="Bairro ou localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
                 <TextField id="responsavel" label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
 
             </FormDialog>
@@ -128,7 +117,6 @@ const Times = () => {
                     data[0] && (
                         <CustomTable
                             data={data}
-                            onEdit={(row) => handleEditButton(row.id)}
                             onDelete={(row) => handleDeleteButton(row.id)}
                         />
                     )

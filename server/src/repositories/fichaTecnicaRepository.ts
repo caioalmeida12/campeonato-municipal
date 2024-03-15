@@ -16,7 +16,7 @@ class FichaTecnicaRepository {
             [Op.and]: filtros.fichaTecnica,
         }
 
-        if (!camposParaBusca?.length) return FichaTecnicaModel.findAll();
+        if (!camposParaBusca?.length) return FichaTecnicaModel.findAll({ paranoid: false});
 
         return FichaTecnicaModel.findAll({
             where

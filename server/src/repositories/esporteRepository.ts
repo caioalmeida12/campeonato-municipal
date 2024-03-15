@@ -13,7 +13,7 @@ class EsporteRepository {
             [Op.and]: filtros.esporte,
         }
 
-        if (!camposParaBusca?.length) return esporteModel.findAll();
+        if (!camposParaBusca?.length) return esporteModel.findAll({ paranoid: false});
 
         return esporteModel.findAll({
             where

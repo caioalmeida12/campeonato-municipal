@@ -11,7 +11,7 @@ class UsuarioRepository {
             [Op.and]: filtros.usuario,
         }
 
-        if (!camposParaBusca?.length) return UsuarioModel.findAll();
+        if (!camposParaBusca?.length) return UsuarioModel.findAll({ paranoid: false});
 
         return UsuarioModel.findAll({
             where

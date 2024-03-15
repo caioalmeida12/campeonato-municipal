@@ -14,7 +14,7 @@ class EnderecoRepository {
             [Op.and]: filtros.endereco,
         }
 
-        if (!camposParaBusca?.length) return EnderecoModel.findAll();
+        if (!camposParaBusca?.length) return EnderecoModel.findAll({ paranoid: false});
 
         return EnderecoModel.findAll({
             where

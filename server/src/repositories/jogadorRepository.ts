@@ -17,7 +17,7 @@ class JogadorRepository {
             }
         }
 
-        if (!camposParaBusca?.length) return JogadorModel.findAll();
+        if (!camposParaBusca?.length) return JogadorModel.findAll({ paranoid: false});
         
         return JogadorModel.findAll({
             where

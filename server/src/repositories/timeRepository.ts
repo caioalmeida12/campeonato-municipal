@@ -14,7 +14,7 @@ class TimeRepository {
             [Op.and]: filtros.time,
         }
 
-        if (!camposParaBusca?.length) return TimeModel.findAll();
+        if (!camposParaBusca?.length) return TimeModel.findAll({ paranoid: false});
 
         return TimeModel.findAll({
             where
