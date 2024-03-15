@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
                 <div className={styles.welcome}>
                     <span className={styles.spanFirst}>Seja bem vindo!</span>
                     <span className={styles.spanSecond}>Sistema de Cadastro de <br/>
-                        atletas e esporte</span>
+                        Atletas e Esporte</span>
                 </div>
             </div>
             <div className={styles.rightSide}>
