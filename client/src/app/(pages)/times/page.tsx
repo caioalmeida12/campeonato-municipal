@@ -1,8 +1,10 @@
+import Structure from "@/containers/Structure/Structure"
+
 const Times = () => {
     return (
-        <div>
+        <Structure headerText="Controle de times">
             Times
-        </div>
+        </Structure>
     )
 }
 

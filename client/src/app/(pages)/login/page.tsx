@@ -3,19 +3,15 @@
 import AuthenticationContext from '@/contexts/AuthenticationContext';
 import React, { useState, useContext } from 'react';
 import styles from './page.module.css';
-import { Container } from 'postcss';
 import Button from '@/components/Button/Button';
 import Image from 'next/image';
 import logoPrefeitura from '@/../public/assets/img/logoPrefeitura.png';
 import logoSigae from '@/../public/assets/img/logoSigae.png';
-import Input from '@/components/Input/Input';
-import Label from '@/components/Label/Label';
 import Footer from '@/components/Footer/Footer';
-import SearchIcon from '@/components/Icons/SearchIcon';
 import TextField from '@mui/material/TextField';
 
 const LoginPage: React.FC = () => {
-    const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
+    const { checkAuthentication } = useContext(AuthenticationContext)
     const [backendResponse, setBackendResponse] = useState('')
 
     checkAuthentication()

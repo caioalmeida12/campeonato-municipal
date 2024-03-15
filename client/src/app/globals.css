@@ -8,9 +8,12 @@
   --verde-400: #019340;
   --branco : #ffffff;
   --preto: #000000;
-  --cinza-claro: #e5e5e5;
-  --cinza-escuro:#6B6B6B;
+  --cinza-200: #e5e5e5;
+  --cinza-400:#6B6B6B;
+  --amarelo-400: #FCEF02;
   --sombra:box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  --font-semibold: 600;
   
   font-family: 'Roboto', sans-serif;
 }

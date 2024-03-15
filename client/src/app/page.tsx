@@ -4,7 +4,7 @@ import AuthenticationContext from "@/contexts/AuthenticationContext";
 import { useContext } from "react";
 
 export default function Home() {
-  const {isAuthenticated, checkAuthentication} = useContext(AuthenticationContext)
+  const {checkAuthentication} = useContext(AuthenticationContext)
   
   checkAuthentication()
 

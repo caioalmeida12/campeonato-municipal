@@ -1,8 +1,10 @@
+import Structure from "@/containers/Structure/Structure"
+
 const Esportes = () => {
     return (
-        <div>
+        <Structure headerText="Controle de esportes">
             Esportes
-        </div>
+        </Structure>
     )
 }
 
