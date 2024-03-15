@@ -108,7 +108,7 @@ const Times = () => {
                 <TextField id="email" label="Email do time" name="email" variant="outlined" value={formValues.email} onChange={handleChange} />
                 <TextField id="telefone" label="Telefone do time" name="telefone" variant="outlined" value={formValues.telefone} onChange={handleChange} />
                 <TextField id="escudo" label="Escudo do time (link)" name="escudo" variant="outlined" value={formValues.escudo} onChange={handleChange} />
-                <TextField id="localidade" label="Bairro ou localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
+                <TextField id="localidade" label="Localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
                 <TextField id="responsavel" label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
 
             </FormDialog>
