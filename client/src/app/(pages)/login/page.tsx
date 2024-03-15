@@ -11,6 +11,7 @@ import logoSigae from '@/../public/assets/img/logoSigae.png';
 import Input from '@/components/Input/Input';
 import Label from '@/components/Label/Label';
 import Footer from '@/components/Footer/Footer';
+import SearchIcon from '@/components/Icons/SearchIcon';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -64,6 +65,8 @@ const LoginPage: React.FC = () => {
                     <div className={styles.groupForm}>
                         <Label variant="simples">Email</Label>
                         {/* <label className={styles.label}>Email</label> */}
+                        {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
+                        {/* <Input variant="searchBar" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} icon={<SearchIcon/>} /> */}
                         <Input variant="inputBig" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} />
                         {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
                     </div>

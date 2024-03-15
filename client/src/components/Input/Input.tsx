@@ -21,8 +21,8 @@ const Input = ({ variant, type, placeholder, value, onChange, icon }: InputProps
 
   return (
     <div className={style}>
-      {icon && <div className={styles.icon}>{icon}</div>} // Renderizando o ícone se ele existir
-      <input type={type} placeholder={placeholder} value={value} onChange={onChange} />
+      <input className={style} type={type} placeholder={placeholder} value={value} onChange={onChange} />
+      {icon && <div className={styles.icon}>{icon}</div>}
     </div>
   );
 };
