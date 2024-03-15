@@ -12,6 +12,7 @@ import Input from '@/components/Input/Input';
 import Label from '@/components/Label/Label';
 import Footer from '@/components/Footer/Footer';
 import SearchIcon from '@/components/Icons/SearchIcon';
+import TextField from '@mui/material/TextField';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -60,28 +61,32 @@ const LoginPage: React.FC = () => {
                 </div>
             </div>
             <div className={styles.rightSide}>
-                <Image src={logoSigae} alt="Logo do SIGAE" />
-                <form onSubmit={handleSubmit} className={styles.form}>
-                    <div className={styles.groupForm}>
-                        <Label variant="simples">Email</Label>
-                        {/* <label className={styles.label}>Email</label> */}
-                        {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
-                        {/* <Input variant="searchBar" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} icon={<SearchIcon/>} /> */}
-                        <Input variant="inputBig" type="email" placeholder="Digite seu email" value={email} onChange={e => setEmail(e.target.value)} />
-                        {/* <input className={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} /> */}
-                    </div>
-                    <div className={styles.groupForm}>
-                        <Label variant="simples">Senha</Label>
-                        {/* <label className={styles.label}>Senha</label> */}
-                        <Input variant="inputBig" type="password"  value={senha} onChange={e => setSenha(e.target.value)} />
-                        {/* <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} /> */}
-                    </div>
-                    <Button variant="verde" type="submit">Entrar</Button>
-                    {
-                        backendResponse && <p>{backendResponse}</p>
-                    }
-                </form>
-            </div>
+    <Image src={logoSigae} alt="Logo do SIGAE" />
+    <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.groupForm}>
+            <TextField 
+                label="Email" 
+                variant="outlined" 
+                type="email" 
+                value={email} 
+                onChange={e => setEmail(e.target.value)} 
+            />
+        </div>
+        <div className={styles.groupForm}>
+            <TextField 
+                label="Senha" 
+                variant="outlined" 
+                type="password" 
+                value={senha} 
+                onChange={e => setSenha(e.target.value)} 
+            />
+        </div>
+        <Button variant="verde">Entrar</Button>
+        {
+            backendResponse && <p>{backendResponse}</p>
+        }
+    </form>
+</div>
         </div>
         <Footer />
         {/* <form onSubmit={handleSubmit}>

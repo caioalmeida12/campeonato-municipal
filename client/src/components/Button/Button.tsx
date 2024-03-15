@@ -4,7 +4,8 @@ import styles from "./Button.module.css";
 interface ButtonProps {
   children: React.ReactNode;
   variant: "verde";
-  onClick: (...args: any[]) => void
+  type?: "button" | "submit" | "reset";
+  onClick?: (...args: any[]) => void
 }
 
 const variantStyles = {

@@ -3,13 +3,11 @@ import Button from '@mui/material/Button';
 
 import styles from './NavItem.module.css';
 
-const isActive = (href: string) => {
-    return href === window.location.pathname ? styles.active : ''
-}
-
-const NavItem = ({ href, text }: { href: string, text: string }) => {
+const NavItem = ({ href, text, active }: { href: string, text: string, active: boolean }) => {
     return (
-        <Link href={href} className={isActive(href)}>
+        <Link href={href} className={
+            active ? styles.active : ''
+        }>
             <Button color="inherit">{text}</Button>
         </Link>
     )
