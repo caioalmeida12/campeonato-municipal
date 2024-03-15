@@ -43,6 +43,7 @@ export default function FormDialog({ buttonText, title, content, onSubmit, child
             handleClose();
           },
         }}
+        fullWidth
       >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
