@@ -54,8 +54,6 @@ const LoginPage: React.FC = () => {
                     <span className={styles.spanSecond}>Sistema de Cadastro de <br/>
                         atletas e esporte</span>
                 </div>
-                
-                
             </div>
             <div className={styles.rightSide}>
                 <Image src={logoSigae} alt="Logo do SIGAE" />
@@ -68,7 +66,7 @@ const LoginPage: React.FC = () => {
                         <label className={styles.label}>Senha</label>
                         <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} />
                     </div>
-                    <Button variant="verde" type="submit">Log in</Button>
+                    <Button variant="verde" type="submit">Entrar</Button>
                     {
                         backendResponse && <p>{backendResponse}</p>
                     }
