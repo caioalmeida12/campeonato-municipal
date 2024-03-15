@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
   --verde-400: #019340;
+  
+  font-family: 'Roboto', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -5,6 +5,9 @@ import React, { useState, useContext } from 'react';
 import styles from './page.module.css';
 import { Container } from 'postcss';
 import Button from '@/components/Button/Button';
+import Image from 'next/image';
+import logoPrefeitura from '@/../public/assets/img/logoPrefeitura.png';
+import logoSigae from '@/../public/assets/img/logoSigae.png';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -45,12 +48,17 @@ const LoginPage: React.FC = () => {
         <>
         <div className={styles.container}>
             <div className={styles.leftSide}>
-                <img src="" alt="Logo aqui" />
-                <span>Seja bem vindo!Sistema de Cadastro de atletas e esporte</span>
+                <Image src={logoPrefeitura} alt="Logo da prefeitura" />
+                <div className={styles.welcome}>
+                    <span className={styles.spanFirst}>Seja bem vindo!</span>
+                    <span className={styles.spanSecond}>Sistema de Cadastro de <br/>
+                        atletas e esporte</span>
+                </div>
+                
                 
             </div>
             <div className={styles.rightSide}>
-                <img src="" alt="logo aqui" />
+                <Image src={logoSigae} alt="Logo do SIGAE" />
                 <form onSubmit={handleSubmit} className={styles.form}>
                     <div className={styles.groupForm}>
                         <label className={styles.label}>Email</label>
@@ -67,7 +75,7 @@ const LoginPage: React.FC = () => {
                 </form>
             </div>
         </div>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
             <label>
                 Email:
                 <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
@@ -80,7 +88,7 @@ const LoginPage: React.FC = () => {
             {
                 backendResponse && <p>{backendResponse}</p>
             }
-        </form>
+        </form> */}
         </>
     );
 };
