@@ -17,9 +17,10 @@ const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => 
 
     const checkAuthentication = useCallback(() => {
         if (typeof window !== "undefined" && typeof localStorage !== "undefined" && window.location.pathname !== "/login") {
-            setIsAuthenticated(!!localStorage.getItem("cm-jwt-token"));
+            const token = localStorage.getItem("cm-jwt-token");
+            setIsAuthenticated(!!token);
 
-            if (!localStorage.getItem("cm-jwt-token")) {
+            if (!token) {
                 window.location.href = "/login";
             }
         }
@@ -29,7 +30,6 @@ const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => 
         checkAuthentication();
     }, [checkAuthentication]);
 
-    
     return (
         <AuthenticationContext.Provider value={{ isAuthenticated, checkAuthentication }}>
             {children}
