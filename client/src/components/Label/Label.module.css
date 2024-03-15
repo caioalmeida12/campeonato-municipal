@@ -1,7 +1,15 @@
-.simple{
+.labelBig{
     color: var(--preto);
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 700;
+    line-height: normal;
+}
+
+.labelSmall{
+    color: var(--preto);
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
     line-height: normal;
 }
