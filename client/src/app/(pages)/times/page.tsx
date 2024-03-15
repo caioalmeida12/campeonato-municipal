@@ -5,13 +5,26 @@ import CustomTable from "@/containers/Table/Table"
 
 import { TimeType } from "@/../../lib/types/timeType"
 import { EsporteType } from "@/../../lib/types/esporteType"
-import { useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { handleCreate, handleDelete, handleGet } from "@/lib/tableHelper"
+import FormDialog from "@/containers/FormDialog/FormDialog"
+import TextField from '@mui/material/TextField';
+
 
 const Times = () => {
     const [data, setData] = useState<TimeType[]>([])
     const [shouldRefetch, setShouldRefetch] = useState(false)
     const [error, setError] = useState<string | null>()
+
+    const [formValues, setFormValues] = useState({
+        nome: '',
+        email: '',
+        telefone: '',
+        escudo: '',
+        localidade: '',
+        responsavel: '',
+        fk_esporte_id: ''
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,7 +32,7 @@ const Times = () => {
                 .then((response) => {
                     response.success ? setData(response.response as []) : setError(response.response as any)
                 })
-        }        
+        }
         fetchData()
     }, [shouldRefetch]);
 
@@ -29,25 +42,22 @@ const Times = () => {
         }
     }, [data])
 
-    const handleCreateButton = async () => {
+    const handleCreateButton = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+    
+        const formData = new FormData(event.currentTarget)
+        let formValues: any = {};
+        formData.forEach((value, key) => {
+            formValues[key] = value;
+        });
+    
         const esportePost: EsporteType = {
             id: "",
             nome: "Esporte 1",
             maximo_jogadores_por_time: 10,
             maximo_jogadores_titulares: 10
         }
-
-        const timePost: TimeType = {
-            id: "",
-            nome: "Time 1",
-            email: "acasdasda@gmail.com",
-            telefone: "1231231231232",
-            escudo: "https://www.google.com.br",
-            fk_esporte_id: "",
-            localidade: "São Paulo",
-            responsavel: "Responsável 1",
-        }
-
+    
         const esporte = await fetch(`http://localhost:5000/esportes`, {
             method: "POST",
             headers: {
@@ -56,32 +66,52 @@ const Times = () => {
             },
             body: JSON.stringify(esportePost)
         }).then(data => data.json())
-
-        timePost.fk_esporte_id = esporte.id
-
-        handleCreate<TimeType>("times", timePost)
-        .then((response) => {
-            response.success ? setShouldRefetch(!shouldRefetch) : setError(response.response as string)
-        })
-
+    
+        if (esporte.id) formValues.fk_esporte_id = esporte.id
+    
+        handleCreate<TimeType>("times", formValues)
+            .then((response) => {
+                response.success ? setShouldRefetch(!shouldRefetch) : setError(response.response as string)
+            })
     }
 
     const handleDeleteButton = (id: string) => {
         try {
-            
+
             handleDelete("times", id, shouldRefetch, setShouldRefetch)
-            .then((response) => {
-                response.success ? setData(data.filter((item) => item.id !== id)) : setError(response.response as string)
-            })
+                .then((response) => {
+                    response.success ? setData(data.filter((item) => item.id !== id)) : setError(response.response as string)
+                })
 
         } catch (error: any) {
             setError(error)
         }
     }
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({
+            ...formValues,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+
     return (
         <Structure headerText="Controle de times">
-            <button onClick={handleCreateButton}>Create Time</button>
+            <FormDialog
+                buttonText="Criar novo time"
+                title={"Criar novo time"}
+                content={"Insira os dados do time"}
+                onSubmit={handleCreateButton}
+            >
+                <TextField id="nome" label="Nome do time" name="nome" variant="outlined" value={formValues.nome} onChange={handleChange} />
+                <TextField id="email" label="Email do time" name="email" variant="outlined" value={formValues.email} onChange={handleChange} />
+                <TextField id="telefone" label="Telefone do time" name="telefone" variant="outlined" value={formValues.telefone} onChange={handleChange} />
+                <TextField id="escudo" label="Escudo do time (link)" name="escudo" variant="outlined" value={formValues.escudo} onChange={handleChange} />
+                <TextField id="localidade" label="Localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
+                <TextField id="responsavel" label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
+
+            </FormDialog>
             {
                 data[0] && (
                     <CustomTable
