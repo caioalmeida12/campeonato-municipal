@@ -1,0 +1,23 @@
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    padding: 1rem;
+    border-radius: .25rem;
+
+    text-align: justify;
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+
+    appearance: none;
+
+    border: none;
+    cursor: pointer;
+}
+
+.green{
+    background-color: var(--verde-400);
+}

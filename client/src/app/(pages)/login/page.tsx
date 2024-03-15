@@ -4,6 +4,7 @@ import AuthenticationContext from '@/contexts/AuthenticationContext';
 import React, { useState, useContext } from 'react';
 import styles from './page.module.css';
 import { Container } from 'postcss';
+import Button from '@/components/Button/Button';
 
 const LoginPage: React.FC = () => {
     const { isAuthenticated, checkAuthentication } = useContext(AuthenticationContext)
@@ -59,7 +60,7 @@ const LoginPage: React.FC = () => {
                         <label className={styles.label}>Senha</label>
                         <input className={styles.input} type="password" value={senha} onChange={e => setSenha(e.target.value)} />
                     </div>
-                    <button type="submit">Log in</button>
+                    <Button variant="verde" type="submit">Log in</Button>
                     {
                         backendResponse && <p>{backendResponse}</p>
                     }
