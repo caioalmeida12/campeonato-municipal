@@ -110,17 +110,17 @@ const Times = () => {
     return (
         <Structure headerText="Controle de times">
             <FormDialog
-                buttonText="Criar novo time"
-                title={"Criar novo time"}
-                content={"Insira os dados do time"}
+                buttonText={formMethod === "POST" ? "Criar novo time" : "Editar time"}
+                text={formMethod === "POST" ? "Criar" : "Editar"}
+                content="Preencha os campos abaixo para criar ou editar um novo time"
                 onSubmit={handleCreateButton}
             >
-                <TextField id="nome" label="Nome do time" name="nome" variant="outlined" value={formValues.nome} onChange={handleChange} />
-                <TextField id="email" label="Email do time" name="email" variant="outlined" value={formValues.email} onChange={handleChange} />
-                <TextField id="telefone" label="Telefone do time" name="telefone" variant="outlined" value={formValues.telefone} onChange={handleChange} />
-                <TextField id="escudo" label="Escudo do time (link)" name="escudo" variant="outlined" value={formValues.escudo} onChange={handleChange} />
-                <TextField id="localidade" label="Localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
-                <TextField id="responsavel" label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
+                <TextField id="nome" required label="Nome do time" name="nome" variant="outlined" value={formValues.nome} onChange={handleChange} />
+                <TextField id="email" required label="Email do time" name="email" variant="outlined" value={formValues.email} onChange={handleChange} />
+                <TextField id="telefone" required label="Telefone do time" name="telefone" variant="outlined" value={formValues.telefone} onChange={handleChange} />
+                <TextField id="escudo" required label="Escudo do time (link)" name="escudo" variant="outlined" value={formValues.escudo} onChange={handleChange} />
+                <TextField id="localidade" required label="Localidade" name="localidade" variant="outlined" value={formValues.localidade} onChange={handleChange} />
+                <TextField id="responsavel" required label="Responsável" name="responsavel" variant="outlined" value={formValues.responsavel} onChange={handleChange} />
 
             </FormDialog>
             <div className={styles.wrapper}>
